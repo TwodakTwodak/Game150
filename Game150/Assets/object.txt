@@ -1,0 +1,108 @@
+Number 1
+Room 1
+Type wall_floor
+Position 400 40 300
+Information cant
+Size 100 700 200
+Number 2
+Room 1
+Type floor
+Position 0 0 0
+Information cant
+Size 200 200 300
+Number 3
+Room 2
+Type box
+Position 100 200 400
+Information cant
+Size 200 200 300
+Number 4
+Room 2
+Type button
+Position 500 30 100
+Information move
+Size 100 0 100
+Number 5
+Room 2
+Type floor
+Position 0 0 0
+Information cant
+Size 200 200 400
+Number 6
+Room 3
+Type box
+Position 100 0 300
+Information cant
+Size 200 200 300
+Number 7
+Room 3
+Type wall_floor2
+Position 400 40 0
+Information cant
+Size 100 700 200
+Number 8
+Room 3
+Type floor
+Position 0 0 0
+Information cant
+Size 200 200 300
+Number 9
+Room 4
+Type wall_floor2
+Position 400 70 0
+Information cant
+Size 400 700 200
+Number 10
+Room 4
+Type wall_floor2
+Position 700 70 0
+Information cant
+Size 400 10 200
+Number 11
+Room 4
+Type wall_floor2
+Position 150 1 0
+Information cant
+Size 500 10 200
+Number 12
+Room 4
+Type floor
+Position 0 0 0
+Information cant
+Size 200 200 300
+Number 13
+Room 5
+Type float_floor
+Position 100 70 0
+Information cant
+Size 100 700 200
+Number 14
+Room 5
+Type float_floor
+Position 200 150 150
+Information cant
+Size 100 700 200
+Number 15
+Room 5
+Type float_floor
+Position 300 210 300
+Information cant
+Size 100 700 200
+Number 16
+Room 5
+Type float_floor
+Position 400 280 450
+Information cant
+Size 100 700 200
+Number 17
+Room 5
+Type float_floor
+Position 600 350 250
+Information cant
+Size 100 300 200
+Number 18
+Room 5
+Type floor
+Position 0 0 0
+Information cant
+Size 200 200 300

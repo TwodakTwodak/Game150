@@ -1,0 +1,18 @@
+Number 1
+Room 1
+Type box
+Position 350 230 80
+Information move
+Size 100 200 300
+Number 2
+Room 2
+Type button
+Position 300 200 80
+Information cant
+Size 200 200 300
+Number 3
+Room 3
+Type box
+Position 1000 200 80
+Information cant
+Size 200 200 300
