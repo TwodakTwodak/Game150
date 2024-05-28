@@ -40,15 +40,10 @@
     <ClCompile Include="Engine\Vec2.cpp" />
     <ClCompile Include="Engine\Vec3.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
-    <ClCompile Include="Game\Button.cpp" />
-    <ClCompile Include="Game\Crates.cpp" />
-    <ClCompile Include="Game\Float_Floor.cpp" />
-    <ClCompile Include="Game\Floor.cpp" />
-    <ClCompile Include="Game\Locked_Wall.cpp" />
+    <ClCompile Include="Game\Background.cpp" />
     <ClCompile Include="Game\Map.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
-    <ClCompile Include="Game\Wall_Floor.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -78,18 +73,13 @@
     <ClInclude Include="Engine\Vec2.h" />
     <ClInclude Include="Engine\Vec3.h" />
     <ClInclude Include="Engine\Window.h" />
-    <ClInclude Include="Game\Button.h" />
-    <ClInclude Include="Game\Crates.h" />
-    <ClInclude Include="Game\Float_Floor.h" />
-    <ClInclude Include="Game\Floor.h" />
-    <ClInclude Include="Game\Fonts.h" />
+    <ClInclude Include="Game\Background.h" />
     <ClInclude Include="Game\GameObjectTypes.h" />
-    <ClInclude Include="Game\LockedWall.h" />
+    <ClInclude Include="Game\Gravity.h" />
     <ClInclude Include="Game\Map.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\Splash.h" />
     <ClInclude Include="Game\States.h" />
-    <ClInclude Include="Game\Wall_Floor.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

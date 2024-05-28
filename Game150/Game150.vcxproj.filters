@@ -63,21 +63,6 @@
     <ClCompile Include="Engine\Window.cpp">
       <Filter>Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Button.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Crates.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Float_Floor.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Floor.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Locked_Wall.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
     <ClCompile Include="Game\Map.cpp">
       <Filter>Game</Filter>
     </ClCompile>
@@ -85,9 +70,6 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Game\Splash.cpp">
-      <Filter>Game</Filter>
-    </ClCompile>
-    <ClCompile Include="Game\Wall_Floor.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
@@ -99,6 +81,9 @@
     </ClCompile>
     <ClCompile Include="Engine\Dimension.cpp">
       <Filter>Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Background.cpp">
+      <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,25 +153,7 @@
     <ClInclude Include="Engine\Window.h">
       <Filter>Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Button.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Crates.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Float_Floor.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Floor.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\Fonts.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Game\GameObjectTypes.h">
-      <Filter>Game</Filter>
-    </ClInclude>
-    <ClInclude Include="Game\LockedWall.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Map.h">
@@ -201,9 +168,6 @@
     <ClInclude Include="Game\States.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Wall_Floor.h">
-      <Filter>Game</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\FileIO.h">
       <Filter>Engine</Filter>
     </ClInclude>
@@ -215,6 +179,12 @@
     </ClInclude>
     <ClInclude Include="Engine\Dimension.h">
       <Filter>Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Gravity.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Background.h">
+      <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

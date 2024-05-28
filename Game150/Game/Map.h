@@ -16,7 +16,8 @@ Created:    May 3, 2024
 #include "../Engine/GameObject.h"
 #include "../Engine/Input.h"
 #include "../Engine/Camera.h"
-
+#include "Player.h"
+#include "../Engine/Dimension.h"
 
 class Map : public CS230::GameState {
 public:
@@ -46,6 +47,9 @@ private:
 
     //temp
     bool button_work = false;
+    Player* player_ptr;
+
+    CurrentDimension dimension;
 };
 
 //Why don't it work when i change driection of headerfile, why does it work after retyping.

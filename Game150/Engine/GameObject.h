@@ -21,8 +21,8 @@ namespace CS230 {
     class GameObject {
         friend class Sprite;
     public:
-        GameObject(Math::vec2 position);
-        GameObject(Math::vec2 position, double rotation, Math::vec2 scale);
+        GameObject(Math::vec3 position);
+        GameObject(Math::vec3 position, double rotation, Math::vec2 scale);
         virtual ~GameObject() {}
 
         virtual GameObjectTypes Type() = 0;
@@ -34,12 +34,12 @@ namespace CS230 {
         virtual void Draw(Math::TransformationMatrix camera_matrix);
 
         const Math::TransformationMatrix& GetMatrix();
-        const Math::vec2& GetPosition() const;
-        const Math::vec2& GetVelocity() const;
+        const Math::vec3& GetPosition() const;
+        const Math::vec3& GetVelocity() const;
         const Math::vec2& GetScale() const;
         double GetRotation() const;
 
-        void SetPosition(Math::vec2 new_position);
+        void SetPosition(Math::vec3 new_position);
 
         template<typename T>
         T* GetGOComponent() {
@@ -50,9 +50,9 @@ namespace CS230 {
 
     protected:
         //void SetPosition(Math::vec2 new_position);
-        void UpdatePosition(Math::vec2 delta);
-        void SetVelocity(Math::vec2 new_velocity);
-        void UpdateVelocity(Math::vec2 delta);
+        void UpdatePosition(Math::vec3 delta);
+        void SetVelocity(Math::vec3 new_velocity);
+        void UpdateVelocity(Math::vec3 delta);
         void SetScale(Math::vec2 new_scale);
         void UpdateScale(Math::vec2 delta);
         void SetRotation(double new_rotation);
@@ -88,8 +88,8 @@ namespace CS230 {
 
         double rotation;
         Math::vec2 scale;
-        Math::vec2 position;
-        Math::vec2 velocity;
+        Math::vec3 position;
+        Math::vec3 velocity;
 
         class State_None : public State {
         public:

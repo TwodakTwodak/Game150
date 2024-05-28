@@ -1,4 +1,5 @@
 #include "Collision.h"
+#include "iostream"
 
 CS230::CubeCollision::CubeCollision(Math::icube boundary, GameObject* object) :
     boundary(boundary),
@@ -6,6 +7,7 @@ CS230::CubeCollision::CubeCollision(Math::icube boundary, GameObject* object) :
 { }
 
 Math::cube CS230::CubeCollision::WorldBoundary() {
+    std::cout << object ->GetPosition().x<< std::endl;
     return {
         object->GetMatrix() * static_cast<Math::vec3>(boundary.point_1),
         object->GetMatrix() * static_cast<Math::vec3>(boundary.point_2),

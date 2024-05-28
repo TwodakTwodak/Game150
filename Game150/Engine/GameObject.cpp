@@ -9,15 +9,15 @@ Created:    May 1, 2024
 */
 #include "Collision.h"
 #include "ShowCollision.h"
-CS230::GameObject::GameObject(Math::vec2 position) :
+CS230::GameObject::GameObject(Math::vec3 position) :
     GameObject(position, 0, { 1, 1 })
 {
     current_state = &state_none;
     current_state->Enter(this);
 }
 
-CS230::GameObject::GameObject(Math::vec2 position, double rotation, Math::vec2 scale) :
-    velocity({ 0,0 }),
+CS230::GameObject::GameObject(Math::vec3 position, double rotation, Math::vec2 scale) :
+    velocity({ 0,0, 0 }),
     position(position),
     scale(scale),
     rotation(rotation)
@@ -49,18 +49,18 @@ void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
 const Math::TransformationMatrix& CS230::GameObject::GetMatrix() {
     if (matrix_outdated)
     {
-        object_matrix = Math::TranslationMatrix(position) * Math::RotationMatrix(rotation) * Math::ScaleMatrix(scale);
+        object_matrix = Math::TranslationMatrix(position) * Math::RotationMatrix(rotation);// * Math::ScaleMatrix(scale);
         matrix_outdated = false;
     }
 
     return object_matrix;
-}
+}//Rotation Matrix error
 
-const Math::vec2& CS230::GameObject::GetPosition() const
+const Math::vec3& CS230::GameObject::GetPosition() const
 {
     return position;
 }
-const Math::vec2& CS230::GameObject::GetVelocity() const
+const Math::vec3& CS230::GameObject::GetVelocity() const
 {
     return velocity;
 }
@@ -75,22 +75,22 @@ double CS230::GameObject::GetRotation() const
 
 
 
-void CS230::GameObject::SetPosition(Math::vec2 new_position) {
+void CS230::GameObject::SetPosition(Math::vec3 new_position) {
     position = new_position;
     matrix_outdated = true;
 }
 
-void CS230::GameObject::UpdatePosition(Math::vec2 delta) {
+void CS230::GameObject::UpdatePosition(Math::vec3 delta) {
     position += delta;
     matrix_outdated = true;
 }
 
-void CS230::GameObject::SetVelocity(Math::vec2 new_velocity)
+void CS230::GameObject::SetVelocity(Math::vec3 new_velocity)
 {
     velocity = new_velocity;
     matrix_outdated = true;
 }
-void CS230::GameObject::UpdateVelocity(Math::vec2 delta)
+void CS230::GameObject::UpdateVelocity(Math::vec3 delta)
 {
     velocity += delta;
     matrix_outdated = true;

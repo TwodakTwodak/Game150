@@ -28,7 +28,6 @@ void CS230::GameObjectManager::UpdateAll(double dt)
 	{
 		objects[i]->Update(dt);
 	}
-	
 }
 void CS230::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix)
 {
