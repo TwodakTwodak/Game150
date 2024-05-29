@@ -24,6 +24,7 @@ void CS230::GameObjectManager::Unload()
 void CS230::GameObjectManager::UpdateAll(double dt)
 {
 	CollisionTest();
+	
 	for (int i = 0; i < objects.size(); i++)
 	{
 		objects[i]->Update(dt);

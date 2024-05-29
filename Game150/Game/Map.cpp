@@ -24,17 +24,17 @@ Map::Map() {
 
 void Map::Load() {
 
-	player_ptr = new Player({ 0, 0, 300 });
+	player_ptr = new Player({ 300, 300, 300 });
 	//background = Engine::GetTextureManager().Load("Assets/Background.png");
 	AddGSComponent(new CS230::GameObjectManager);
 	GetGSComponent<CS230::GameObjectManager>()->Add(player_ptr);
-	AddGSComponent(new CS230::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0 } }));
-	GetGSComponent<CS230::Camera>()->SetPosition({ 0, 0 });
+	AddGSComponent(new CS230::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0, 0 }}));
+	GetGSComponent<CS230::Camera>()->SetPosition({ 0, 0, 0 });
 
 	AddGSComponent(new Background);
 	GetGSComponent<Background>()->Add("Assets/Background.png", 0);
 
-	Math::irect cameraLimit = { { 0,0 }, { GetGSComponent<Background>()->GetSize().x - Engine::GetWindow().GetSize().x , GetGSComponent<Background>()->GetSize().y - Engine::GetWindow().GetSize().y } };
+	Math::icube cameraLimit = { { 0,0, 0 }, { GetGSComponent<Background>()->GetSize().x - Engine::GetWindow().GetSize().x , GetGSComponent<Background>()->GetSize().y - Engine::GetWindow().GetSize().y , GetGSComponent<Background>()->GetSize().y - Engine::GetWindow().GetSize().y}  };
 	GetGSComponent<CS230::Camera>()->SetLimit(cameraLimit);
 	
 	/*gameobjectmanager.Add(new Crates({ 200, 400, 400 }));
@@ -135,14 +135,23 @@ void Map::Update([[maybe_unused]] double dt) {
 	}
 	*/
 	player_ptr->SetPosition({ 0, 100, 100});
+	if (dimension.GetDimension() == Dimension::Side)
+	{
+		std::cout << "Side" << std::endl;
+	}
+	else
+	{
+		std::cout << "Top" << std::endl;
+	}
+	
 }
 
 void Map::Draw() {
-	Engine::GetWindow().Clear(0x000000FF);
+	Engine::GetWindow().Clear(0x00F0F0FF);
 	//background->Draw(Math::TranslationMatrix(Math::vec2{0,0}));
 	Math::TransformationMatrix camera_matrix = GetGSComponent<CS230::Camera>()->GetMatrix();
 
-	GetGSComponent<Background>()->Draw(*GetGSComponent<CS230::Camera>());
+	//GetGSComponent<Background>()->Draw(*GetGSComponent<CS230::Camera>());
 	GetGSComponent<CS230::GameObjectManager>()->DrawAll(GetGSComponent<CS230::Camera>()->GetMatrix());
 }
 

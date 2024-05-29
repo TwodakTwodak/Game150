@@ -14,19 +14,21 @@ Created:    March 8, 2023
 #include "Rect.h"
 #include "Matrix.h"
 #include "Component.h"
+#include "Vec3.h"
+#include "Cube.h"
 
 namespace CS230 {
     class Camera : public Component{
     public:
-        Camera(Math::rect player_zone);
-        void SetPosition(Math::vec2 new_position);
-        const Math::vec2& GetPosition() const;
-        void SetLimit(Math::irect new_limit);
-        void Update(const Math::vec2& player_position);
+        Camera(Math::cube player_zone);
+        void SetPosition(Math::vec3 new_position);
+        const Math::vec3& GetPosition() const;
+        void SetLimit(Math::icube new_limit);
+        void Update(const Math::vec3& player_position);
         Math::TransformationMatrix GetMatrix();
     private:
-        Math::irect limit;
-        Math::vec2 position;
-        Math::rect player_zone;
+        Math::icube limit;
+        Math::vec3 position;
+        Math::cube player_zone;
     };
 }

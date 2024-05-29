@@ -13,6 +13,7 @@ Created:    March 8, 2023
 #include "GameObject.h"
 #include "Matrix.h"
 #include "ComponentManager.h"
+#include "Dimension.h"
 
 namespace Math { class TransformationMatrix; }
 
@@ -27,5 +28,6 @@ namespace CS230 {
         void CollisionTest();
     private:
         std::vector<GameObject*> objects;
+        Dimension dimension;
     };
 }

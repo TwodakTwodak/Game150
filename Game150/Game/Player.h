@@ -44,7 +44,7 @@ private:
 	bool key_order[4];
 	double cool_timer;
 
-	void move(double dt);
+	//void move(double dt);
 
     void update_x_velocity(double dt);
     void update_y_velocity(double dt);
@@ -91,7 +91,7 @@ private:
     State_Falling state_falling;
 
 
-    class State_Running : public State {
+    class State_Walking : public State {
     public:
         virtual void Enter(GameObject* object) override;
         virtual void Update(GameObject* object, double dt) override;
@@ -99,7 +99,7 @@ private:
         std::string GetName() override { return "Running"; }
     };
 
-    State_Running state_running;
+    State_Walking state_running;
 
     class State_Interacting : public State {
     public:
@@ -113,7 +113,7 @@ private:
 
     enum class Animations {
         Idle,
-        Running,
+        Walking,
         Jumping,
         Falling,
         Dashing,

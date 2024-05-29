@@ -11,12 +11,12 @@ Created:    May 1, 2024
 #include "Camera.h"
 
 
-CS230::Camera::Camera(Math::rect new_player_zone) :position({0, 0})
+CS230::Camera::Camera(Math::cube new_player_zone) :position({0, 0, 0})
 {
     player_zone = new_player_zone;
 }
 
-void CS230::Camera::Update(const Math::vec2& player_position) {
+void CS230::Camera::Update(const Math::vec3& player_position) {
 
     if (player_position.x > player_zone.Right() + position.x) {
         position.x = player_position.x - player_zone.Right();
@@ -37,18 +37,24 @@ void CS230::Camera::Update(const Math::vec2& player_position) {
     if (position.y > limit.Top()) {
         position.y = limit.Top();
     }
+    if (position.z < limit.Low()) {
+        position.z = limit.Low();
+    }
+    if (position.z > limit.High()) {
+        position.z = limit.High();
+    }
 }
 
 
-void CS230::Camera::SetPosition(Math::vec2 new_position)
+void CS230::Camera::SetPosition(Math::vec3 new_position)
 {
     position = new_position;
 }
-const Math::vec2& CS230::Camera::GetPosition() const
+const Math::vec3& CS230::Camera::GetPosition() const
 {
     return position;
 }
-void CS230::Camera::SetLimit(Math::irect new_limit)
+void CS230::Camera::SetLimit(Math::icube new_limit)
 {
     limit = new_limit;
 }

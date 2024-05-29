@@ -41,8 +41,6 @@ void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
     if (collision != nullptr && Engine::GetGameStateManager().GetGSComponent<CS230::ShowCollision>()->Enabled()) {
         collision->Draw(camera_matrix);
     }
-
-
 }
 
 

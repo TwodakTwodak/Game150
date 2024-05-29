@@ -1,3 +1,34 @@
-Assets/Top_Player.png
-HotSpot 0 0
-NumFrames 1
+Assets/Player.png
+FrameSize 64 64
+HotSpot 0 0 0
+Frame 0 0
+Frame 64 0
+Frame 128 0
+Frame 192 0
+Frame 256 0
+Frame 320 0
+Frame 384 0
+Frame 448 0
+Frame 0 64
+Frame 64 64
+Frame 128 64
+Frame 192 64
+Frame 256 64
+Frame 0 128
+Frame 64 128
+Frame 128 128
+Frame 0 192
+Frame 64 192
+Frame 128 192
+Frame 192 192
+Frame 256 192
+Frame 0 256
+Frame 64 256
+Frame 128 256
+Anim Assets/Side_Idle.anm
+Anim Assets/Side_Walking.anm
+Anim Assets/Side_Jumping.anm
+Anim Assets/Side_Falling.anm
+Anim Assets/Top_Walking.anm
+Anim Assets/Top_Falling.anm
+CubeCollision 101 50 36 64 100 100

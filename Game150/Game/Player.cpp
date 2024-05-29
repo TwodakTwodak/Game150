@@ -12,7 +12,7 @@ Created:    May 3, 2024
 #include "Gravity.h"
 
 
-Player::Player(Math::vec3 start_position) : cool_timer(cool_time),
+Player::Player(Math::vec3 start_position) :
     GameObject(start_position)
 {
     AddGOComponent(new CS230::Sprite("Assets/Player.spt", this));
@@ -21,6 +21,17 @@ Player::Player(Math::vec3 start_position) : cool_timer(cool_time),
 }
 
 void Player::Update(double dt) {
+    if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Space))
+    {
+        if (dimension.GetDimension() == Dimension::Side)
+        {
+            dimension.SetDimension(Dimension::Top);
+        }
+        else
+        {
+            dimension.SetDimension(Dimension::Side);
+        }
+    }
     GameObject::Update(dt);
     /*
     if (hurt_timer->Remaining() < 0)
@@ -30,18 +41,26 @@ void Player::Update(double dt) {
     }
     */
     // Boundary Check
-
+    
     Math::cube player_rect = GetGOComponent<CS230::CubeCollision>()->WorldBoundary();
-    /*
+    
     if (GetPosition().x < Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + player_rect.Size().x / 2) {
         UpdatePosition({ -player_rect.Left(), 0, 0 });
-        SetVelocity({ 0, GetVelocity().y, 0 });
+        SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
     }
     if (GetPosition().x + player_rect.Size().x / 2 > Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + Engine::GetWindow().GetSize().x) {
         UpdatePosition({ Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + Engine::GetWindow().GetSize().x - player_rect.Right() , 0, 0 });
         SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
     }
-    */
+    if (GetPosition().y< Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + player_rect.Size().y / 2) {
+        UpdatePosition({ 0, player_rect.Top(), 0 });
+        SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
+    }
+    if (GetPosition().y + player_rect.Size().y / 2 > Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + Engine::GetWindow().GetSize().y) {
+        UpdatePosition({ 0 , Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + Engine::GetWindow().GetSize().y-player_rect.Bottom(), 0 });
+        SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
+    }
+    std::cout << player_rect.point_1.x << " " << player_rect.point_1.y << " "<<player_rect.point_1.z << std::endl;
 }
 
 Math::ivec2 Player::GetSize()
@@ -152,7 +171,7 @@ void Player::State_Falling::CheckExit(GameObject* object) {
 }
 
 
-void Player::State_Running::Enter(GameObject* object) {
+void Player::State_Walking::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
     if (player->GetVelocity().x <= 0 && Engine::GetInput().KeyDown(CS230::Input::Keys::Left) && player->GetScale().x > 0) {
         player->SetScale({ -player->GetScale().x, player->GetScale().y });
@@ -162,14 +181,14 @@ void Player::State_Running::Enter(GameObject* object) {
         player->SetScale({ -player->GetScale().x, player->GetScale().y });
     }
 
-    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Running));
+    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Walking));
 }
-void Player::State_Running::Update(GameObject* object, double dt) {
+void Player::State_Walking::Update(GameObject* object, double dt) {
     Player* player = static_cast<Player*>(object);
     player->update_x_velocity(dt);
     player->update_y_velocity(dt);
 }
-void Player::State_Running::CheckExit(GameObject* object) {
+void Player::State_Walking::CheckExit(GameObject* object) {
     Player* player = static_cast<Player*>(object);
     if (player->GetVelocity().x == 0)
     {

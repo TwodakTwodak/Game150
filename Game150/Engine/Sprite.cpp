@@ -17,8 +17,6 @@ CS230::Sprite::Sprite(const std::filesystem::path& sprite_file, GameObject* give
     Load(sprite_file, given_object);
 }
 
-
-
 CS230::Sprite::~Sprite() {
     for (int i = 0; i < animations.size(); i++)
     {
@@ -63,12 +61,14 @@ void CS230::Sprite::Load(const std::filesystem::path& sprite_file, GameObject* o
         if (text == "FrameSize") {
             in_file >> frame_size.x;
             in_file >> frame_size.y;
+            //Engine::GetLogger().LogDebug(frame_size.x + ", " + frame_size.y);
         }
         else if (text == "NumFrames") {
             int frame_count;
             in_file >> frame_count;
             for (int i = 0; i < frame_count; i++) {
                 frame_texels.push_back({ frame_size.x * i, 0 });
+                //Engine::GetLogger().LogDebug("NumFrames");
             }
         }
         else if (text == "Frame") {
@@ -76,22 +76,26 @@ void CS230::Sprite::Load(const std::filesystem::path& sprite_file, GameObject* o
             in_file >> frame_location_x;
             in_file >> frame_location_y;
             frame_texels.push_back({ frame_location_x, frame_location_y });
+            //Engine::GetLogger().LogDebug("Frame");
         }
         else if (text == "HotSpot") {
-            int hotspot_x, hotspot_y;
+            int hotspot_x, hotspot_y, hotspot_z;
             in_file >> hotspot_x;
             in_file >> hotspot_y;
-            hotspots.push_back({ hotspot_x, hotspot_y });
+            in_file >> hotspot_z;
+            hotspots.push_back({ hotspot_x, hotspot_y, hotspot_z });
+            //Engine::GetLogger().LogDebug("Hotspot");
         }
         else if (text == "Anim") {
             std::string anim;
             in_file >> anim;
             Animation* animation = new Animation(anim);
             animations.push_back(animation);
+            //Engine::GetLogger().LogDebug("Animation");
         }
-        else if (text == "RectCollision") {
+        else if (text == "CubeCollision") {
             Math::icube boundary;
-            in_file >> boundary.point_1.x >> boundary.point_1.y >> boundary.point_2.x >> boundary.point_2.y;
+            in_file >> boundary.point_1.x >> boundary.point_1.y >> boundary.point_1.z >> boundary.point_2.x >> boundary.point_2.y>> boundary.point_2.z;
 
             if (object == nullptr) {
                 Engine::GetLogger().LogError("Cannot add collision to a null object");
@@ -121,7 +125,7 @@ void CS230::Sprite::Draw(Math::TransformationMatrix display_matrix) {
 }
 
 
-Math::ivec2 CS230::Sprite::GetHotSpot(int index)
+Math::ivec3 CS230::Sprite::GetHotSpot(int index)
 {
     return hotspots[index];
 }
