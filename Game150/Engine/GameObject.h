@@ -12,6 +12,7 @@ Created:    March 8, 2023
 #include "Sprite.h"
 #include "Cube.h"
 #include "ComponentManager.h"
+#include "Dimension.h"
 namespace Math { class TransformationMatrix; }
 enum class GameObjectTypes;
 
@@ -103,5 +104,7 @@ namespace CS230 {
         bool matrix_outdated = true;
 
         ComponentManager componentmanager;
+        CurrentDimension dimension;
+        Math::TransformationMatrix matrix;
     };
 }

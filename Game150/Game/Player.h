@@ -27,7 +27,7 @@ public:
     std::string TypeName() override { return "Player"; }
     bool CanCollideWith(GameObjectTypes);
     virtual void ResolveCollision(GameObject* other_object) override;
-    void Draw(Math::TransformationMatrix camera_matrix) override;
+    //void Draw(Math::TransformationMatrix camera_matrix) override;
 
 private:
     CurrentDimension dimension;

@@ -113,18 +113,17 @@ void Map::Update([[maybe_unused]] double dt) {
 	}
 	*/
 	//player_ptr->GetPosition().x > Engine::GetWindow().GetSize().x && 
-	if (room < 5|| Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up)) {
+	if (room < 5&& Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up)) {
 		room++;
 		Unload();
 		Load();
 	}
 	//player_ptr->GetPosition().x < 0 && 
-	else if (room > 1|| Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Down)) {
+	else if (room > 1&& Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Down)) {
 		room--;	
 		Unload();
 		Load();
 		//player_ptr->SetPosition({ (double)Engine::GetWindow().GetSize().x - player_ptr->side_sprite.texture->GetSize().x, player_ptr->GetPosition().y, player_ptr->GetPosition().z });
-		
 	}
 	/*
 	else if (player_ptr->GetPosition().x < 0 && room <= 1) {
@@ -134,7 +133,7 @@ void Map::Update([[maybe_unused]] double dt) {
 		player_ptr->SetPosition({ (double)Engine::GetWindow().GetSize().x - player_ptr->side_sprite.texture->GetSize().x, player_ptr->GetPosition().y, player_ptr->GetPosition().z });
 	}
 	*/
-	player_ptr->SetPosition({ 0, 100, 100});
+	/*
 	if (dimension.GetDimension() == Dimension::Side)
 	{
 		std::cout << "Side" << std::endl;
@@ -143,18 +142,16 @@ void Map::Update([[maybe_unused]] double dt) {
 	{
 		std::cout << "Top" << std::endl;
 	}
-	
+	*/
 }
 
 void Map::Draw() {
-	matrix.ItIsUsedToDraw();
 	Engine::GetWindow().Clear(0x00F0F0FF);
 	//background->Draw(Math::TranslationMatrix(Math::vec2{0,0}));
 	Math::TransformationMatrix camera_matrix = GetGSComponent<CS230::Camera>()->GetMatrix();
 
-	//GetGSComponent<Background>()->Draw(*GetGSComponent<CS230::Camera>());
-	GetGSComponent<CS230::GameObjectManager>()->DrawAll(Math::TransformationMatrix());//GetGSComponent<CS230::Camera>()->GetMatrix()
-	matrix.ItIsNotDrawing();
+	GetGSComponent<Background>()->Draw(*GetGSComponent<CS230::Camera>());
+	GetGSComponent<CS230::GameObjectManager>()->DrawAll(GetGSComponent<CS230::Camera>()->GetMatrix());//
 }
 
 void Map::Unload() {

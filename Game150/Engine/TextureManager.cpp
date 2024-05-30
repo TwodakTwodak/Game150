@@ -16,7 +16,7 @@ CS230::Texture* CS230::TextureManager::Load(const std::filesystem::path& file_na
     std::map<std::filesystem::path, Texture*>::iterator temp = textures.find(file_name);
     if (temp != textures.end())
     {
-        Engine::GetLogger().LogEvent("Already loaded");
+        //Engine::GetLogger().LogEvent("Already loaded");
         return temp->second;
     }
     else

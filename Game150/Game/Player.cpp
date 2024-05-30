@@ -19,6 +19,7 @@ Player::Player(Math::vec3 start_position) :
     AddGOComponent(new CS230::Sprite("Assets/Cat.spt", this));
     change_state(&state_idle);
     current_state->Enter(this);
+    
 }
 
 void Player::Update(double dt) {
@@ -70,7 +71,7 @@ Math::ivec2 Player::GetSize()
 }
 
 void Player::update_x_velocity(double dt) {
-    if (Engine::GetInput().KeyDown(CS230::Input::Keys::Right))
+    if (Engine::GetInput().KeyDown(CS230::Input::Keys::D))
     {
         UpdateVelocity({ xz_acceleration * dt, 0, 0 });
         if (GetVelocity().x > max_velocity)
@@ -78,7 +79,7 @@ void Player::update_x_velocity(double dt) {
             SetVelocity({ max_velocity, GetVelocity().y, GetVelocity().z });
         }
     }
-    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::Left))
+    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A))
     {
         UpdateVelocity({ -xz_acceleration * dt, 0, 0 });
         if (GetVelocity().x < -max_velocity)
@@ -89,27 +90,27 @@ void Player::update_x_velocity(double dt) {
 }
 
 void Player::update_y_velocity(double dt) {
-    if (Engine::GetInput().KeyDown(CS230::Input::Keys::Right))
+    if (Engine::GetInput().KeyDown(CS230::Input::Keys::W))
     {
         UpdateVelocity({ xz_acceleration * dt, 0, 0 });
-        if (GetVelocity().x > max_velocity)
+        if (GetVelocity().y < max_velocity)
         {
-            SetVelocity({ max_velocity, GetVelocity().y, GetVelocity().z });
+            SetVelocity({ GetVelocity().x, -max_velocity, GetVelocity().z });
         }
     }
-    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::Left))
+    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S))
     {
-        UpdateVelocity({ -xz_acceleration * dt, 0, 0 });
-        if (GetVelocity().x < -max_velocity)
+        UpdateVelocity({0, xz_acceleration * dt, 0 });
+        if (GetVelocity().y > max_velocity)
         {
-            SetVelocity({ -max_velocity, GetVelocity().y, GetVelocity().z });
+            SetVelocity({GetVelocity().y,  max_velocity, GetVelocity().z });
         }
     }
 }
 
 void Player::State_Jumping::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Jumping));
+    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Idle));
     player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, Player::jump_velocity });
     player->standing_on = nullptr;
 }
@@ -120,7 +121,7 @@ void Player::State_Jumping::Update(GameObject* object, double dt) {
 }
 void Player::State_Jumping::CheckExit(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    if (Engine::GetInput().KeyDown(CS230::Input::Keys::Up) == false) {
+    if (Engine::GetInput().KeyDown(CS230::Input::Keys::W) == false) {
         player->change_state(&player->state_falling);
         player->SetVelocity({ player->GetVelocity().x, 0, 0 });
     }
@@ -143,13 +144,13 @@ void Player::State_Idle::CheckExit(GameObject* object) {
     {
         player->change_state(&player->state_interacting);
     }
-    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::Left)) {
+    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
         player->change_state(&player->state_running);
     }
-    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::Right)) {
+    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
         player->change_state(&player->state_running);
     }
-    else if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up)&& Dimension::Side ==player->dimension.GetDimension()) {
+    else if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::W)&& Dimension::Side ==player->dimension.GetDimension()) {
         player->change_state(&player->state_jumping);
     }
     else if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Left_Shift) && Dimension::Top == player->dimension.GetDimension())
@@ -174,10 +175,11 @@ void Player::State_Falling::CheckExit(GameObject* object) {
 
 void Player::State_Walking::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    if (player->GetVelocity().x <= 0 && Engine::GetInput().KeyDown(CS230::Input::Keys::Left) && player->GetScale().x > 0) {
+    if (player->GetVelocity().x <= 0 && Engine::GetInput().KeyDown(CS230::Input::Keys::Left) )//&& player->GetScale().x > 0) {
+    {
         player->SetScale({ -player->GetScale().x, player->GetScale().y });
     }
-    else if (player->GetVelocity().x >= 0 && Engine::GetInput().KeyDown(CS230::Input::Keys::Right) && player->GetScale().x < 0)
+    else if (player->GetVelocity().x >= 0 && Engine::GetInput().KeyDown(CS230::Input::Keys::Right))// && player->GetScale().x < 0)
     {
         player->SetScale({ -player->GetScale().x, player->GetScale().y });
     }
@@ -188,8 +190,10 @@ void Player::State_Walking::Update(GameObject* object, double dt) {
     Player* player = static_cast<Player*>(object);
     player->update_x_velocity(dt);
     player->update_y_velocity(dt);
+    //std::cout << "Updating Walking" << std::endl;
 }
 void Player::State_Walking::CheckExit(GameObject* object) {
+    //std::cout << "Check Exit Walking" << std::endl;
     Player* player = static_cast<Player*>(object);
     if (player->GetVelocity().x == 0)
     {
@@ -214,10 +218,10 @@ void Player::State_Dashing::Update(GameObject* object, double dt) {
 void Player::State_Dashing::CheckExit(GameObject* object) {
     Player* player = static_cast<Player*>(object);
     //if(time ended)
-    if (Engine::GetInput().KeyDown(CS230::Input::Keys::Left)) {
+    if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
         player->change_state(&player->state_running);
     }
-    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::Right)) {
+    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
         player->change_state(&player->state_running);
     }
     else
@@ -272,7 +276,4 @@ void Player::ResolveCollision(GameObject* other_object)
         break;
     }
     }
-}
-
-void Player::Draw(Math::TransformationMatrix camera_matrix) {
 }

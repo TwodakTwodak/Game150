@@ -13,16 +13,7 @@ Created:    May 1, 2024
 
 Math::TransformationMatrix::TransformationMatrix()
 {
-    if (is_drawing)
-    {
-        Reset2();
-    }
-    else
-    {
-        Reset();
-    }
-    
-    
+    Reset();
 }
 Math::TranslationMatrix::TranslationMatrix(ivec2 translate)
 {
@@ -57,12 +48,14 @@ void Math::TransformationMatrix::Reset() {
             matrix[i][j] = (i == j) ? 1.0 : 0.0;
         }
     }
-}
-
-void Math::TransformationMatrix::Reset2() {
     for (int i = 0; i < 3; ++i) {
         for (int j = 0; j < 3; ++j) {
-            matrix2[i][j] = (i == j) ? 1.0 : 0.0;
+            side_matrix[i][j] = (i == j) ? 1.0 : 0.0;
+        }
+    }
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            top_matrix[i][j] = (i == j) ? 1.0 : 0.0;
         }
     }
 }
@@ -77,13 +70,6 @@ Math::TransformationMatrix Math::TransformationMatrix::operator * (Transformatio
                 matrix[i][1] * m.matrix[1][j] +
                 matrix[i][2] * m.matrix[2][j] +
                 matrix[i][3] * m.matrix[3][j];
-        }
-    }
-    for (int i = 0; i < 3; ++i) {
-        for (int j = 0; j < 3; ++j) {
-            result.matrix2[i][j] = matrix[i][0] * m.matrix[0][j] +
-                matrix[i][1] * m.matrix[1][j] +
-                matrix[i][2] * m.matrix[2][j];
         }
     }
 
@@ -164,12 +150,42 @@ Math::DimensionMatrix::DimensionMatrix(TransformationMatrix m) const {
     TransformationMatrix result;
 
 }*/
+Math::TransformationMatrix Math::TransformationMatrix::ChangeDimension(TransformationMatrix m, Dimension now)
+{
+    Math::TransformationMatrix result;
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            result.matrix[i][j] = (i == j) ? 1.0 : 0.0;
+        }
+    }
+    if (dimension.GetDimension() == Dimension::Side)
+    {
+        int indices[3] = { 0, 2, 3 };
+        for (int i = 0; i < 3; ++i) {
+            for (int j = 0; j < 3; ++j) {
+                result.matrix[i][j] = m.matrix[indices[i]][indices[j]];
+            }
+        }
+    }
+    else if (dimension.GetDimension() == Dimension::Top)
+    {
+        result.matrix[0][0] = m.matrix[0][0];
+        result.matrix[0][1] = m.matrix[0][2];
+        result.matrix[0][2] = m.matrix[0][3];
 
-void Math::TransformationMatrix::ItIsUsedToDraw()
-{
-    is_drawing = true;
-}
-void Math::TransformationMatrix::ItIsNotDrawing()
-{
-    is_drawing = false;
+        result.matrix[1][0] = m.matrix[1][0];
+        result.matrix[1][1] = m.matrix[1][2];
+        result.matrix[1][2] = m.matrix[1][3];
+
+        result.matrix[2][0] = m.matrix[2][0];
+        result.matrix[2][1] = m.matrix[2][2];
+        result.matrix[2][2] = m.matrix[2][3];
+    }
+    else
+    {
+        Engine::GetLogger().LogError("Dimension Error - Check Texture.cpp");
+    }
+
+
+    return result;
 }

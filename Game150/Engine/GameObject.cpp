@@ -22,12 +22,14 @@ CS230::GameObject::GameObject(Math::vec3 position, double rotation, Math::vec2 s
     scale(scale),
     rotation(rotation)
 {}
-
+//Lets Change
 void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
     Sprite* sprite = GetGOComponent<Sprite>();
     if (sprite != nullptr) {
-        sprite->Draw(camera_matrix * GetMatrix());
+        sprite->Draw(camera_matrix * matrix.ChangeDimension(GetMatrix(), dimension.GetDimension())); //GetMatrix());
+        
     }
+    /*
     CubeCollision* cubecollision = GetGOComponent<CubeCollision>();
     ShowCollision* showcollision = Engine::GetGameStateManager().GetGSComponent<ShowCollision>();
     if (showcollision != nullptr && showcollision->Enabled())
@@ -41,6 +43,7 @@ void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
     if (collision != nullptr && Engine::GetGameStateManager().GetGSComponent<CS230::ShowCollision>()->Enabled()) {
         collision->Draw(camera_matrix);
     }
+    */
 }
 
 
