@@ -25,13 +25,17 @@ namespace Math {
         Math::vec2 operator * (vec2 v) const;
         Math::vec3 operator * (vec3 v) const;
         void Reset();
+        void Reset2();
         Math::vec2 DimensionMatrix(TransformationMatrix m, vec3 v);
+        void ItIsUsedToDraw();
+        void ItIsNotDrawing();
     protected:
         double matrix[4][4];
+        double matrix2[3][3];
     private:
         CurrentDimension dimension;
+        bool is_drawing = false;
     };
-
     class TranslationMatrix : public TransformationMatrix {
     public:
         TranslationMatrix(ivec2 translate);

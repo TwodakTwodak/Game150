@@ -15,7 +15,8 @@ Created:    May 3, 2024
 Player::Player(Math::vec3 start_position) :
     GameObject(start_position)
 {
-    AddGOComponent(new CS230::Sprite("Assets/Player.spt", this));
+    //AddGOComponent(new CS230::Sprite("Assets/Player.spt", this));
+    AddGOComponent(new CS230::Sprite("Assets/Cat.spt", this));
     change_state(&state_idle);
     current_state->Enter(this);
 }

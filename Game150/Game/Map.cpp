@@ -147,12 +147,14 @@ void Map::Update([[maybe_unused]] double dt) {
 }
 
 void Map::Draw() {
+	matrix.ItIsUsedToDraw();
 	Engine::GetWindow().Clear(0x00F0F0FF);
 	//background->Draw(Math::TranslationMatrix(Math::vec2{0,0}));
 	Math::TransformationMatrix camera_matrix = GetGSComponent<CS230::Camera>()->GetMatrix();
 
 	//GetGSComponent<Background>()->Draw(*GetGSComponent<CS230::Camera>());
-	GetGSComponent<CS230::GameObjectManager>()->DrawAll(GetGSComponent<CS230::Camera>()->GetMatrix());
+	GetGSComponent<CS230::GameObjectManager>()->DrawAll(Math::TransformationMatrix());//GetGSComponent<CS230::Camera>()->GetMatrix()
+	matrix.ItIsNotDrawing();
 }
 
 void Map::Unload() {

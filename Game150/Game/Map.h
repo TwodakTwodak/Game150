@@ -48,7 +48,7 @@ private:
     //temp
     bool button_work = false;
     Player* player_ptr;
-
+    Math::TransformationMatrix matrix;
     CurrentDimension dimension;
 };
 

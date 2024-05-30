@@ -13,7 +13,16 @@ Created:    May 1, 2024
 
 Math::TransformationMatrix::TransformationMatrix()
 {
-    Reset();
+    if (is_drawing)
+    {
+        Reset2();
+    }
+    else
+    {
+        Reset();
+    }
+    
+    
 }
 Math::TranslationMatrix::TranslationMatrix(ivec2 translate)
 {
@@ -50,6 +59,14 @@ void Math::TransformationMatrix::Reset() {
     }
 }
 
+void Math::TransformationMatrix::Reset2() {
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            matrix2[i][j] = (i == j) ? 1.0 : 0.0;
+        }
+    }
+}
+
 
 Math::TransformationMatrix Math::TransformationMatrix::operator * (TransformationMatrix m) const {
     TransformationMatrix result;
@@ -60,6 +77,13 @@ Math::TransformationMatrix Math::TransformationMatrix::operator * (Transformatio
                 matrix[i][1] * m.matrix[1][j] +
                 matrix[i][2] * m.matrix[2][j] +
                 matrix[i][3] * m.matrix[3][j];
+        }
+    }
+    for (int i = 0; i < 3; ++i) {
+        for (int j = 0; j < 3; ++j) {
+            result.matrix2[i][j] = matrix[i][0] * m.matrix[0][j] +
+                matrix[i][1] * m.matrix[1][j] +
+                matrix[i][2] * m.matrix[2][j];
         }
     }
 
@@ -134,4 +158,18 @@ Math::vec2 Math::TransformationMatrix::DimensionMatrix(Math::TransformationMatri
     
     
     return result;
+}
+/*
+Math::DimensionMatrix::DimensionMatrix(TransformationMatrix m) const {
+    TransformationMatrix result;
+
+}*/
+
+void Math::TransformationMatrix::ItIsUsedToDraw()
+{
+    is_drawing = true;
+}
+void Math::TransformationMatrix::ItIsNotDrawing()
+{
+    is_drawing = false;
 }
