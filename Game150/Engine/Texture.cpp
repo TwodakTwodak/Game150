@@ -49,12 +49,16 @@ void CS230::Texture::Draw(Math::TransformationMatrix display_matrix, unsigned in
 
 void CS230::Texture::Draw(Math::TransformationMatrix display_matrix, Math::ivec2 texel_position, Math::ivec2 frame_size, unsigned int color) {
     const double render_height = rlGetFramebufferHeight();
-
+    /*
     Math::vec2 bottom_left = matrix.DimensionMatrix(display_matrix, Math::vec3{ 0, 0, 0 });
     Math::vec2 bottom_right = matrix.DimensionMatrix(display_matrix, Math::vec3{ double(frame_size.x), 0 , 0 });
     Math::vec2 top_left = matrix.DimensionMatrix(display_matrix, Math::vec3{ 0, double(frame_size.y), double(frame_size.y) });
     Math::vec2 top_right = matrix.DimensionMatrix(display_matrix, Math::vec3{ double(frame_size.x), double(frame_size.y), double(frame_size.y) }); 
-    
+    */
+    Math::vec2 bottom_left = display_matrix * Math::vec3_2{ 0, 0, 0 };
+    Math::vec2 bottom_right = display_matrix * Math::vec3_2{ double(frame_size.x), 0, 0 };
+    Math::vec2 top_left = display_matrix * Math::vec3_2{ 0, double(frame_size.y), double(frame_size.y) };
+    Math::vec2 top_right = display_matrix * Math::vec3_2{ double(frame_size.x), double(frame_size.y), double(frame_size.y) };
 
     bottom_left.y = bottom_left.y * -1 + render_height;
     bottom_right.y = bottom_right.y * -1 + render_height;

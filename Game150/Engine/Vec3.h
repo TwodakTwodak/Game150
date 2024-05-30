@@ -74,5 +74,29 @@ namespace Math {
 
     };
 
+    struct vec3_2 {
+        double x{ 0.0 };
+        double y{ 0.0 };
+        double z{ 0.0 };
 
+        vec3_2() = default;
+        vec3_2(double x, double y, double z) : x(x), y(y), z(z) {}
+        vec3_2 operator*(double scale);
+
+    };
+
+
+    struct ivec3_2 {
+        int x{ 0 };
+        int y{ 0 };
+        int z{ 0 };
+
+        ivec3_2() = default;
+        ivec3_2(int x, int y, int z) : x(x), y(y), z(z) {};
+        explicit operator vec3_2() {
+            return vec3_2{ static_cast<double>(x),static_cast<double>(y), static_cast<double>(z) };
+        }
+
+        ivec3_2 operator*(int scale);
+    };
 }

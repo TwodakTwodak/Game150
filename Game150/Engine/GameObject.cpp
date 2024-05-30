@@ -27,7 +27,7 @@ void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
     Sprite* sprite = GetGOComponent<Sprite>();
     if (sprite != nullptr) {
         sprite->Draw(camera_matrix * matrix.ChangeDimension(GetMatrix(), dimension.GetDimension())); //GetMatrix());
-        
+        //std::cout << GetMatrix()[0][0]<< " "<< GetMatrix()[1][1]<<" "<< GetMatrix()[2][2]<< " " << GetMatrix()[3][3] << std::endl;
     }
     /*
     CubeCollision* cubecollision = GetGOComponent<CubeCollision>();
@@ -50,7 +50,7 @@ void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
 const Math::TransformationMatrix& CS230::GameObject::GetMatrix() {
     if (matrix_outdated)
     {
-        object_matrix = Math::TranslationMatrix(position) * Math::RotationMatrix(rotation);// * Math::ScaleMatrix(scale);
+        object_matrix = Math::TranslationMatrix(position);// * Math::RotationMatrix(rotation) * Math::ScaleMatrix(scale);
         matrix_outdated = false;
     }
 

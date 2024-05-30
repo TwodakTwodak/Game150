@@ -24,13 +24,12 @@ namespace Math {
         TransformationMatrix& operator *= (TransformationMatrix m);
         Math::vec2 operator * (vec2 v) const;
         Math::vec3 operator * (vec3 v) const;
+        Math::vec2 operator * (vec3_2 v);
         void Reset();
         Math::vec2 DimensionMatrix(TransformationMatrix m, vec3 v);
         TransformationMatrix ChangeDimension(TransformationMatrix m, Dimension now);
     protected:
         double matrix[4][4];
-        double side_matrix[3][3];
-        double top_matrix[3][3];
     private:
         CurrentDimension dimension;
     };

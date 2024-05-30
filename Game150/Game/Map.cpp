@@ -24,11 +24,11 @@ Map::Map() {
 
 void Map::Load() {
 
-	player_ptr = new Player({ 300, 300, 300 });
+	player_ptr = new Player({ 200, 500, 300 });
 	//background = Engine::GetTextureManager().Load("Assets/Background.png");
 	AddGSComponent(new CS230::GameObjectManager);
 	GetGSComponent<CS230::GameObjectManager>()->Add(player_ptr);
-	AddGSComponent(new CS230::Camera({ { 0.15 * Engine::GetWindow().GetSize().x, 0, 0 }, { 0.35 * Engine::GetWindow().GetSize().x, 0, 0 }}));
+	AddGSComponent(new CS230::Camera({ { 1.0 * Engine::GetWindow().GetSize().x, 0, 0 }, { 1.0 * Engine::GetWindow().GetSize().x, 0, 0 }}));
 	GetGSComponent<CS230::Camera>()->SetPosition({ 0, 0, 0 });
 
 	AddGSComponent(new Background);
@@ -95,6 +95,7 @@ void Map::Update([[maybe_unused]] double dt) {
 	}
 	UpdateGSComponents(dt);
 	GetGSComponent<CS230::GameObjectManager>()->UpdateAll(dt);
+	GetGSComponent<CS230::Camera>()->Update(player_ptr->GetPosition());
 	/*
 	if (dimension.GetDimension() == Dimension::Side)
 	{
@@ -151,7 +152,7 @@ void Map::Draw() {
 	Math::TransformationMatrix camera_matrix = GetGSComponent<CS230::Camera>()->GetMatrix();
 
 	GetGSComponent<Background>()->Draw(*GetGSComponent<CS230::Camera>());
-	GetGSComponent<CS230::GameObjectManager>()->DrawAll(GetGSComponent<CS230::Camera>()->GetMatrix());//
+	GetGSComponent<CS230::GameObjectManager>()->DrawAll(GetGSComponent<CS230::Camera>()->GetMatrix());
 }
 
 void Map::Unload() {

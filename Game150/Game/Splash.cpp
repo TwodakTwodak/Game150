@@ -36,6 +36,7 @@ void Splash::Unload() {
 void Splash::Draw() {
     Engine::GetWindow().Clear(UINT_MAX);
     texture->Draw(Math::TranslationMatrix({ (Engine::GetWindow().GetSize() - texture->GetSize()) / 2.0 }));
+    std::cout << Engine::GetWindow().GetSize().y - texture->GetSize().y << std::endl;
 }
 
 

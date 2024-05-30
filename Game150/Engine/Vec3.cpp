@@ -53,7 +53,7 @@ Math::vec3& Math::vec3::operator*=(double scale) {
 }
 
 Math::vec3 Math::vec3::operator/(double divisor) {
-    return { x * divisor, y * divisor, z * divisor };
+    return { x / divisor, y / divisor, z / divisor };
 }
 
 Math::vec3& Math::vec3::operator/=(double divisor) {
@@ -139,4 +139,14 @@ Math::vec3 Math::ivec3::operator* (double scale) {
 
 Math::vec3 Math::ivec3::operator/ (double divisor) {
     return { x / divisor, y / divisor, z / divisor };
+}
+
+
+
+Math::vec3_2 Math::vec3_2::operator*(double scale) {
+    return { x * scale, y * scale, z * scale };
+}
+
+Math::ivec3_2 Math::ivec3_2::operator*(int scale) {
+    return { x * scale, y * scale, z * scale };
 }

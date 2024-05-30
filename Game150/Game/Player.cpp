@@ -62,7 +62,7 @@ void Player::Update(double dt) {
         UpdatePosition({ 0 , Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + Engine::GetWindow().GetSize().y-player_rect.Bottom(), 0 });
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
     }
-    std::cout << player_rect.point_1.x << " " << player_rect.point_1.y << " "<<player_rect.point_1.z << std::endl;
+    //std::cout << player_rect.point_1.x << " " << player_rect.point_1.y << " "<<player_rect.point_1.z << std::endl;
 }
 
 Math::ivec2 Player::GetSize()
@@ -188,7 +188,7 @@ void Player::State_Walking::Enter(GameObject* object) {
 }
 void Player::State_Walking::Update(GameObject* object, double dt) {
     Player* player = static_cast<Player*>(object);
-    player->update_x_velocity(dt);
+   player->update_x_velocity(dt);
     player->update_y_velocity(dt);
     //std::cout << "Updating Walking" << std::endl;
 }
@@ -276,4 +276,9 @@ void Player::ResolveCollision(GameObject* other_object)
         break;
     }
     }
+}
+
+void Player::Draw(Math::TransformationMatrix camera_matrix) {
+
+    GetGOComponent<CS230::Sprite>()->Draw(camera_matrix * GetMatrix());
 }
