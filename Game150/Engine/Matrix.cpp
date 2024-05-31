@@ -43,18 +43,9 @@ Math::TranslationMatrix::TranslationMatrix(vec3 translate)
 }
 
 void Math::TransformationMatrix::Reset() {
-    for (int i = 0; i < 4; i++)
-    {
-        for (int j = 0; j < 4; j++)
-        {
-            if (i == j)
-            {
-                matrix[i][j] = 1;
-            }
-            else
-            {
-                matrix[i][j] = 0;
-            }
+    for (int i = 0; i < 4; ++i) {
+        for (int j = 0; j < 4; ++j) {
+            matrix[i][j] = (i == j) ? 1.0 : 0.0;
         }
     }
 }
@@ -101,11 +92,15 @@ Math::vec2 Math::TransformationMatrix::operator * (vec3_2 v) {
     {
         result.x = matrix[0][0] * v.x + matrix[0][1] * v.y + matrix[0][2] * v.z + matrix[0][3];
         result.y = matrix[1][0] * v.x + matrix[1][1] * v.y + matrix[1][2] * v.z + matrix[1][3];
+        //std::cout << v.x << " " << v.y<<" "<<v.z << std::endl;
     }
     else if (dimension.GetDimension() == Dimension::Top)
     {
         result.x = matrix[0][0] * v.x + matrix[0][1] * v.y + matrix[0][2] * v.z + matrix[0][3];
         result.y = matrix[2][0] * v.x + matrix[2][1] * v.y + matrix[2][2] * v.z + matrix[2][3];
+        //std::cout << v.x << " " << v.y << " " << v.z << std::endl;
+        //std::cout << matrix[0][0] << " " << matrix[0][1] << " " << matrix[0][2]<<" "<<matrix[0][3] << std::endl;
+        //std::cout << matrix[2][0] << " " << matrix[2][1] << " " << matrix[2][2] << " " << matrix[2][3] << std::endl;
     }
     else
     {
@@ -175,26 +170,23 @@ Math::TransformationMatrix Math::TransformationMatrix::ChangeDimension(Transform
 
     if (dimension.GetDimension() == Dimension::Side)
     {
-        int indices[3] = { 0, 2, 3 };
-        for (int i = 0; i < 3; ++i) {
-            for (int j = 0; j < 3; ++j) {
-                result.matrix[i][j] = m.matrix[indices[i]][indices[j]];
-            }
-        }
+        result.matrix[0][0] = m.matrix[0][0];
+        result.matrix[0][1] = m.matrix[0][2];
+        result.matrix[0][3] = m.matrix[0][3];
+
+        result.matrix[1][0] = m.matrix[2][0];
+        result.matrix[1][1] = m.matrix[2][2];
+        result.matrix[1][3] = m.matrix[2][3];
     }
     else if (dimension.GetDimension() == Dimension::Top)
     {
         result.matrix[0][0] = m.matrix[0][0];
-        result.matrix[0][1] = m.matrix[0][2];
-        result.matrix[0][2] = m.matrix[0][3];
+        result.matrix[0][1] = m.matrix[0][1];
+        result.matrix[0][3] = m.matrix[0][3];
 
         result.matrix[1][0] = m.matrix[1][0];
         result.matrix[1][1] = m.matrix[1][2];
-        result.matrix[1][2] = m.matrix[1][3];
-
-        result.matrix[2][0] = m.matrix[2][0];
-        result.matrix[2][1] = m.matrix[2][2];
-        result.matrix[2][2] = m.matrix[2][3];
+        result.matrix[1][3] = m.matrix[1][3];
     }
     else
     {

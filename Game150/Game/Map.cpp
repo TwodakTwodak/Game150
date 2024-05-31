@@ -34,7 +34,7 @@ void Map::Load() {
 	AddGSComponent(new Background);
 	GetGSComponent<Background>()->Add("Assets/Background.png", 0);
 
-	Math::icube cameraLimit = { { 0,0, 0 }, { GetGSComponent<Background>()->GetSize().x - Engine::GetWindow().GetSize().x , GetGSComponent<Background>()->GetSize().y - Engine::GetWindow().GetSize().y , GetGSComponent<Background>()->GetSize().y - Engine::GetWindow().GetSize().y}  };
+	Math::icube cameraLimit = { { 0,0, 0 }, { Engine::GetWindow().GetSize().x , Engine::GetWindow().GetSize().y , Engine::GetWindow().GetSize().y}  };
 	GetGSComponent<CS230::Camera>()->SetLimit(cameraLimit);
 	
 	/*gameobjectmanager.Add(new Crates({ 200, 400, 400 }));
@@ -144,11 +144,16 @@ void Map::Update([[maybe_unused]] double dt) {
 		std::cout << "Top" << std::endl;
 	}
 	*/
+
+	if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::R))
+	{
+		GetGSComponent<CS230::GameObjectManager>()->Unload();
+		Engine::GetGameStateManager().ReloadGameState();
+	}
 }
 
 void Map::Draw() {
-	Engine::GetWindow().Clear(0x00F0F0FF);
-	//background->Draw(Math::TranslationMatrix(Math::vec2{0,0}));
+	Engine::GetWindow().Clear(0x000000FF);
 	Math::TransformationMatrix camera_matrix = GetGSComponent<CS230::Camera>()->GetMatrix();
 
 	GetGSComponent<Background>()->Draw(*GetGSComponent<CS230::Camera>());
@@ -156,7 +161,6 @@ void Map::Draw() {
 }
 
 void Map::Unload() {
-	//GetGSComponent<Background>()->Unload();
 	GetGSComponent<Background>()->Unload();
 	GetGSComponent<CS230::GameObjectManager>()->Unload();
 	ClearGSComponents();

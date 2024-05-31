@@ -15,9 +15,9 @@ void CS230::GameObjectManager::Add(GameObject* object)
 }
 void CS230::GameObjectManager::Unload()
 {
-	for (int i = 0; i < objects.size(); i++)
+	for (GameObject* object : objects)
 	{
-		objects.erase(objects.begin() + i);
+		delete object;
 	}
 	objects.clear();
 }
@@ -25,9 +25,9 @@ void CS230::GameObjectManager::UpdateAll(double dt)
 {
 	CollisionTest();
 	
-	for (int i = 0; i < objects.size(); i++)
+	for (GameObject* object : objects)
 	{
-		objects[i]->Update(dt);
+		object->Update(dt);
 	}
 }
 void CS230::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix)

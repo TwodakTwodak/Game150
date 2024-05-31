@@ -62,7 +62,7 @@ void Player::Update(double dt) {
         UpdatePosition({ 0 , Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + Engine::GetWindow().GetSize().y-player_rect.Bottom(), 0 });
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
     }
-    //std::cout << player_rect.point_1.x << " " << player_rect.point_1.y << " "<<player_rect.point_1.z << std::endl;
+    std::cout << player_rect.point_1.x << " " << player_rect.point_1.y << " "<<player_rect.point_1.z << std::endl;
 }
 
 Math::ivec2 Player::GetSize()
@@ -180,6 +180,7 @@ void Player::State_Falling::Update(GameObject* object, double dt) {
 }
 void Player::State_Falling::CheckExit(GameObject* object) {
     Player* player = static_cast<Player*>(object);
+    //later, make floor and make collsion to get out of this state
 }
 
 
@@ -298,8 +299,10 @@ void Player::ResolveCollision(GameObject* other_object)
     }
     }
 }
-
+/*
 void Player::Draw(Math::TransformationMatrix camera_matrix) {
 
-    GetGOComponent<CS230::Sprite>()->Draw(camera_matrix * GetMatrix());
-}
+    //GetGOComponent<CS230::Sprite>()->Draw(camera_matrix * GetMatrix());
+    //GetGOComponent<CS230::Sprite>()->Draw(camera_matrix * matrix.ChangeDimension(GetMatrix(), dimension.GetDimension()));
+    //sprite->Draw(camera_matrix * matrix.ChangeDimension(GetMatrix(), dimension.GetDimension()));
+}*/

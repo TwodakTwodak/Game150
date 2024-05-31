@@ -20,14 +20,30 @@ CS230::GameObject::GameObject(Math::vec3 position, double rotation, Math::vec2 s
     velocity({ 0,0, 0 }),
     position(position),
     scale(scale),
-    rotation(rotation)
+    rotation(rotation),
+    current_state(&state_none)
 {}
 //Lets Change
 void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
     Sprite* sprite = GetGOComponent<Sprite>();
     if (sprite != nullptr) {
-        sprite->Draw(camera_matrix * matrix.ChangeDimension(GetMatrix(), dimension.GetDimension())); //GetMatrix());
-        //std::cout << GetMatrix()[0][0]<< " "<< GetMatrix()[1][1]<<" "<< GetMatrix()[2][2]<< " " << GetMatrix()[3][3] << std::endl;
+        sprite->Draw(GetMatrix() ); //camera_matrix * //GetMatrix());//matrix.ChangeDimension(GetMatrix(), dimension.GetDimension())
+        //sprite->Draw(camera_matrix * matrix.ChangeDimension(GetMatrix(), dimension.GetDimension()));
+        /*
+        std::cout << "\n" << std::endl;
+        std::cout << GetMatrix()[0][0]<< " "<< GetMatrix()[1][0]<<" "<< GetMatrix()[2][0]<< " " << GetMatrix()[3][0] << std::endl;
+        std::cout << GetMatrix()[0][1] << " " << GetMatrix()[1][1] << " " << GetMatrix()[2][1] << " " << GetMatrix()[3][1] << std::endl;
+        std::cout << GetMatrix()[0][2] << " " << GetMatrix()[1][2] << " " << GetMatrix()[2][2] << " " << GetMatrix()[3][2] << std::endl;
+        std::cout << GetMatrix()[0][3] << " " << GetMatrix()[1][3] << " " << GetMatrix()[2][3] << " " << GetMatrix()[3][3] << std::endl;
+        std::cout << "\n" << std::endl;
+        
+        std::cout << "\n" << std::endl;
+        std::cout << camera_matrix[0][0] << " " << camera_matrix[1][0] << " " << camera_matrix[2][0] << " " << camera_matrix[3][0] << std::endl;
+        std::cout << camera_matrix[0][1] << " " << camera_matrix[1][1] << " " << camera_matrix[2][1] << " " << camera_matrix[3][1] << std::endl;
+        std::cout << camera_matrix[0][2] << " " << camera_matrix[1][2] << " " << camera_matrix[2][2] << " " << camera_matrix[3][2] << std::endl;
+        std::cout << camera_matrix[0][3] << " " << camera_matrix[1][3] << " " << camera_matrix[2][3] << " " << camera_matrix[3][3] << std::endl;
+        std::cout << "\n" << std::endl;
+        */
     }
     /*
     CubeCollision* cubecollision = GetGOComponent<CubeCollision>();
@@ -50,7 +66,7 @@ void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
 const Math::TransformationMatrix& CS230::GameObject::GetMatrix() {
     if (matrix_outdated)
     {
-        object_matrix = Math::TranslationMatrix(position);// * Math::RotationMatrix(rotation) * Math::ScaleMatrix(scale);
+        object_matrix = Math::TranslationMatrix(position) * Math::RotationMatrix(rotation);// * Math::ScaleMatrix(scale);
         matrix_outdated = false;
     }
 

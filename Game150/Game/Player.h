@@ -28,9 +28,10 @@ public:
     bool CanCollideWith(GameObjectTypes);
     virtual void ResolveCollision(GameObject* other_object) override;
     //void Draw(Math::TransformationMatrix camera_matrix) override;
-    void Draw(Math::TransformationMatrix camera_matrix) override;
+    
 private:
     CurrentDimension dimension;
+    Math::TransformationMatrix matrix;
 
 	static constexpr double xz_acceleration = 100;
 	static constexpr double max_velocity = 100;
