@@ -15,8 +15,8 @@ Created:    May 3, 2024
 Player::Player(Math::vec3 start_position) :
     GameObject(start_position)
 {
-    AddGOComponent(new CS230::Sprite("Assets/Player.spt", this));
-    //AddGOComponent(new CS230::Sprite("Assets/Cat.spt", this));
+    //AddGOComponent(new CS230::Sprite("Assets/Player.spt", this));
+    AddGOComponent(new CS230::Sprite("Assets/Cat.spt", this));
     change_state(&state_idle);
     current_state->Enter(this);
     
@@ -92,19 +92,23 @@ void Player::update_x_velocity(double dt) {
 void Player::update_y_velocity(double dt) {
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::W))
     {
-        UpdateVelocity({ xz_acceleration * dt, 0, 0 });
-        if (GetVelocity().y < max_velocity)
+        UpdateVelocity({ 0, xz_acceleration * dt, 0 });
+        if (GetVelocity().y > max_velocity)
         {
-            SetVelocity({ GetVelocity().x, -max_velocity, GetVelocity().z });
+            SetVelocity({ GetVelocity().x, max_velocity, GetVelocity().z });
         }
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S))
     {
-        UpdateVelocity({0, xz_acceleration * dt, 0 });
-        if (GetVelocity().y > max_velocity)
+        UpdateVelocity({0, -xz_acceleration * dt, 0 });
+        if (GetVelocity().y < -max_velocity)
         {
-            SetVelocity({GetVelocity().y,  max_velocity, GetVelocity().z });
+            SetVelocity({GetVelocity().x,  -max_velocity, GetVelocity().z });
         }
+    }
+    else
+    {
+        std::cout << "Not Moving In Y axis" << std::endl;
     }
 }
 
@@ -116,7 +120,7 @@ void Player::State_Jumping::Enter(GameObject* object) {
 }
 void Player::State_Jumping::Update(GameObject* object, double dt) {
     Player* player = static_cast<Player*>(object);
-    player->UpdateVelocity({ 0, 0, -Engine::GetGameStateManager().GetGSComponent<Gravity>()->GetValue() * dt });
+    player->UpdateVelocity({ 0, 0,10 * dt });// -Engine::GetGameStateManager().GetGSComponent<Gravity>()->GetValue()
     player->update_x_velocity(dt);
 }
 void Player::State_Jumping::CheckExit(GameObject* object) {
@@ -150,6 +154,12 @@ void Player::State_Idle::CheckExit(GameObject* object) {
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
         player->change_state(&player->state_running);
     }
+    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::W) && Dimension::Top == player->dimension.GetDimension()) {
+        player->change_state(&player->state_running);
+    }
+    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S) && Dimension::Top == player->dimension.GetDimension()) {
+        player->change_state(&player->state_running);
+    }
     else if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::W)&& Dimension::Side ==player->dimension.GetDimension()) {
         player->change_state(&player->state_jumping);
     }
@@ -165,7 +175,7 @@ void Player::State_Falling::Enter(GameObject* object) {
 }
 void Player::State_Falling::Update(GameObject* object, double dt) {
     Player* player = static_cast<Player*>(object);
-    player->UpdateVelocity({ 0, 0, -Engine::GetGameStateManager().GetGSComponent<Gravity>()->GetValue() * dt });
+    player->UpdateVelocity({ 0, 0, -10 * dt });//-Engine::GetGameStateManager().GetGSComponent<Gravity>()->GetValue()
     player->update_x_velocity(dt);
 }
 void Player::State_Falling::CheckExit(GameObject* object) {
@@ -188,15 +198,28 @@ void Player::State_Walking::Enter(GameObject* object) {
 }
 void Player::State_Walking::Update(GameObject* object, double dt) {
     Player* player = static_cast<Player*>(object);
-   player->update_x_velocity(dt);
-    player->update_y_velocity(dt);
+    player->update_x_velocity(dt);
+    if (Dimension::Top == player->dimension.GetDimension())
+    {
+        player->update_y_velocity(dt);
+    }
+    
     //std::cout << "Updating Walking" << std::endl;
 }
 void Player::State_Walking::CheckExit(GameObject* object) {
     //std::cout << "Check Exit Walking" << std::endl;
     Player* player = static_cast<Player*>(object);
-    if (player->GetVelocity().x == 0)
+    if ((Engine::GetInput().KeyJustReleased(CS230::Input::Keys::D) && player->GetVelocity().x > 0) || 
+        (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::A) && player->GetVelocity().x < 0))
     {
+        player->SetVelocity({ 0, player->GetVelocity().y, player->GetVelocity().z });
+        player->change_state(&player->state_idle);
+    }
+    else if ((Dimension::Top == player->dimension.GetDimension()) &&
+        ((Engine::GetInput().KeyJustReleased(CS230::Input::Keys::W) && player->GetVelocity().y > 0) ||
+            (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::S) && player->GetVelocity().y < 0)))
+    {
+        player->SetVelocity({ player->GetVelocity().x, 0, player->GetVelocity().z });
         player->change_state(&player->state_idle);
     }
     else if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up)&& Dimension::Side == player->dimension.GetDimension())
@@ -204,8 +227,6 @@ void Player::State_Walking::CheckExit(GameObject* object) {
         player->change_state(&player->state_jumping);
     }
 }
-
-
 void Player::State_Dashing::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
     player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Dashing));
