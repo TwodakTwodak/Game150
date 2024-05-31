@@ -1,6 +1,6 @@
 #include "Dimension.h"
 
-Dimension current_dimension = Dimension::Side;
+Dimension current_dimension = Dimension::Top;
 
 Dimension CurrentDimension::GetDimension() {
 	return current_dimension;

@@ -13,6 +13,7 @@ Created:    March 8, 2023
 
 #include "../Engine/GameState.h"
 #include "../Engine/Texture.h"
+#include "../Engine/Dimension.h"
 
 class Splash : public CS230::GameState {
 public:

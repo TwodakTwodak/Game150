@@ -62,7 +62,7 @@ void Player::Update(double dt) {
         UpdatePosition({ 0 , Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + Engine::GetWindow().GetSize().y-player_rect.Bottom(), 0 });
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
     }
-    std::cout << player_rect.point_1.x << " " << player_rect.point_1.y << " "<<player_rect.point_1.z << std::endl;
+    //std::cout << player_rect.point_1.x << " " << player_rect.point_1.y << " "<<player_rect.point_1.z << std::endl;
 }
 
 Math::ivec2 Player::GetSize()
@@ -73,42 +73,24 @@ Math::ivec2 Player::GetSize()
 void Player::update_x_velocity(double dt) {
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::D))
     {
-        UpdateVelocity({ xz_acceleration * dt, 0, 0 });
-        if (GetVelocity().x > max_velocity)
-        {
-            SetVelocity({ max_velocity, GetVelocity().y, GetVelocity().z });
-        }
+        UpdateVelocity({ max_velocity, 0, 0 });
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A))
     {
-        UpdateVelocity({ -xz_acceleration * dt, 0, 0 });
-        if (GetVelocity().x < -max_velocity)
-        {
-            SetVelocity({ -max_velocity, GetVelocity().y, GetVelocity().z });
-        }
+        UpdateVelocity({ -max_velocity, 0, 0 });
     }
 }
 
 void Player::update_y_velocity(double dt) {
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::W))
     {
-        UpdateVelocity({ 0, xz_acceleration * dt, 0 });
-        if (GetVelocity().y > max_velocity)
-        {
-            SetVelocity({ GetVelocity().x, max_velocity, GetVelocity().z });
-        }
+        UpdateVelocity({ 0, max_velocity, 0 });
+        UpdatePosition({ 0, 0, 0 });
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S))
     {
-        UpdateVelocity({0, -xz_acceleration * dt, 0 });
-        if (GetVelocity().y < -max_velocity)
-        {
-            SetVelocity({GetVelocity().x,  -max_velocity, GetVelocity().z });
-        }
-    }
-    else
-    {
-        std::cout << "Not Moving In Y axis" << std::endl;
+        UpdateVelocity({0, -max_velocity, 0 });
+        UpdatePosition({ 0, 0, 0 });
     }
 }
 

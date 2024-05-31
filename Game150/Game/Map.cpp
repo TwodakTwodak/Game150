@@ -23,9 +23,8 @@ Map::Map() {
 }
 
 void Map::Load() {
-
-	player_ptr = new Player({ 200, 500, 300 });
-	//background = Engine::GetTextureManager().Load("Assets/Background.png");
+	dimension.SetDimension(Dimension::Side);
+	player_ptr = new Player({ 200, 400, 200 });
 	AddGSComponent(new CS230::GameObjectManager);
 	GetGSComponent<CS230::GameObjectManager>()->Add(player_ptr);
 	AddGSComponent(new CS230::Camera({ { 1.0 * Engine::GetWindow().GetSize().x, 0, 0 }, { 1.0 * Engine::GetWindow().GetSize().x, 0, 0 }}));

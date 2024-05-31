@@ -91,16 +91,16 @@ Math::vec2 Math::TransformationMatrix::operator * (vec3_2 v) {
     if (dimension.GetDimension() == Dimension::Side)
     {
         result.x = matrix[0][0] * v.x + matrix[0][1] * v.y + matrix[0][2] * v.z + matrix[0][3];
-        result.y = matrix[1][0] * v.x + matrix[1][1] * v.y + matrix[1][2] * v.z + matrix[1][3];
+        result.y = matrix[2][0] * v.x + matrix[2][1] * v.y + matrix[2][2] * v.z + matrix[2][3];
         //std::cout << v.x << " " << v.y<<" "<<v.z << std::endl;
     }
     else if (dimension.GetDimension() == Dimension::Top)
     {
         result.x = matrix[0][0] * v.x + matrix[0][1] * v.y + matrix[0][2] * v.z + matrix[0][3];
-        result.y = matrix[2][0] * v.x + matrix[2][1] * v.y + matrix[2][2] * v.z + matrix[2][3];
+        result.y = matrix[1][0] * v.x + matrix[1][1] * v.y + matrix[1][2] * v.z + matrix[1][3];
         //std::cout << v.x << " " << v.y << " " << v.z << std::endl;
         //std::cout << matrix[0][0] << " " << matrix[0][1] << " " << matrix[0][2]<<" "<<matrix[0][3] << std::endl;
-        //std::cout << matrix[2][0] << " " << matrix[2][1] << " " << matrix[2][2] << " " << matrix[2][3] << std::endl;
+        //std::cout << matrix[0][3] << " " << matrix[1][3] << " " << matrix[2][3] << " " << matrix[3][3] << std::endl;
     }
     else
     {

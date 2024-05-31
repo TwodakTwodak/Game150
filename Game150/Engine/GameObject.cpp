@@ -135,7 +135,7 @@ void CS230::GameObject::UpdateRotation(double delta)
 
 void CS230::GameObject::Update(double dt) {
     current_state->Update(this, dt);
-    if (velocity.x != 0 || velocity.y != 0) {
+    if (velocity.x != 0 || velocity.y != 0 || velocity.z != 0) {
         UpdatePosition(velocity * dt);
     }
     UpdateGOComponents(dt);
