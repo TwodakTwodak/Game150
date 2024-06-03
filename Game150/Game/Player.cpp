@@ -46,7 +46,7 @@ void Player::Update(double dt) {
     
     Math::cube player_rect = GetGOComponent<CS230::CubeCollision>()->WorldBoundary();
     
-    if (GetPosition().x < Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + player_rect.Size().x / 2) {
+    if (GetPosition().x < Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x - player_rect.Size().x/2) {
         UpdatePosition({ -player_rect.Left(), 0, 0 });
         SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
     }
@@ -54,7 +54,7 @@ void Player::Update(double dt) {
         UpdatePosition({ Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + Engine::GetWindow().GetSize().x - player_rect.Right() , 0, 0 });
         SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
     }
-    if (GetPosition().y< Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + player_rect.Size().y / 2) {
+    if (GetPosition().y< Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y ) {
         UpdatePosition({ 0, -player_rect.Bottom(), 0 });
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
     }
@@ -62,7 +62,7 @@ void Player::Update(double dt) {
         UpdatePosition({ 0 , Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + Engine::GetWindow().GetSize().y-player_rect.Top(), 0 });
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
     }
-    //std::cout << player_rect.point_1.x << " " << player_rect.point_1.y << " "<<player_rect.point_1.z << std::endl;
+    std::cout << player_rect.point_1.x << " " << player_rect.point_1.y << " "<<player_rect.point_1.z << std::endl;
 }
 
 Math::ivec2 Player::GetSize()
@@ -85,12 +85,10 @@ void Player::update_y_velocity(double dt) {
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::W))
     {
         UpdateVelocity({ 0, max_velocity, 0 });
-        UpdatePosition({ 0, 0, 0 });
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S))
     {
         UpdateVelocity({0, -max_velocity, 0 });
-        UpdatePosition({ 0, 0, 0 });
     }
 }
 void Player::move(double dt)
@@ -198,6 +196,10 @@ void Player::State_Falling::Update(GameObject* object, double dt) {
 void Player::State_Falling::CheckExit(GameObject* object) {
     Player* player = static_cast<Player*>(object);
     //later, make floor and make collsion to get out of this state
+    /*if (player->standing_on != nullptr)
+    {
+        
+    }*/
     if (player->GetPosition().z < player->floor)
     {
         player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, 0 });
@@ -218,11 +220,11 @@ void Player::State_Falling::CheckExit(GameObject* object) {
 
 void Player::State_Walking::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    if (player->GetVelocity().x <= 0 && Engine::GetInput().KeyDown(CS230::Input::Keys::Left) && player->GetScale().x > 0)//&& player->GetScale().x > 0) {
+    if (player->GetVelocity().x <= 0 && Engine::GetInput().KeyDown(CS230::Input::Keys::Left) && player->GetScale().x > 0)
     {
         player->SetScale({ -player->GetScale().x, player->GetScale().y });
     }
-    else if (player->GetVelocity().x >= 0 && Engine::GetInput().KeyDown(CS230::Input::Keys::Right) && player->GetScale().x < 0)// && player->GetScale().x < 0)
+    else if (player->GetVelocity().x >= 0 && Engine::GetInput().KeyDown(CS230::Input::Keys::Right) && player->GetScale().x < 0)
     {
         player->SetScale({ -player->GetScale().x, player->GetScale().y });
     }
@@ -313,7 +315,22 @@ void Player::ResolveCollision(GameObject* other_object)
     {
     case GameObjectTypes::Floor: [[fallthrough]];
     case GameObjectTypes::Box:
-        
+        if (current_state == &state_falling) {
+            if (player_rect.High() > other_rect.High()) {
+                SetPosition({ GetPosition().x, GetPosition().y, other_rect.High() });
+                standing_on = other_object;
+                current_state->CheckExit(this);
+                return;
+            }
+        }
+        if (player_rect.Left() < other_rect.Left()) {
+            UpdatePosition(Math::vec3{ (other_rect.Left() - player_rect.Right()), 0.0, 0.0 });
+            SetVelocity({ 0, 0, GetVelocity().z });
+        }
+        else {
+            UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
+            SetVelocity({ 0, 0, GetVelocity().z });
+        }
         break;
     case GameObjectTypes::Button:
     {

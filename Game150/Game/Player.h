@@ -119,7 +119,11 @@ private:
         Jumping,
         Falling,
         Dashing,
-        Interacting
+        Interacting,
+        TopIdle,
+        TopWalking,
+        TopDashing,
+        TopInteracting
     };
 
     static constexpr double hurt_time = 2.0;

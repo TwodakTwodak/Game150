@@ -1,6 +1,6 @@
 Assets/Cat.png
 FrameSize 128 128
-HotSpot 65 15 0
+HotSpot 40 14 0
 Frame 0 0
 Frame 128 0
 Frame 256 0 
@@ -16,5 +16,5 @@ Anim Assets/CatRunning.anm
 Anim Assets/CatJumping.anm
 Anim Assets/CatFalling.anm
 Anim Assets/CatSkidding.anm
-CubeCollision -21 0 16 30 50 65
+CubeCollision 0 0 16 50 50 65
 
