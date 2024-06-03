@@ -41,6 +41,7 @@
     <ClCompile Include="Engine\Vec3.cpp" />
     <ClCompile Include="Engine\Window.cpp" />
     <ClCompile Include="Game\Background.cpp" />
+    <ClCompile Include="Game\Box.cpp" />
     <ClCompile Include="Game\Map.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
@@ -74,6 +75,7 @@
     <ClInclude Include="Engine\Vec3.h" />
     <ClInclude Include="Engine\Window.h" />
     <ClInclude Include="Game\Background.h" />
+    <ClInclude Include="Game\Box.h" />
     <ClInclude Include="Game\GameObjectTypes.h" />
     <ClInclude Include="Game\Gravity.h" />
     <ClInclude Include="Game\Map.h" />

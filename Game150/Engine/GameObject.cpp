@@ -27,25 +27,9 @@ CS230::GameObject::GameObject(Math::vec3 position, double rotation, Math::vec2 s
 void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
     Sprite* sprite = GetGOComponent<Sprite>();
     if (sprite != nullptr) {
-        sprite->Draw(GetMatrix() ); //camera_matrix * //GetMatrix());//matrix.ChangeDimension(GetMatrix(), dimension.GetDimension())
-        //sprite->Draw(camera_matrix * matrix.ChangeDimension(GetMatrix(), dimension.GetDimension()));
-        /*
-        std::cout << "\n" << std::endl;
-        std::cout << GetMatrix()[0][0]<< " "<< GetMatrix()[1][0]<<" "<< GetMatrix()[2][0]<< " " << GetMatrix()[3][0] << std::endl;
-        std::cout << GetMatrix()[0][1] << " " << GetMatrix()[1][1] << " " << GetMatrix()[2][1] << " " << GetMatrix()[3][1] << std::endl;
-        std::cout << GetMatrix()[0][2] << " " << GetMatrix()[1][2] << " " << GetMatrix()[2][2] << " " << GetMatrix()[3][2] << std::endl;
-        std::cout << GetMatrix()[0][3] << " " << GetMatrix()[1][3] << " " << GetMatrix()[2][3] << " " << GetMatrix()[3][3] << std::endl;
-        std::cout << "\n" << std::endl;
-        
-        std::cout << "\n" << std::endl;
-        std::cout << camera_matrix[0][0] << " " << camera_matrix[1][0] << " " << camera_matrix[2][0] << " " << camera_matrix[3][0] << std::endl;
-        std::cout << camera_matrix[0][1] << " " << camera_matrix[1][1] << " " << camera_matrix[2][1] << " " << camera_matrix[3][1] << std::endl;
-        std::cout << camera_matrix[0][2] << " " << camera_matrix[1][2] << " " << camera_matrix[2][2] << " " << camera_matrix[3][2] << std::endl;
-        std::cout << camera_matrix[0][3] << " " << camera_matrix[1][3] << " " << camera_matrix[2][3] << " " << camera_matrix[3][3] << std::endl;
-        std::cout << "\n" << std::endl;
-        */
+        sprite->Draw(camera_matrix * GetMatrix() ); // //GetMatrix());
     }
-    /*
+    
     CubeCollision* cubecollision = GetGOComponent<CubeCollision>();
     ShowCollision* showcollision = Engine::GetGameStateManager().GetGSComponent<ShowCollision>();
     if (showcollision != nullptr && showcollision->Enabled())
@@ -54,8 +38,9 @@ void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
             cubecollision->Draw(camera_matrix);
         }
     }
-
     Collision* collision = GetGOComponent<Collision>();
+    collision->Draw(camera_matrix);
+    /*
     if (collision != nullptr && Engine::GetGameStateManager().GetGSComponent<CS230::ShowCollision>()->Enabled()) {
         collision->Draw(camera_matrix);
     }

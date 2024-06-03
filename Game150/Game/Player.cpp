@@ -55,11 +55,11 @@ void Player::Update(double dt) {
         SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
     }
     if (GetPosition().y< Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + player_rect.Size().y / 2) {
-        UpdatePosition({ 0, player_rect.Top(), 0 });
+        UpdatePosition({ 0, -player_rect.Bottom(), 0 });
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
     }
     if (GetPosition().y + player_rect.Size().y / 2 > Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + Engine::GetWindow().GetSize().y) {
-        UpdatePosition({ 0 , Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + Engine::GetWindow().GetSize().y-player_rect.Bottom(), 0 });
+        UpdatePosition({ 0 , Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + Engine::GetWindow().GetSize().y-player_rect.Top(), 0 });
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
     }
     //std::cout << player_rect.point_1.x << " " << player_rect.point_1.y << " "<<player_rect.point_1.z << std::endl;
@@ -91,6 +91,41 @@ void Player::update_y_velocity(double dt) {
     {
         UpdateVelocity({0, -max_velocity, 0 });
         UpdatePosition({ 0, 0, 0 });
+    }
+}
+void Player::move(double dt)
+{
+    if ((Dimension::Top == dimension.GetDimension()))
+    {
+        if (Engine::GetInput().KeyDown(CS230::Input::Keys::D))
+        {
+            UpdateVelocity({ max_velocity, 0, 0 });
+        }
+        else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A))
+        {
+            UpdateVelocity({ -max_velocity, 0, 0 });
+        }
+        else if (Engine::GetInput().KeyDown(CS230::Input::Keys::W))
+        {
+            UpdateVelocity({ 0, max_velocity, 0 });
+            UpdatePosition({ 0, 0, 0 });
+        }
+        else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S))
+        {
+            UpdateVelocity({ 0, -max_velocity, 0 });
+            UpdatePosition({ 0, 0, 0 });
+        }
+    }
+    else
+    {
+        if (Engine::GetInput().KeyDown(CS230::Input::Keys::D))
+        {
+            UpdateVelocity({ max_velocity, 0, 0 });
+        }
+        else if (Engine::GetInput().KeyDown(CS230::Input::Keys::A))
+        {
+            UpdateVelocity({ -max_velocity, 0, 0 });
+        }
     }
 }
 
@@ -157,22 +192,37 @@ void Player::State_Falling::Enter(GameObject* object) {
 }
 void Player::State_Falling::Update(GameObject* object, double dt) {
     Player* player = static_cast<Player*>(object);
-    player->UpdateVelocity({ 0, 0, -10 * dt });//-Engine::GetGameStateManager().GetGSComponent<Gravity>()->GetValue()
+    player->UpdateVelocity({ 0, 0, -Engine::GetGameStateManager().GetGSComponent<Gravity>()->GetValue() * dt });//-Engine::GetGameStateManager().GetGSComponent<Gravity>()->GetValue()
     player->update_x_velocity(dt);
 }
 void Player::State_Falling::CheckExit(GameObject* object) {
     Player* player = static_cast<Player*>(object);
     //later, make floor and make collsion to get out of this state
+    if (player->GetPosition().z < player->floor)
+    {
+        player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, 0 });
+        player->SetPosition({ player->GetPosition().x, player->GetPosition().y, player->floor });
+        if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
+            player->change_state(&player->state_running);
+        }
+        else if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
+            player->change_state(&player->state_running);
+        }
+        else
+        {
+            player->change_state(&player->state_idle);
+        }
+    }
 }
 
 
 void Player::State_Walking::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    if (player->GetVelocity().x <= 0 && Engine::GetInput().KeyDown(CS230::Input::Keys::Left) )//&& player->GetScale().x > 0) {
+    if (player->GetVelocity().x <= 0 && Engine::GetInput().KeyDown(CS230::Input::Keys::Left) && player->GetScale().x > 0)//&& player->GetScale().x > 0) {
     {
         player->SetScale({ -player->GetScale().x, player->GetScale().y });
     }
-    else if (player->GetVelocity().x >= 0 && Engine::GetInput().KeyDown(CS230::Input::Keys::Right))// && player->GetScale().x < 0)
+    else if (player->GetVelocity().x >= 0 && Engine::GetInput().KeyDown(CS230::Input::Keys::Right) && player->GetScale().x < 0)// && player->GetScale().x < 0)
     {
         player->SetScale({ -player->GetScale().x, player->GetScale().y });
     }
@@ -181,32 +231,32 @@ void Player::State_Walking::Enter(GameObject* object) {
 }
 void Player::State_Walking::Update(GameObject* object, double dt) {
     Player* player = static_cast<Player*>(object);
-    player->update_x_velocity(dt);
-    if (Dimension::Top == player->dimension.GetDimension())
-    {
-        player->update_y_velocity(dt);
-    }
+    player->move(dt);
     
     //std::cout << "Updating Walking" << std::endl;
 }
 void Player::State_Walking::CheckExit(GameObject* object) {
     //std::cout << "Check Exit Walking" << std::endl;
     Player* player = static_cast<Player*>(object);
-    if ((Engine::GetInput().KeyJustReleased(CS230::Input::Keys::D) && player->GetVelocity().x > 0) || 
-        (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::A) && player->GetVelocity().x < 0))
-    {
-        player->SetVelocity({ 0, player->GetVelocity().y, player->GetVelocity().z });
+
+    bool isMovingX = (Engine::GetInput().KeyDown(CS230::Input::Keys::D) && player->GetVelocity().x > 0) ||
+        (Engine::GetInput().KeyDown(CS230::Input::Keys::A) && player->GetVelocity().x < 0);
+
+    bool isMovingY = (Engine::GetInput().KeyDown(CS230::Input::Keys::W) && player->GetVelocity().y > 0) ||
+        (Engine::GetInput().KeyDown(CS230::Input::Keys::S) && player->GetVelocity().y < 0);
+
+    if (!isMovingX&& !isMovingY) {
+        player->SetVelocity({ 0, 0, player->GetVelocity().z });
         player->change_state(&player->state_idle);
     }
-    else if ((Dimension::Top == player->dimension.GetDimension()) &&
-        ((Engine::GetInput().KeyJustReleased(CS230::Input::Keys::W) && player->GetVelocity().y > 0) ||
-            (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::S) && player->GetVelocity().y < 0)))
-    {
-        player->SetVelocity({ player->GetVelocity().x, 0, player->GetVelocity().z });
-        player->change_state(&player->state_idle);
+    else if (Dimension::Top == player->dimension.GetDimension()) {
+        if (!isMovingY && !isMovingX)
+        {
+            player->SetVelocity({ 0, 0, player->GetVelocity().z });
+            player->change_state(&player->state_idle);
+        }
     }
-    else if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up)&& Dimension::Side == player->dimension.GetDimension())
-    {
+    else if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::W) && Dimension::Side == player->dimension.GetDimension()) {
         player->change_state(&player->state_jumping);
     }
 }
@@ -249,7 +299,6 @@ void Player::State_Interacting::CheckExit(GameObject* object) {
     Player* player = static_cast<Player*>(object);
     //if(seeing paper ended, bool)
     player->change_state(&player->state_idle);
-
 }
 
 

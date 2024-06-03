@@ -4,6 +4,7 @@
 #include "Cube.h"
 #include "Matrix.h"
 #include "GameObjectManager.h"
+#include "Dimension.h"
 namespace Math {
     class TransformationMatrix;
 }
@@ -24,6 +25,7 @@ namespace CS230 {
     private:
         GameObject* object;
         Math::icube boundary;
+        CurrentDimension dimension;
     };
 
     

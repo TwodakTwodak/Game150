@@ -17,15 +17,15 @@ void CS230::CubeCollision::Draw(Math::TransformationMatrix display_matrix) {
     const double render_height = rlGetFramebufferHeight();
 
     Math::cube world_boundary = WorldBoundary();
-    Math::vec3 bottom_left = display_matrix * Math::vec3{ world_boundary.Left(), world_boundary.Bottom(), world_boundary.Low() };
-    Math::vec3 bottom_right = display_matrix * Math::vec3{ world_boundary.Right(), world_boundary.Bottom(), world_boundary.Low() };
-    Math::vec3 top_left = display_matrix * Math::vec3{ world_boundary.Left(), world_boundary.Top(), world_boundary.Low() };
-    Math::vec3 top_right = display_matrix * Math::vec3{ world_boundary.Right(), world_boundary.Top(), world_boundary.Low() };
+    Math::vec3 bottom_left = display_matrix * Math::vec3{ world_boundary.Left(), world_boundary.Bottom(), 0 };
+    Math::vec3 bottom_right = display_matrix * Math::vec3{ world_boundary.Right(), world_boundary.Bottom(), 0 };
+    Math::vec3 top_left = display_matrix * Math::vec3{ world_boundary.Left(), world_boundary.Top(), 0 };
+    Math::vec3 top_right = display_matrix * Math::vec3{ world_boundary.Right(), world_boundary.Top(), 0 };
 
-    Math::vec3 high_left = display_matrix * Math::vec3{ world_boundary.Left(), world_boundary.Top(), world_boundary.High() };
-    Math::vec3 high_right = display_matrix * Math::vec3{ world_boundary.Right(), world_boundary.Top(), world_boundary.High() };
-    Math::vec3 low_left = display_matrix * Math::vec3{ world_boundary.Left(), world_boundary.Bottom(), world_boundary.High() };
-    Math::vec3 low_right = display_matrix * Math::vec3{ world_boundary.Right(), world_boundary.Bottom(), world_boundary.High() };
+    Math::vec3 high_left = display_matrix * Math::vec3{ world_boundary.Left(), world_boundary.High(), 0 };
+    Math::vec3 high_right = display_matrix * Math::vec3{ world_boundary.Right(), world_boundary.High(), 0 };
+    Math::vec3 low_left = display_matrix * Math::vec3{ world_boundary.Left(),world_boundary.Low(), 0 };
+    Math::vec3 low_right = display_matrix * Math::vec3{ world_boundary.Right(), world_boundary.Low(), 0 };
 
 
     bottom_left.y = bottom_left.y * -1 + render_height;
@@ -38,10 +38,23 @@ void CS230::CubeCollision::Draw(Math::TransformationMatrix display_matrix) {
     low_left.y = low_left.y * -1 + render_height;
     low_right.y = low_right.y * -1 + render_height;
 
-    DrawLine(int(top_left.x), int(top_left.y), int(top_right.x), int(top_right.y), WHITE);
-    DrawLine(int(bottom_right.x), int(bottom_right.y), int(top_right.x), int(top_right.y), WHITE);
-    DrawLine(int(bottom_right.x), int(bottom_right.y), int(bottom_left.x), int(bottom_left.y), WHITE);
-    DrawLine(int(top_left.x), int(top_left.y), int(bottom_left.x), int(bottom_left.y), WHITE);
+    if (dimension.GetDimension() != Dimension::Side)
+    {
+        DrawLine(int(top_left.x), int(top_left.y), int(top_right.x), int(top_right.y), WHITE);
+        DrawLine(int(bottom_right.x), int(bottom_right.y), int(top_right.x), int(top_right.y), WHITE);
+        DrawLine(int(bottom_right.x), int(bottom_right.y), int(bottom_left.x), int(bottom_left.y), WHITE);
+        DrawLine(int(top_left.x), int(top_left.y), int(bottom_left.x), int(bottom_left.y), WHITE);
+
+    }
+    else
+    {
+        DrawLine(int(high_left.x), int(high_left.y), int(high_right.x), int(high_right.y), WHITE);
+        DrawLine(int(low_right.x), int(low_right.y), int(high_right.x), int(high_right.y), WHITE);
+        DrawLine(int(low_right.x), int(low_right.y), int(low_left.x), int(low_left.y), WHITE);
+        DrawLine(int(high_left.x), int(high_left.y), int(low_left.x), int(low_left.y), WHITE);
+    }
+
+    
 }
 
 bool CS230::CubeCollision::IsCollidingWith(GameObject* other_object) {

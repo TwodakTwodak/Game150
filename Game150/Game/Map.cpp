@@ -15,8 +15,8 @@ Upadted:    March 14, 2024
 #include "Player.h"
 #include "../Engine/FileIO.h"
 #include "Background.h"
-
-
+#include "Gravity.h"
+#include "Box.h"
 
 
 Map::Map() {
@@ -35,6 +35,10 @@ void Map::Load() {
 
 	Math::icube cameraLimit = { { 0,0, 0 }, { Engine::GetWindow().GetSize().x , Engine::GetWindow().GetSize().y , Engine::GetWindow().GetSize().y}  };
 	GetGSComponent<CS230::Camera>()->SetLimit(cameraLimit);
+
+	AddGSComponent(new Gravity(Map::gravity));
+
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Box({ 600, 500, floor }));
 	
 	/*gameobjectmanager.Add(new Crates({ 200, 400, 400 }));
 	gameobjectmanager.Add(new Crates({ 400, floor, 300 }));

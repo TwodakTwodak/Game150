@@ -44,8 +44,9 @@ private:
 	bool gravi = true;
 	bool key_order[4];
 	double cool_timer;
+    double floor = 200;
 
-	//void move(double dt);
+	void move(double dt);
 
     void update_x_velocity(double dt);
     void update_y_velocity(double dt);

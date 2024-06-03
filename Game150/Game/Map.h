@@ -33,7 +33,7 @@ public:
 
     //In future we could choose gravity for each map!
     static constexpr double gravity = 800;
-    static constexpr double floor = 100;
+    static constexpr double floor = 200;
     static constexpr double timer_max = 30;
     int room = 1;
 
@@ -50,6 +50,7 @@ private:
     Player* player_ptr;
     Math::TransformationMatrix matrix;
     CurrentDimension dimension;
+
 };
 
 //Why don't it work when i change driection of headerfile, why does it work after retyping.

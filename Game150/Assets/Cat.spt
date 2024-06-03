@@ -16,5 +16,5 @@ Anim Assets/CatRunning.anm
 Anim Assets/CatJumping.anm
 Anim Assets/CatFalling.anm
 Anim Assets/CatSkidding.anm
-CubeCollision 31 0 36 64 100 100
+CubeCollision -21 0 16 30 50 65
 
