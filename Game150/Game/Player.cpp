@@ -46,7 +46,7 @@ void Player::Update(double dt) {
     
     Math::cube player_rect = GetGOComponent<CS230::CubeCollision>()->WorldBoundary();
     
-    if (GetPosition().x < Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x - player_rect.Size().x/2) {
+    if (GetPosition().x < Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + player_rect.Size().x / 2) {
         UpdatePosition({ -player_rect.Left(), 0, 0 });
         SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
     }
@@ -54,7 +54,7 @@ void Player::Update(double dt) {
         UpdatePosition({ Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + Engine::GetWindow().GetSize().x - player_rect.Right() , 0, 0 });
         SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
     }
-    if (GetPosition().y< Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y ) {
+    if (GetPosition().y< Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + player_rect.Size().y / 2) {
         UpdatePosition({ 0, -player_rect.Bottom(), 0 });
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
     }
