@@ -10,7 +10,7 @@ Created:    May 3, 2024
 #include "Map.h"
 #include "../Engine/Collision.h"
 #include "Gravity.h"
-
+#include <cmath>
 
 Player::Player(Math::vec3 start_position) :
     GameObject(start_position)
@@ -323,14 +323,48 @@ void Player::ResolveCollision(GameObject* other_object)
                 return;
             }
         }
-        if (player_rect.Left() < other_rect.Left()) {
-            UpdatePosition(Math::vec3{ (other_rect.Left() - player_rect.Right()), 0.0, 0.0 });
-            SetVelocity({ 0, 0, GetVelocity().z });
+        if (dimension.GetDimension() == Dimension::Side)
+        {
+            if (player_rect.Left() < other_rect.Left()) {
+                UpdatePosition(Math::vec3{ (other_rect.Left() - player_rect.Right()), 0.0, 0.0 });
+                SetVelocity({ 0, 0, GetVelocity().z });
+            }
+            else {
+                UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
+                SetVelocity({ 0, 0, GetVelocity().z });
+            }
         }
-        else {
-            UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
-            SetVelocity({ 0, 0, GetVelocity().z });
+        else
+        {
+            //conpare size
+            
+            double left_right=std::min(abs(player_rect.Left() - other_rect.Right()), abs(other_rect.Left() - player_rect.Right()));
+            double top_bottom= std::min(abs(player_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - player_rect.Bottom()));
+            if (left_right< top_bottom)
+            {
+                if (player_rect.Left() < other_rect.Left()) {
+                    UpdatePosition(Math::vec3{ (other_rect.Left() - player_rect.Right()), 0.0, 0.0 });
+                    SetVelocity({ 0, 0, GetVelocity().z });
+                }
+                else {
+                    UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
+                    SetVelocity({ 0, 0, GetVelocity().z });
+                }
+            }
+            else
+            {
+                if (player_rect.Top() < other_rect.Top()) {
+                    UpdatePosition(Math::vec3{ 0.0, (other_rect.Bottom() - player_rect.Top()), 0.0 });
+                    SetVelocity({ 0, 0, GetVelocity().z });
+                }
+                else {
+                    UpdatePosition(Math::vec3{ 0.0,(other_rect.Top() - player_rect.Bottom()), 0.0 });
+                    SetVelocity({ 0, 0, GetVelocity().z });
+                }
+            }
+            
         }
+        
         break;
     case GameObjectTypes::Button:
     {
