@@ -17,7 +17,7 @@ Upadted:    March 14, 2024
 #include "Background.h"
 #include "Gravity.h"
 #include "Box.h"
-
+#include "Wall.h"
 
 Map::Map() {
 }
@@ -26,7 +26,7 @@ void Map::Load() {
 	dimension.SetDimension(Dimension::Side);
 	player_ptr = new Player({ 200, 400, 200 });
 	AddGSComponent(new CS230::GameObjectManager);
-	GetGSComponent<CS230::GameObjectManager>()->Add(player_ptr);
+	
 	AddGSComponent(new CS230::Camera({ { 1.0 * Engine::GetWindow().GetSize().x, 0, 0 }, { 1.0 * Engine::GetWindow().GetSize().x, 0, 0 }}));
 	GetGSComponent<CS230::Camera>()->SetPosition({ 0, 0, 0 });
 
@@ -38,8 +38,16 @@ void Map::Load() {
 
 	AddGSComponent(new Gravity(Map::gravity));
 
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Box({ 600, 500, floor }));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Box({ 1200, 500, floor }));
+
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 700, 550, floor }, 3));
 	
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 0, -50, 0 }, 1));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 0, 900, 0 }, 1));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ -50, 0, 0 }, 2));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 1600, 0, 0 }, 2));
+	
+	GetGSComponent<CS230::GameObjectManager>()->Add(player_ptr);
 	/*gameobjectmanager.Add(new Crates({ 200, 400, 400 }));
 	gameobjectmanager.Add(new Crates({ 400, floor, 300 }));
 	gameobjectmanager.Add(new Crates({ 600, 80, 200 }));*/

@@ -6,6 +6,7 @@ enum class GameObjectTypes {
     Button,
     Switch,
     Portal,
+    Wall,
     Floor,
     Laser
 };

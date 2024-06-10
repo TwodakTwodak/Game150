@@ -133,6 +133,5 @@ private:
     CS230::Timer* hurt_timer;
 
     GameObject* standing_on;
-
-    
+  
 };

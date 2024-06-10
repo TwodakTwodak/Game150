@@ -34,7 +34,7 @@ bool CS230::GameStateManager::HasGameEnded() {
     return status == Status::EXIT;
 }
 void CS230::GameStateManager::ReloadGameState() {
-    status = Status::LOADING;
+    status = Status::UNLOADING;
 }
 
 
