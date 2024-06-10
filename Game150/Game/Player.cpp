@@ -16,10 +16,11 @@ Player::Player(Math::vec3 start_position) :
     GameObject(start_position)
 {
     //AddGOComponent(new CS230::Sprite("Assets/Player.spt", this));
-    AddGOComponent(new CS230::Sprite("Assets/Cat.spt", this));
+    AddGOComponent(new CS230::Sprite("Assets/Player.spt", this));
     change_state(&state_idle);
     current_state->Enter(this);
-    
+    GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Idle));
+
 }
 
 void Player::Update(double dt) {
@@ -129,7 +130,7 @@ void Player::move(double dt)
 
 void Player::State_Jumping::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Idle));
+    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Jumping));
     player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, Player::jump_velocity*0.1 });
     player->standing_on = nullptr;
 }
@@ -151,7 +152,12 @@ void Player::State_Jumping::CheckExit(GameObject* object) {
 
 void Player::State_Idle::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Idle));
+    if (player->dimension.GetDimension() == Dimension::Side) {
+        player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Idle));
+    }
+    else{
+        player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::TopIdle));
+    }
 }
 void Player::State_Idle::Update(GameObject* object, double dt) {
     Player* player = static_cast<Player*>(object);
@@ -186,7 +192,12 @@ void Player::State_Idle::CheckExit(GameObject* object) {
 
 void Player::State_Falling::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Falling));
+    if (player->dimension.GetDimension() == Dimension::Side) {
+        player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Falling));
+    }
+    else {
+        player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::TopFalling));
+    }
 }
 void Player::State_Falling::Update(GameObject* object, double dt) {
     Player* player = static_cast<Player*>(object);
@@ -228,8 +239,12 @@ void Player::State_Walking::Enter(GameObject* object) {
     {
         player->SetScale({ -player->GetScale().x, player->GetScale().y });
     }
-
-    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Walking));
+    if (player->dimension.GetDimension() == Dimension::Side) {
+        player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Walking));
+    }
+    else {
+        player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::TopWalking));
+    }
 }
 void Player::State_Walking::Update(GameObject* object, double dt) {
     Player* player = static_cast<Player*>(object);
@@ -269,7 +284,7 @@ void Player::State_Walking::CheckExit(GameObject* object) {
 }
 void Player::State_Dashing::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Dashing));
+    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::TopDashing));
     player->SetVelocity({ dash_velocity, player->GetVelocity().y, player->GetVelocity().z });
 }
 void Player::State_Dashing::Update(GameObject* object, double dt) {
@@ -295,7 +310,7 @@ void Player::State_Dashing::CheckExit(GameObject* object) {
 
 void Player::State_Interacting::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Dashing));
+    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Idle));
     player->SetVelocity({ dash_velocity, player->GetVelocity().y, player->GetVelocity().z });
 }
 void Player::State_Interacting::Update(GameObject* object, double dt) {
