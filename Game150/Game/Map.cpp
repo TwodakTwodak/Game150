@@ -40,13 +40,15 @@ void Map::Load() {
 
 	GetGSComponent<CS230::GameObjectManager>()->Add(new Box({ 1200, 500, floor }));
 
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 700, 550, floor }, 3));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 700, 550, floor }, 0));
 	
 	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 0, -50, 0 }, 1));
 	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 0, 900, 0 }, 1));
 	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ -50, 0, 0 }, 2));
 	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 1600, 0, 0 }, 2));
 	
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 0, 0, 0 }, 3));
+
 	GetGSComponent<CS230::GameObjectManager>()->Add(player_ptr);
 	/*gameobjectmanager.Add(new Crates({ 200, 400, 400 }));
 	gameobjectmanager.Add(new Crates({ 400, floor, 300 }));

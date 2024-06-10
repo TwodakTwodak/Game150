@@ -13,6 +13,11 @@ Wall::Wall(Math::vec3 position, int size) : CS230::GameObject(position) {
         AddGOComponent(new CS230::Sprite("Assets/outskirts2.spt", this));
         break;
     }
+    case 3:
+    {
+        AddGOComponent(new CS230::Sprite("Assets/outskirts3.spt", this));
+        break;
+    }
     default:
     {
         AddGOComponent(new CS230::Sprite("Assets/Wall.spt", this));
