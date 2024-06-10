@@ -198,24 +198,20 @@ void Player::State_Falling::CheckExit(GameObject* object) {
     //later, make floor and make collsion to get out of this state
     if (player->standing_on != nullptr)
     {
-        if (player->GetPosition().z < player->floor)
-        {
+        player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, 0 });
+        //player->SetPosition({ player->GetPosition().x, player->GetPosition().y, player->floor });
+        if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
+            player->change_state(&player->state_running);
             player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, 0 });
-            //player->SetPosition({ player->GetPosition().x, player->GetPosition().y, player->floor });
-            if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
-                player->change_state(&player->state_running);
-                player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, 0 });
-            }
-            else if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
-                player->change_state(&player->state_running);
-                player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, 0 });
-            }
-            else
-            {
-                player->change_state(&player->state_idle);
-                player->SetVelocity({ 0, player->GetVelocity().y, 0 });
-            }
-
+        }
+        else if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
+            player->change_state(&player->state_running);
+            player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, 0 });
+        }
+        else
+        {
+            player->change_state(&player->state_idle);
+            player->SetVelocity({ 0, player->GetVelocity().y, 0 });
         }
     }
     
@@ -266,6 +262,10 @@ void Player::State_Walking::CheckExit(GameObject* object) {
         player->change_state(&player->state_jumping);
     }
 
+    if (player->standing_on != nullptr && !player->standing_on->IsCollidingWith(player)) {
+        player->standing_on = nullptr;
+        player->change_state(&player->state_falling);
+    }
 }
 void Player::State_Dashing::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
@@ -324,8 +324,8 @@ void Player::ResolveCollision(GameObject* other_object)
 
         if (current_state == &state_falling) {
             if (player_rect.High() > other_rect.High()) {
-                SetPosition({ GetPosition().x, GetPosition().y, other_rect.High() });
                 standing_on = other_object;
+                SetPosition({ GetPosition().x, GetPosition().y, other_rect.High() });
                 current_state->CheckExit(this);
                 return;
             }
