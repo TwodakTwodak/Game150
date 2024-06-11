@@ -6,7 +6,7 @@ Box::Box(Math::vec3 position) : CS230::GameObject(position) {
 
 void Box::Update(double dt) {
     GameObject::Update(dt);
-    /*
+    
     Math::cube box_cube = GetGOComponent<CS230::CubeCollision>()->WorldBoundary();
 
     if (GetPosition().x < Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + box_cube.Size().x / 2) {
@@ -24,7 +24,7 @@ void Box::Update(double dt) {
     if (GetPosition().y + box_cube.Size().y / 2 > Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + Engine::GetWindow().GetSize().y) {
         UpdatePosition({ 0 , Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().y + Engine::GetWindow().GetSize().y - box_cube.Top(), 0 });
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
-    }*/
+    }
 }
 void Box::ResolveCollision(GameObject* other_object) 
 {

@@ -213,11 +213,13 @@ void Player::State_Falling::CheckExit(GameObject* object) {
         //player->SetPosition({ player->GetPosition().x, player->GetPosition().y, player->floor });
         if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
             player->change_state(&player->state_running);
-            player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, 0 });
+            player->SetVelocity({ 0, 0, player->GetVelocity().z });
+            //player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, player->floor });
         }
         else if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
             player->change_state(&player->state_running);
-            player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, 0 });
+            player->SetVelocity({ 0,0,  player->GetVelocity().z });
+            //player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, -1 });
         }
         else
         {

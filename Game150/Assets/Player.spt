@@ -1,5 +1,5 @@
 Assets/Player.png
-FrameSize 192 192
+FrameSize 192 150
 HotSpot 0 0 0
 Frame 0 0
 Frame 192 0
@@ -33,4 +33,4 @@ Anim Assets/Top_Idle.anm
 Anim Assets/Top_Walking.anm
 Anim Assets/Top_Falling.anm
 Anim Assets/Top_Dashing.anm
-CubeCollision 101 50 36 64 100 100
+CubeCollision 70 35 1 120 85 125  

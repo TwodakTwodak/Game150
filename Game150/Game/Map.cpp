@@ -24,7 +24,7 @@ Map::Map() {
 
 void Map::Load() {
 	dimension.SetDimension(Dimension::Side);
-	player_ptr = new Player({ 200, 400, 200 });
+	player_ptr = new Player({ 200, 400, floor });
 	AddGSComponent(new CS230::GameObjectManager);
 	
 	AddGSComponent(new CS230::Camera({ { 1.0 * Engine::GetWindow().GetSize().x, 0, 0 }, { 1.0 * Engine::GetWindow().GetSize().x, 0, 0 }}));
