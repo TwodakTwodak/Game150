@@ -11,3 +11,13 @@ public:
 private:
 	CurrentDimension dimension;
 };
+
+class Floor : public CS230::GameObject {
+public:
+	Floor(Math::vec3 position);
+	GameObjectTypes Type() override { return GameObjectTypes::Floor; }
+	std::string TypeName() override { return "Floor"; }
+	virtual void ResolveCollision(GameObject* other_object) override;
+private:
+	CurrentDimension dimension;
+};

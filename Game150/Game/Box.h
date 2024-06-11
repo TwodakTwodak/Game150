@@ -10,6 +10,7 @@ public:
 	virtual void ResolveCollision(GameObject* other_object) override;
 	virtual void Update(double dt) override;
 	bool WallCheck();
+	bool CanCollideWith(GameObjectTypes);
 private:
 	CurrentDimension dimension;
 	bool near_wall = false;

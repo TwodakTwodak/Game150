@@ -18,6 +18,13 @@ Upadted:    March 14, 2024
 #include "Gravity.h"
 #include "Box.h"
 #include "Wall.h"
+#include "Portal.h"
+#include "Exit.h"
+#include "Switch.h"
+#include "Button.h"
+
+std::vector<PortalLocation> portal_location1;
+std::vector<PortalLocation> portal_location2;
 
 Map::Map() {
 }
@@ -42,14 +49,29 @@ void Map::Load() {
 
 	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 700, 550, floor }, 0));
 	
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 0, -50, 0 }, 1));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 0, -200, 0 }, 1));
 	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 0, 900, 0 }, 1));
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ -50, 0, 0 }, 2));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ -200, 0, 0 }, 2));
 	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 1600, 0, 0 }, 2));
 	
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 0, 0, 0 }, 3));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Floor({ 0, 0, 0 }));
 
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Button({ 700, 100, 200 }));
+	button_num++;
+
+	
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Portal1({ 100, 100, 200 }, portal_num));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Portal2({ 1400, 100, 200 }, portal_num));
+	pl.SetLocation({ 100, 100, 200 });
+	pl.SetNum(portal_num);
+	portal_location1.push_back(pl);
+	pl.SetLocation({ 1400, 100, 200 });
+	portal_location2.push_back(pl);
+	portal_num++;
+	
 	GetGSComponent<CS230::GameObjectManager>()->Add(player_ptr);
+
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Exit(static_cast<int>(States::MainMenu), Math::icube{ { 1300, 50, 50 }, { 1600, 800, 800 } }));
 	/*gameobjectmanager.Add(new Crates({ 200, 400, 400 }));
 	gameobjectmanager.Add(new Crates({ 400, floor, 300 }));
 	gameobjectmanager.Add(new Crates({ 600, 80, 200 }));*/
@@ -100,6 +122,9 @@ void Map::Load() {
 
 	gameobjectmanager.Reorder(gameobjectmanager.main_view);
 	*/
+
+	on_exit = false;
+
 }
 
 void Map::Update([[maybe_unused]] double dt) {
@@ -163,6 +188,15 @@ void Map::Update([[maybe_unused]] double dt) {
 		GetGSComponent<CS230::GameObjectManager>()->Unload();
 		Engine::GetGameStateManager().ReloadGameState();
 	}
+	collsion_num = GetGSComponent<CS230::GameObjectManager>()->BoxCollisionTest();
+	if (on_exit && collsion_num==button_num)
+	{
+		room++;
+	}
+	
+
+	//fix it with next room's starting position
+	
 }
 
 void Map::Draw() {
@@ -179,4 +213,25 @@ void Map::Unload() {
 	ClearGSComponents();
 	//background = nullptr;
 	player_ptr = nullptr;
+	button_num = 0;
+	portal_num = 0;
+}
+
+void Map::ExitCheck()
+{
+	on_exit = true;
+}
+
+void Map::BoxCollisionNum(int value)
+{
+	collsion_num = value;
+}
+
+std::vector<PortalLocation> Map::GivePortal1()
+{
+	return portal_location1; 
+}
+std::vector<PortalLocation> Map::GivePortal2()
+{
+	return portal_location2; 
 }

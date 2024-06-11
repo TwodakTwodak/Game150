@@ -133,5 +133,7 @@ private:
     CS230::Timer* hurt_timer;
 
     GameObject* standing_on;
-  
+    
+    bool portal_available;
+    bool is_portal_available;
 };

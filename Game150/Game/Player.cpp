@@ -10,6 +10,8 @@ Created:    May 3, 2024
 #include "Map.h"
 #include "../Engine/Collision.h"
 #include "Gravity.h"
+#include "Exit.h"
+#include "Portal.h"
 #include <cmath>
 
 Player::Player(Math::vec3 start_position) :
@@ -19,7 +21,7 @@ Player::Player(Math::vec3 start_position) :
     AddGOComponent(new CS230::Sprite("Assets/Cat.spt", this));
     change_state(&state_idle);
     current_state->Enter(this);
-    
+    portal_available = true;
 }
 
 void Player::Update(double dt) {
@@ -314,6 +316,7 @@ bool Player::CanCollideWith(GameObjectTypes) {
 }
 void Player::ResolveCollision(GameObject* other_object)
 {
+    is_portal_available = true;
     Math::cube player_rect = GetGOComponent<CS230::CubeCollision>()->WorldBoundary();
     Math::cube other_rect = other_object->GetGOComponent<CS230::CubeCollision>()->WorldBoundary();
     switch (other_object->Type())
@@ -424,8 +427,34 @@ void Player::ResolveCollision(GameObject* other_object)
     {
         break;
     }
-    case GameObjectTypes::Portal:
+    case GameObjectTypes::Exit:
     {
+        Engine::GetGameStateManager().GetGSComponent<Map>()->ExitCheck();
+        break;
+    }
+    case GameObjectTypes::Portal1:
+    {
+        is_portal_available = false;
+        if (portal_available)
+        {
+            portal_available = false;
+            //static_cast<Portal1*>(other_object)->PortalNumber();
+            
+            SetPosition(Engine::GetGameStateManager().GetGSComponent<Map>()->GivePortal2()[static_cast<Portal1*>(other_object)->PortalNumber()].GetLocation());
+        }
+        //static_cast<Portal*>(other_object)->GoToState();
+        break;
+    }
+    case GameObjectTypes::Portal2:
+    {
+        is_portal_available = false;
+        if (portal_available)
+        {
+            portal_available = false;
+            //static_cast<Portal1*>(other_object)->PortalNumber();
+
+            SetPosition(Engine::GetGameStateManager().GetGSComponent<Map>()->GivePortal1()[static_cast<Portal1*>(other_object)->PortalNumber()].GetLocation());
+        }
         //static_cast<Portal*>(other_object)->GoToState();
         break;
     }
@@ -441,6 +470,11 @@ void Player::ResolveCollision(GameObject* other_object)
         }
         break;
     }
+    }
+
+    if (is_portal_available)
+    {
+        portal_available = true;
     }
 }
 /*

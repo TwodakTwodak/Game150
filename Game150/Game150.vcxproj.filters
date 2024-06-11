@@ -91,6 +91,18 @@
     <ClCompile Include="Game\Wall.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Game\Portal.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Button.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Switch.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Exit.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Animation.h">
@@ -196,6 +208,18 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Wall.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Portal.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Button.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Switch.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Exit.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>
