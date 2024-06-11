@@ -1,13 +1,20 @@
 #include "Box.h"
 #include "../Engine/Collision.h"
 Box::Box(Math::vec3 position) : CS230::GameObject(position) {
-    AddGOComponent(new CS230::Sprite("Assets/Box.spt", this));
+    AddGOComponent(new CS230::Sprite("Assets/Locked_Wall.spt", this));
 }
 
 void Box::Update(double dt) {
     GameObject::Update(dt);
     
     Math::cube box_cube = GetGOComponent<CS230::CubeCollision>()->WorldBoundary();
+
+    if (dimension.GetDimension() == Dimension::Side) {
+        GetGOComponent<CS230::Sprite>()->PlayAnimation(0);
+    }
+    else {
+        GetGOComponent<CS230::Sprite>()->PlayAnimation(1);
+    }
 
     if (GetPosition().x < Engine::GetGameStateManager().GetGSComponent<CS230::Camera>()->GetPosition().x + box_cube.Size().x / 2) {
         UpdatePosition({ -box_cube.Left(), 0, 0 });

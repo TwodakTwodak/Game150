@@ -1,0 +1,7 @@
+Assets/Exit.png
+HotSpot 0 0 0
+FrameSize 192 192
+NumFrames 2
+CubeCollision 86 62 16 106 130 176
+Anim Assets/Side_Exit.anm
+Anim Assets/Top_Exit.anm

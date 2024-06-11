@@ -1,2 +1,7 @@
 Assets/Button.png
-HotSpot 0 0
+HotSpot 0 0 0
+FrameSize 192 192
+NumFrames 2
+CubeCollision 64 64 64 128 128 128
+Anim Assets/Side_Button.anm
+Anim Assets/Top_Button.anm

@@ -1,0 +1,7 @@
+Assets/Vertic_Platform.png
+HotSpot 0 0 0
+FrameSize 192 192
+NumFrames 2
+CubeCollision 64 64 16 128 128 176
+Anim Assets/Side_Vertic_Platform.anm
+Anim Assets/Top_Vertic_Platform.anm

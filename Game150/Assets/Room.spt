@@ -1,0 +1,7 @@
+Assets/Room.png
+HotSpot 0 0 0
+FrameSize 723 330
+NumFrames 2
+CubeCollision 0 0 0 723 330 44
+Anim Assets/Side_Room.anm
+Anim Assets/Top_Room.anm

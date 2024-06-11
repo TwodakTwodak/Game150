@@ -38,7 +38,7 @@ void Map::Load() {
 
 	AddGSComponent(new Gravity(Map::gravity));
 
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Box({ 1200, 500, floor }));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Box({ 1200, 100, floor }));
 
 	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 700, 550, floor }, 0));
 	
