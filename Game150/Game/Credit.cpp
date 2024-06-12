@@ -1,12 +1,18 @@
 #include "Credit.h"
 #include "../Engine/Engine.h"
-
-Credit::Credit()
+#include "raylib.h" 
+Credit::Credit() : backgroundMusic{}
 {
+    States currentState = static_cast<States>(Engine::GetGameStateManager().GetCurrentGameState());
+    if (currentState == States::Credit) {
+        InitAudioDevice();
+    }
 }
 
 void Credit::Load()
 {
+    backgroundMusic = LoadMusicStream("Assets/B.mp3");
+    PlayMusicStream(backgroundMusic);
     goup = 0;
     textures.push_back(Engine::GetTextureManager().Load("Assets/EndingCredit/Slide1.png"));
     textures.push_back(Engine::GetTextureManager().Load("Assets/EndingCredit/Slide2.png"));
@@ -17,6 +23,8 @@ void Credit::Load()
 
 void Credit::Unload()
 {
+    UnloadMusicStream(backgroundMusic);
+  
     textures.clear();
 }
 
@@ -32,6 +40,7 @@ void Credit::Update(double dt)
     if (goup >= 4700) {
         Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
     }
+    UpdateMusicStream(backgroundMusic);
 }
 
 void Credit::Draw()

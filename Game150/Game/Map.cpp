@@ -226,10 +226,7 @@ void Map::Update([[maybe_unused]] double dt) {
 	std::cout << switch_num << ", " << switch_pressed << std::endl;
 	std::cout << collsion_num << ", " << button_num << std::endl;
 	std::cout << room << std::endl;
-	//fix it with next room's starting position
-	// 현재 상태 가져오기
-	
-		// 배경 음악 업데이트
+
 		UpdateMusicStream(backgroundMusic);
 	
 
@@ -254,7 +251,7 @@ void Map::Unload() {
 	button_num = 0;
 	portal_num = 0;
 	UnloadMusicStream(backgroundMusic);
-	CloseAudioDevice();
+	
 
 }
 

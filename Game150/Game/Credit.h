@@ -2,6 +2,7 @@
 
 #include "../Engine/GameState.h"
 #include "../Engine/Texture.h"
+#include "raylib.h" 
 class Credit : public CS230::GameState {
 public:
     Credit();
@@ -16,4 +17,5 @@ public:
 private:
     double goup = 0;
     std::vector<CS230::Texture*> textures;
+    Music backgroundMusic;
 };
