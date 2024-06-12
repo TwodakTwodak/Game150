@@ -41,7 +41,8 @@ namespace CS230 {
         double GetRotation() const;
 
         void SetPosition(Math::vec3 new_position);
-
+        void UpdatePosition(Math::vec3 delta);
+        void SetVelocity(Math::vec3 new_velocity);
         template<typename T>
         T* GetGOComponent() {
             return componentmanager.GetComponent<T>();
@@ -51,8 +52,8 @@ namespace CS230 {
 
     protected:
         //void SetPosition(Math::vec2 new_position);
-        void UpdatePosition(Math::vec3 delta);
-        void SetVelocity(Math::vec3 new_velocity);
+        
+        
         void UpdateVelocity(Math::vec3 delta);
         void SetScale(Math::vec2 new_scale);
         void UpdateScale(Math::vec2 delta);

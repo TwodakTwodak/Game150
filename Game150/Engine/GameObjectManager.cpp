@@ -46,40 +46,42 @@ void CS230::GameObjectManager::CollisionTest() {
 			if (object_1 != object_2 && object_1->CanCollideWith(object_2->Type())) {
 				if (object_1->IsCollidingWith(object_2)) {
 					Engine::GetLogger().LogEvent("Collision Detected: " + object_1->TypeName() + " and " + object_2->TypeName());
-					
-					if ((object_1->Type() == GameObjectTypes::Wall&& object_2->Type() == GameObjectTypes::Box)
-						|| (object_2->Type() == GameObjectTypes::Wall && object_1->Type() == GameObjectTypes::Box)						)
-					{
+
+					if ((object_1->Type() == GameObjectTypes::Wall && object_2->Type() == GameObjectTypes::Box) ||
+						(object_2->Type() == GameObjectTypes::Wall && object_1->Type() == GameObjectTypes::Box)) {
 						box_wall = true;
-					}
-					else if(object_1->Type() == GameObjectTypes::Player&& object_2->Type() == GameObjectTypes::Box)
-					{
-						if (box_wall)
-						{
-							object_1->ResolveCollision(object_2);
-							object_2->ResolveCollision(object_1);
+
+						if (object_1->Type() == GameObjectTypes::Box) {
+							object_1->ResolveCollision(object_2); 
 						}
-						else
-						{
-							object_2->ResolveCollision(object_1);
+						else {
+							object_2->ResolveCollision(object_1); 
 						}
 					}
-					else if (object_2->Type() == GameObjectTypes::Player&& object_1->Type() == GameObjectTypes::Box)
-					{
-						if (box_wall)
-						{
-							object_2->ResolveCollision(object_1);
-							object_1->ResolveCollision(object_2);
+					else if (object_1->Type() == GameObjectTypes::Player && object_2->Type() == GameObjectTypes::Box) {
+						if (!box_wall) {
+							object_2->ResolveCollision(object_1); 
 						}
-						else
-						{
-							object_1->ResolveCollision(object_2);
+						else {
+							object_1->ResolveCollision(object_2); 
 						}
 					}
-					else
-					{
-						object_1->ResolveCollision(object_2);
+					else if (object_2->Type() == GameObjectTypes::Player && object_1->Type() == GameObjectTypes::Box) {
+						if (!box_wall) {
+							object_1->ResolveCollision(object_2); 
+						}
+						else {
+							object_2->ResolveCollision(object_1); 
+						}
 					}
+					else {
+						object_1->ResolveCollision(object_2); 
+					}
+
+					if (object_1->Type() == GameObjectTypes::Box || object_2->Type() == GameObjectTypes::Box) {
+						box_wall = false;
+					}
+
 				}
 			}
 		}

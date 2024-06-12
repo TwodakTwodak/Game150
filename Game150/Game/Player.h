@@ -160,4 +160,7 @@ private:
     bool portal_available;
     bool is_portal_available;
     
+    static constexpr double trampoline_velocity = 650;
+    bool on_trampoline = false;
+    bool not_did = true;
 };

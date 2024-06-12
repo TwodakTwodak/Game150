@@ -51,6 +51,7 @@
     <ClCompile Include="Game\Portal.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
     <ClCompile Include="Game\Lever.cpp" />
+    <ClCompile Include="Game\Trampoline.cpp" />
     <ClCompile Include="Game\Wall.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -95,6 +96,7 @@
     <ClInclude Include="Game\Splash.h" />
     <ClInclude Include="Game\States.h" />
     <ClInclude Include="Game\Lever.h" />
+    <ClInclude Include="Game\Trampoline.h" />
     <ClInclude Include="Game\Wall.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

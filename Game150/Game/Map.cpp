@@ -22,6 +22,7 @@ Upadted:    March 14, 2024
 #include "Exit.h"
 #include "Lever.h"
 #include "Button.h"
+#include "Trampoline.h"
 
 std::vector<PortalLocation> portal_location1;
 std::vector<PortalLocation> portal_location2;
@@ -54,7 +55,7 @@ void Map::Load() {
 
 	AddGSComponent(new Gravity(Map::gravity));
 
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Box({ 1200, 500, floor }));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Box({ 100, 100, floor }));
 
 	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 700, 550, floor }));
 	
@@ -85,6 +86,9 @@ void Map::Load() {
 	switch_num++;
 
 	GetGSComponent<CS230::GameObjectManager>()->Add(new Exit({ 1400, 500, 200 }));
+
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Trampoline({ 1000, 100, 100 }));
+	
 	//GetGSComponent<CS230::GameObjectManager>()->Add(new Exit(static_cast<int>(States::MainMenu), Math::icube{ { 1300, 50, 50 }, { 1600, 800, 800 } }));
 	/*gameobjectmanager.Add(new Crates({ 200, 400, 400 }));
 	gameobjectmanager.Add(new Crates({ 400, floor, 300 }));

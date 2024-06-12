@@ -7,7 +7,6 @@ public:
 	Wall(Math::vec3 position);
 	GameObjectTypes Type() override { return GameObjectTypes::Wall; }
 	std::string TypeName() override { return "Wall"; }
-	virtual void ResolveCollision(GameObject* other_object) override;
 private:
 	CurrentDimension dimension;
 	enum class Animations {

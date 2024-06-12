@@ -14,6 +14,7 @@ Created:    May 3, 2024
 #include "Portal.h"
 #include <cmath>
 #include "Lever.h"
+#include "Trampoline.h"
 
 bool state = false;
 Player::Player(Math::vec3 start_position) :
@@ -197,7 +198,15 @@ void Player::State_Idle_Top::CheckExit(GameObject* object) {
 void Player::State_Jumping::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
     player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Jumping));
-    player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, Player::jump_velocity * 0.1 });
+    if (!player->on_trampoline)
+    {
+        player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, Player::jump_velocity * 0.1 });
+    }
+    else
+    {
+        player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, Player::trampoline_velocity * 0.1 });
+        player->not_did = false;
+    }
     player->standing_on = nullptr;
 }
 void Player::State_Jumping::Update(GameObject* object, double dt) {
@@ -252,6 +261,13 @@ void Player::State_Falling::CheckExit(GameObject* object) {
             player->change_state(&player->state_idle);
             player->SetVelocity({ 0, 0, player->GetVelocity().z });
         }
+        if (player->on_trampoline && player->not_did) {
+            player->change_state(&player->state_jumping);
+        }
+        else
+        {
+            player->on_trampoline = false;
+        }
     }
 }
 
@@ -275,6 +291,7 @@ void Player::State_Falling_Top::CheckExit(GameObject* object) {
     if (player->standing_on != nullptr)
     {
         //player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, 0 });
+        
         if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
             player->change_state(&player->state_walking_top);
             player->SetVelocity({ 0, 0, 0 });
@@ -296,6 +313,15 @@ void Player::State_Falling_Top::CheckExit(GameObject* object) {
             player->change_state(&player->state_idle_top);
             player->SetVelocity({ 0, 0, 0 });
         }
+        
+        if (player->on_trampoline&& player->not_did) {
+            player->change_state(&player->state_jumping);
+        }
+        else
+        {
+            player->on_trampoline = false;
+        }
+        
     }
 }
 
@@ -494,11 +520,11 @@ void Player::ResolveCollision(GameObject* other_object)
         {
             if (player_rect.Left() < other_rect.Left()) {
                 UpdatePosition(Math::vec3{ (other_rect.Left() - player_rect.Right()), 0.0, 0.0 });
-                SetVelocity({ 0, 0, GetVelocity().z });
+                SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
             }
             else {
-                UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
-                SetVelocity({ 0, 0, GetVelocity().z });
+                UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0,0.0 });
+                SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
             }
         }
         else
@@ -630,11 +656,20 @@ void Player::ResolveCollision(GameObject* other_object)
     }
     case GameObjectTypes::Lever:
     {
-        
         if (!static_cast<Lever*>(other_object)->HasBeenPressed())
         {
             static_cast<Lever*>(other_object)->Pressed();
             Engine::GetGameStateManager().GetGSComponent<Map>()->SwitchNumIncrease();
+        }
+        break;
+    }
+    case GameObjectTypes::Trampoline:
+    {
+        if (current_state == &state_falling || current_state == &state_falling_top) {
+            on_trampoline = true;
+            not_did = true;
+            current_state->CheckExit(this);
+            return;
         }
         break;
     }
