@@ -2,12 +2,18 @@
 #include "States.h"
 #include "MainMenu.h"
 #include "../Engine/Sprite.h"
+#include "raylib.h" 
 
-MainMenu::MainMenu() {
+MainMenu::MainMenu() : backgroundMusic1{} {
+    InitAudioDevice();
 }
 
 void MainMenu::Load()
 {
+    backgroundMusic1 = LoadMusicStream("Assets/A.mp3");
+   PlayMusicStream(backgroundMusic1);
+
+
     index = 0;
     counter = 0;
     space = 0;
@@ -54,12 +60,18 @@ void MainMenu::Update([[maybe_unused]] double dt) {
     }
     //seems picture is staying at left 0,0
     //Able to make shake picture!
+
+    UpdateMusicStream(backgroundMusic1);
+
 }
 
 void MainMenu::Unload()
 {
     texture = nullptr;
     select = nullptr;
+   UnloadMusicStream(backgroundMusic1);
+
+
 }
 
 

@@ -136,7 +136,7 @@ void Player::move(double dt)
 
 void Player::State_Jumping::Enter(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Idle));
+    player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Jumping));
     player->SetVelocity({ player->GetVelocity().x, player->GetVelocity().y, Player::jump_velocity*0.1 });
     player->standing_on = nullptr;
 }

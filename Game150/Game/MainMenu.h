@@ -1,6 +1,7 @@
 #pragma once
 #include "../Engine/GameStateManager.h"
 #include "../Engine/GameObjectManager.h"
+#include "raylib.h" 
 
 class MainMenu : public CS230::GameState {
 public:
@@ -20,4 +21,6 @@ private:
     CS230::Texture* texture;
     CS230::Texture* select;
     CS230::Texture* arrow;
+    Music backgroundMusic1;
+
 };

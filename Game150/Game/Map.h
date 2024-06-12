@@ -9,7 +9,7 @@ Created:    May 3, 2024
 */
 
 #pragma once
-
+#include "../Engine/Engine.h"
 #include "../Engine/GameState.h"
 #include "../Engine/GameObjectManager.h"
 #include "../Engine/Camera.h"
@@ -18,8 +18,10 @@ Created:    May 3, 2024
 #include "../Engine/Camera.h"
 #include "Player.h"
 #include "../Engine/Dimension.h"
+#include "../Engine/GameStateManager.h"
 #include <vector>
 #include "../Engine/Vec3.h"
+#include "raylib.h" 
 
 struct PortalLocation {
 public:
@@ -78,6 +80,7 @@ private:
     int switch_num = 0;
 
     bool room_moving_available = true;
+    Music backgroundMusic;
 };
 
 //Why don't it work when i change driection of headerfile, why does it work after retyping.
