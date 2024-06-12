@@ -66,6 +66,7 @@ Outskirts::Outskirts(Math::vec3 position, int size) : CS230::GameObject(position
     }
 }
 
+
 void Outskirts::ResolveCollision(GameObject* other_object)
 {
     Math::cube wall_rect = GetGOComponent<CS230::CubeCollision>()->WorldBoundary();

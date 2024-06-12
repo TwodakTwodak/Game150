@@ -22,6 +22,7 @@ public:
 	GameObjectTypes Type() override { return GameObjectTypes::Outskirts; }
 	std::string TypeName() override { return "Outskirts"; }
 	virtual void ResolveCollision(GameObject* other_object) override;
+
 private:
 	CurrentDimension dimension;
 };

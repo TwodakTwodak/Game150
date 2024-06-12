@@ -1,5 +1,7 @@
 #pragma once
 #include "../Engine/GameStateManager.h"
+#include "../Engine/GameObjectManager.h"
+
 class MainMenu : public CS230::GameState {
 public:
     MainMenu();
@@ -13,5 +15,9 @@ public:
     }
 private:
     double counter = 0;
+    int index;
+    double space;
     CS230::Texture* texture;
+    CS230::Texture* select;
+    CS230::Texture* arrow;
 };

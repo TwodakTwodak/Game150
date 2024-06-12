@@ -57,7 +57,7 @@ void CS230::GameObjectManager::CollisionTest() {
 						if (box_wall)
 						{
 							object_1->ResolveCollision(object_2);
-							object_2->ResolveCollision(object_1);
+							//object_2->ResolveCollision(object_1);
 						}
 						else
 						{
@@ -69,7 +69,7 @@ void CS230::GameObjectManager::CollisionTest() {
 						if (box_wall)
 						{
 							object_2->ResolveCollision(object_1);
-							object_1->ResolveCollision(object_2);
+							//object_1->ResolveCollision(object_2);
 						}
 						else
 						{
