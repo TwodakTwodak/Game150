@@ -23,6 +23,7 @@ Upadted:    March 14, 2024
 #include "Lever.h"
 #include "Button.h"
 #include "Trampoline.h"
+#include "Room.h"
 #include "raylib.h" 
 
 std::vector<PortalLocation> portal_location1;
@@ -46,6 +47,7 @@ void Map::Load() {
 	switch_num = 0;
 	portal_num = 0;
 	button_num = 0;
+	room_num = 0;
 	dimension.SetDimension(Dimension::Side);
 	player_ptr = new Player({ 200, 400, 200 });
 	AddGSComponent(new CS230::GameObjectManager);
@@ -114,10 +116,12 @@ void Map::Load() {
 				if (GetType(load_object_number) == "button")//check type
 				{
 					GetGSComponent<CS230::GameObjectManager>()->Add(new Button(GetPosition(load_object_number)));
+					button_num++;
 				}
 				if (GetType(load_object_number) == "lever")//check type
 				{
 					GetGSComponent<CS230::GameObjectManager>()->Add(new Lever(GetPosition(load_object_number)));
+					switch_num++;
 				}
 				if (GetType(load_object_number) == "wall")//check type
 				{
@@ -131,10 +135,29 @@ void Map::Load() {
 				{
 					GetGSComponent<CS230::GameObjectManager>()->Add(new Trampoline(GetPosition(load_object_number)));
 				}
-				//if (GetType(load_object_number) == "portal")//check type
-				//{
-				//	GetGSComponent<CS230::GameObjectManager>()->Add(new Portal1(GetPosition(load_object_number)));
-				//}
+				if (GetType(load_object_number) == "exit")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Exit(GetPosition(load_object_number)));
+				}
+				if (GetType(load_object_number) == "portal1")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Portal1(GetPosition(load_object_number), portal_num));
+					pl.SetLocation(GetPosition(load_object_number));
+					pl.SetNum(portal_num);
+					portal_location1.push_back(pl);
+				}
+				if (GetType(load_object_number) == "portal2")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Portal2(GetPosition(load_object_number), portal_num));
+					pl.SetLocation(GetPosition(load_object_number));
+					portal_location2.push_back(pl);
+					++portal_num;
+				}				
+				if (GetType(load_object_number) == "room")//check type
+				{
+					room_num++;
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Room(GetPosition(load_object_number), room_num));
+				}
 			}
 			load_object_number++;
 		}
@@ -151,8 +174,52 @@ void Map::Load() {
 			{
 				if (GetType(temp_load_object_number) == "box")//check type
 				{
-					GetGSComponent<CS230::GameObjectManager>()->Add(new Box(GetPosition(load_object_number)));
-					//gameobjectmanager.box_length.y += 1;
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Box(GetPosition(temp_load_object_number)));
+				}
+				if (GetType(temp_load_object_number) == "button")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Button(GetPosition(temp_load_object_number)));
+					button_num++;
+				}
+				if (GetType(temp_load_object_number) == "lever")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Lever(GetPosition(temp_load_object_number)));
+					switch_num++;
+				}
+				if (GetType(temp_load_object_number) == "wall")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Wall(GetPosition(temp_load_object_number)));
+				}
+				if (GetType(temp_load_object_number) == "floor")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Floor(GetPosition(temp_load_object_number)));
+				}
+				if (GetType(temp_load_object_number) == "trampoline")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Trampoline(GetPosition(temp_load_object_number)));
+				}
+				if (GetType(temp_load_object_number) == "exit")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Exit(GetPosition(temp_load_object_number)));
+				}
+				if (GetType(temp_load_object_number) == "portal1")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Portal1(GetPosition(temp_load_object_number), portal_num));
+					pl.SetLocation(GetPosition(temp_load_object_number));
+					pl.SetNum(portal_num);
+					portal_location1.push_back(pl);
+				}
+				if (GetType(temp_load_object_number) == "portal2")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Portal2(GetPosition(temp_load_object_number), portal_num));
+					pl.SetLocation(GetPosition(temp_load_object_number));
+					portal_location2.push_back(pl);
+					++portal_num;
+				}
+				if (GetType(temp_load_object_number) == "room")//check type
+				{
+					room_num++;
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Room(GetPosition(temp_load_object_number), room_num));
 				}
 			}
 			temp_load_object_number++;

@@ -25,6 +25,10 @@ Frame 768 576
 Frame 0 768
 Frame 192 768
 Frame 384 768
+Frame 0 768
+Frame 192 960
+Frame 384 960
+Frame 576 960
 Anim Assets/Side_Idle.anm
 Anim Assets/Side_Walking.anm
 Anim Assets/Side_Jumping.anm
