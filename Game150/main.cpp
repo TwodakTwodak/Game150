@@ -16,6 +16,7 @@ Created:    March 8, 2023
 #include "Game/Map.h"
 #include "Game/Logo.h"
 #include "Game//MainMenu.h"
+#include "Game/Credit.h"
 
 int main() {
     try {
@@ -34,6 +35,8 @@ int main() {
         FileInput("Assets/object.txt");
         Map map;
         engine.GetGameStateManager().AddGameState(map);
+        Credit credit;
+        engine.GetGameStateManager().AddGameState(credit);
 
         while (engine.HasGameEnded() == false) {
             engine.Update();

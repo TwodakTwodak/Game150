@@ -16,6 +16,7 @@ void MainMenu::Load()
 
     index = 0;
     counter = 0;
+    flick = 0;
     space = 0;
     select = Engine::GetTextureManager().Load("Assets/Select.png");
     texture = Engine::GetTextureManager().Load("Assets/Menu.png");
@@ -27,14 +28,16 @@ void MainMenu::Update([[maybe_unused]] double dt) {
     Engine::GetLogger().LogDebug(std::to_string(index));
     if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Right)) {
         ++index;
-        if (index >= 3) {
+        flick = 0;
+        if (index >= 4) {
             index = 0;
         }
     }
     else if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Left)) {
         --index;
+        flick = 0;
         if (index <= -1) {
-            index = 2;
+            index = 3;
         }
     }
 
@@ -44,12 +47,17 @@ void MainMenu::Update([[maybe_unused]] double dt) {
             Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Map));
         }
         else if (index == 1) {
+
         }
         else if (index == 2) {
+            Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::Credit));
+        }
+        else if (index == 3) {
             Engine::GetGameStateManager().ClearNextGameState();
         }
     }
 
+    flick += dt;
     counter += dt;
     if (counter >= 0.1) {
         space -= 1599;
@@ -57,6 +65,10 @@ void MainMenu::Update([[maybe_unused]] double dt) {
         if (space <= -1599 * 5) {
             space = 0;
         }
+    }
+
+    if (flick >= 1) {
+        flick = 0;
     }
     //seems picture is staying at left 0,0
     //Able to make shake picture!
@@ -79,6 +91,8 @@ void MainMenu::Draw() {
     Engine::GetWindow().Clear(UINT_MAX);
     texture->Draw(Math::TranslationMatrix(Math::vec2{space, 0}));
     select->Draw(Math::TranslationMatrix(Math::vec2{397 * 3, 140}), Math::ivec2{index * 375, 0}, Math::ivec2{375, 99});
-    arrow->Draw(Math::TranslationMatrix(Math::vec2{ 397 * 3 - 100, 140 }));
+    if (flick <= 0.5) {
+        arrow->Draw(Math::TranslationMatrix(Math::vec2{ 397 * 3 - 100, 140 }));
+    }
 }
 

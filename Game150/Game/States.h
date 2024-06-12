@@ -16,7 +16,8 @@ enum class States {
     Splash,
     Logo,
     MainMenu,
-    Map
+    Map,
+    Credit
 };
     
 #endif

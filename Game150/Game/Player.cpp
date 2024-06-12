@@ -142,7 +142,7 @@ void Player::State_Jumping::Enter(GameObject* object) {
 }
 void Player::State_Jumping::Update(GameObject* object, double dt) {
     Player* player = static_cast<Player*>(object);
-    player->UpdateVelocity({ 0, 0, 1 * dt });// -Engine::GetGameStateManager().GetGSComponent<Gravity>()->GetValue()
+    player->UpdateVelocity({ 0, 0, -90 * dt });// -Engine::GetGameStateManager().GetGSComponent<Gravity>()->GetValue()
     player->update_x_velocity(dt);
 }
 void Player::State_Jumping::CheckExit(GameObject* object) {

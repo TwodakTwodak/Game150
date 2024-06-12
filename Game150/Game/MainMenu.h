@@ -16,6 +16,7 @@ public:
     }
 private:
     double counter = 0;
+    double flick = 0;
     int index;
     double space;
     CS230::Texture* texture;
