@@ -44,11 +44,13 @@
     <ClCompile Include="Game\Box.cpp" />
     <ClCompile Include="Game\Button.cpp" />
     <ClCompile Include="Game\Exit.cpp" />
+    <ClCompile Include="Game\Logo.cpp" />
+    <ClCompile Include="Game\MainMenu.cpp" />
     <ClCompile Include="Game\Map.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\Portal.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
-    <ClCompile Include="Game\Switch.cpp" />
+    <ClCompile Include="Game\Lever.cpp" />
     <ClCompile Include="Game\Wall.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
@@ -85,12 +87,14 @@
     <ClInclude Include="Game\Exit.h" />
     <ClInclude Include="Game\GameObjectTypes.h" />
     <ClInclude Include="Game\Gravity.h" />
+    <ClInclude Include="Game\Logo.h" />
+    <ClInclude Include="Game\MainMenu.h" />
     <ClInclude Include="Game\Map.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\Portal.h" />
     <ClInclude Include="Game\Splash.h" />
     <ClInclude Include="Game\States.h" />
-    <ClInclude Include="Game\Switch.h" />
+    <ClInclude Include="Game\Lever.h" />
     <ClInclude Include="Game\Wall.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

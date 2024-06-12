@@ -52,6 +52,8 @@ public:
     void BoxCollisionNum(int value);
     std::vector<PortalLocation> GivePortal1();
     std::vector<PortalLocation> GivePortal2();
+
+    void SwitchNumIncrease();
 private:
     CS230::GameObjectManager gameobjectmanager;
     CS230::Texture* background;
@@ -60,18 +62,22 @@ private:
     int room_object_memory[100] = { 0 };
     int memory = 1;
     int room = 1;
+    
     //temp
     bool button_work = false;
     Player* player_ptr;
     Math::TransformationMatrix matrix;
     CurrentDimension dimension;
-    bool on_exit = false;
+    
     int collsion_num = 0;
     int button_num = 0;
     int portal_num = 0;
     
     PortalLocation pl;
     
+    int switch_num = 0;
+
+    bool room_moving_available = true;
 };
 
 //Why don't it work when i change driection of headerfile, why does it work after retyping.

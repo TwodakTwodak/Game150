@@ -1,0 +1,7 @@
+Assets/Floor.png
+HotSpot 0 0 0
+FrameSize 1600 900
+NumFrames 2
+CubeCollision 0 0 0 1600 900 44
+Anim Assets/Side_Floor.anm
+Anim Assets/Top_Floor.anm

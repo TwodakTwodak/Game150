@@ -1,0 +1,7 @@
+Assets/Locked_Wall.png
+HotSpot 0 0 0
+FrameSize 192 900
+NumFrames 2
+CubeCollision 64 419 0 128 482 900
+Anim Assets/Side_Locked_Wall.anm
+Anim Assets/Top_Locked_Wall.anm

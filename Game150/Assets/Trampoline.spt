@@ -1,0 +1,7 @@
+Assets/Trampoline.png
+HotSpot 0 0 0
+FrameSize 192 192
+NumFrames 2
+CubeCollision 64 64 70 128 128 124
+Anim Assets/Side_Trampoline.anm
+Anim Assets/Top_Trampoline.anm

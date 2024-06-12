@@ -14,7 +14,8 @@ Created:    March 8, 2023
 
 enum class States {
     Splash,
-    //MainMenu,
+    Logo,
+    MainMenu,
     Map
 };
     

@@ -1,5 +1,6 @@
 #include "Box.h"
 #include "../Engine/Collision.h"
+
 Box::Box(Math::vec3 position) : CS230::GameObject(position) {
     AddGOComponent(new CS230::Sprite("Assets/Box.spt", this));
 }
@@ -74,7 +75,6 @@ void Box::ResolveCollision(GameObject* other_object)
     }
     else if (other_object->Type() == GameObjectTypes::Player || other_object->Type() == GameObjectTypes::Box)
     {
-        
         Engine::GetLogger().LogDebug("Box collision");
         Math::cube box_rect = GetGOComponent<CS230::CubeCollision>()->WorldBoundary();
         Math::cube other_rect = other_object->GetGOComponent<CS230::CubeCollision>()->WorldBoundary();
@@ -111,7 +111,6 @@ void Box::ResolveCollision(GameObject* other_object)
                 }
             }
             //UpdatePosition({ other_object->GetPosition().x-GetPosition().x, other_object->GetPosition().y-GetPosition().y, GetPosition().z });
-
         }
     }
 

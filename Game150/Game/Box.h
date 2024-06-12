@@ -2,6 +2,7 @@
 #include "..\Engine\GameObject.h"
 #include "GameObjectTypes.h"
 #include "../Engine/Dimension.h"
+
 class Box : public CS230::GameObject {
 public:
 	Box(Math::vec3 position);

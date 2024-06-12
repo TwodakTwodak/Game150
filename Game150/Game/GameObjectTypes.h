@@ -4,11 +4,12 @@ enum class GameObjectTypes {
     Player,
     Box,
     Button,
-    Switch,
+    Lever,
     Portal1,
     Portal2,
     Wall,
     Floor,
     Exit,
-    Laser
+    Laser,
+    Outskirts
 };

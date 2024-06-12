@@ -11,5 +11,4 @@ public:
 	bool CanCollideWith(GameObjectTypes);
 private:
 	CurrentDimension dimension;
-	bool is_pressing;
 };

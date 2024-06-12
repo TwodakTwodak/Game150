@@ -1,0 +1,7 @@
+Assets/Portal.png
+HotSpot 0 0 0
+FrameSize 192 192
+NumFrames 2
+CubeCollision 60 60 56 132 132 170
+Anim Assets/Side_Portal.anm
+Anim Assets/Top_Portal.anm

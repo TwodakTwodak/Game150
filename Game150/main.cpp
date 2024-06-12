@@ -14,6 +14,8 @@ Created:    March 8, 2023
 #include "Engine/FileIO.h"
 #include "Game/Splash.h"
 #include "Game/Map.h"
+#include "Game/Logo.h"
+#include "Game//MainMenu.h"
 
 int main() {
     try {
@@ -25,6 +27,10 @@ int main() {
 
         Splash splash;
         engine.GetGameStateManager().AddGameState(splash);
+        Logo logo;
+        engine.GetGameStateManager().AddGameState(logo);
+        MainMenu maimnenu;
+        engine.GetGameStateManager().AddGameState(maimnenu);
         FileInput("Assets/object.txt");
         Map map;
         engine.GetGameStateManager().AddGameState(map);

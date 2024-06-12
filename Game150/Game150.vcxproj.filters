@@ -97,10 +97,16 @@
     <ClCompile Include="Game\Button.cpp">
       <Filter>Game</Filter>
     </ClCompile>
-    <ClCompile Include="Game\Switch.cpp">
+    <ClCompile Include="Game\Lever.cpp">
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="Game\Exit.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\Logo.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\MainMenu.cpp">
       <Filter>Game</Filter>
     </ClCompile>
   </ItemGroup>
@@ -216,10 +222,16 @@
     <ClInclude Include="Game\Button.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Game\Switch.h">
+    <ClInclude Include="Game\Lever.h">
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Game\Exit.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\Logo.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\MainMenu.h">
       <Filter>Game</Filter>
     </ClInclude>
   </ItemGroup>

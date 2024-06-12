@@ -28,7 +28,6 @@ namespace CS230 {
         bool KeyJustPressed(Keys key);
         bool KeyJustReleased(Keys key);
         void SetKeyDown(Keys key, bool value);
-
     private:
         std::vector<bool> keys_down;
         std::vector<bool> previous_keys_down;

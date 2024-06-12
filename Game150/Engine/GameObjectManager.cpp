@@ -9,6 +9,7 @@ Created:    May 1, 2024
 */
 #include "GameObjectManager.h"
 #include "../Game/GameObjectTypes.h"
+#include "../Game/Map.h"
 
 void CS230::GameObjectManager::Add(GameObject* object)
 {
@@ -45,12 +46,10 @@ void CS230::GameObjectManager::CollisionTest() {
 			if (object_1 != object_2 && object_1->CanCollideWith(object_2->Type())) {
 				if (object_1->IsCollidingWith(object_2)) {
 					Engine::GetLogger().LogEvent("Collision Detected: " + object_1->TypeName() + " and " + object_2->TypeName());
-					//object_1->ResolveCollision(object_2);
 					
 					if ((object_1->Type() == GameObjectTypes::Wall&& object_2->Type() == GameObjectTypes::Box)
 						|| (object_2->Type() == GameObjectTypes::Wall && object_1->Type() == GameObjectTypes::Box)						)
 					{
-						//object_2->ResolveCollision(object_1);
 						box_wall = true;
 					}
 					else if(object_1->Type() == GameObjectTypes::Player&& object_2->Type() == GameObjectTypes::Box)
@@ -58,7 +57,7 @@ void CS230::GameObjectManager::CollisionTest() {
 						if (box_wall)
 						{
 							object_1->ResolveCollision(object_2);
-							std::cout << "YESSSSSSSSSSSS" << std::endl;
+							object_2->ResolveCollision(object_1);
 						}
 						else
 						{
@@ -71,12 +70,10 @@ void CS230::GameObjectManager::CollisionTest() {
 						{
 							object_2->ResolveCollision(object_1);
 							object_1->ResolveCollision(object_2);
-							std::cout << "YESSSSSSSSSSSS" << std::endl;
 						}
 						else
 						{
 							object_1->ResolveCollision(object_2);
-							std::cout << "Noooooo" << std::endl;
 						}
 					}
 					else
@@ -104,5 +101,5 @@ int CS230::GameObjectManager::BoxCollisionTest()  {
 			}
 		}
 	}
-	return collision_num;
+	return collision_num/2;
 }

@@ -28,7 +28,7 @@ public:
     bool CanCollideWith(GameObjectTypes);
     virtual void ResolveCollision(GameObject* other_object) override;
     //void Draw(Math::TransformationMatrix camera_matrix) override;
-    
+    bool StateDelivery();
 private:
     CurrentDimension dimension;
     Math::TransformationMatrix matrix;
@@ -113,7 +113,7 @@ private:
 
     State_Interacting state_interacting;
 
-    enum class Animations {
+    /*enum class Animations {
         Idle,
         Walking,
         Jumping,
@@ -124,6 +124,18 @@ private:
         TopWalking,
         TopDashing,
         TopInteracting
+    };*/
+    enum class Animations {
+        Idle,
+        Walking,
+        Jumping,
+        Falling,
+        Dashing,
+        TopIdle,
+        Interacting,
+        TopWalking,
+        TopFalling,
+        TopDashing,
     };
 
     static constexpr double hurt_time = 2.0;
@@ -136,4 +148,5 @@ private:
     
     bool portal_available;
     bool is_portal_available;
+    
 };
