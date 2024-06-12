@@ -23,15 +23,22 @@ Upadted:    March 14, 2024
 #include "Lever.h"
 #include "Button.h"
 #include "Trampoline.h"
+#include "raylib.h" 
 
 std::vector<PortalLocation> portal_location1;
 std::vector<PortalLocation> portal_location2;
 int switch_pressed = 0;
 bool on_exit;
-Map::Map() {
+Map::Map(): backgroundMusic {} {
+	States currentState = static_cast<States>(Engine::GetGameStateManager().GetCurrentGameState());
+	if (currentState == States::Map) {
+		InitAudioDevice();
+	}
 }
 
 void Map::Load() {
+	backgroundMusic = LoadMusicStream("Assets/c.mp3");
+	PlayMusicStream(backgroundMusic);
 	portal_num = 0;
 	switch_pressed = 0;
 	on_exit = false;
@@ -218,7 +225,8 @@ void Map::Update([[maybe_unused]] double dt) {
 	std::cout << collsion_num << ", " << button_num << std::endl;
 	std::cout << room << std::endl;
 	//fix it with next room's starting position
-	
+	UpdateMusicStream(backgroundMusic);
+
 }
 
 void Map::Draw() {
@@ -237,6 +245,7 @@ void Map::Unload() {
 	player_ptr = nullptr;
 	button_num = 0;
 	portal_num = 0;
+	UnloadMusicStream(backgroundMusic);
 }
 
 void Map::ExitCheck()

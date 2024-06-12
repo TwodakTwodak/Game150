@@ -78,6 +78,7 @@ private:
     int switch_num = 0;
 
     bool room_moving_available = true;
+    Music backgroundMusic;
 };
 
 //Why don't it work when i change driection of headerfile, why does it work after retyping.

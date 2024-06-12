@@ -192,6 +192,10 @@ void Player::State_Idle_Top::CheckExit(GameObject* object) {
     {
         player->change_state(&player->state_dashing);
     }
+    else if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Left_Shift) && Dimension::Top == player->dimension.GetDimension())
+    {
+        player->change_state(&player->state_dashing);
+    }
 }
 
 
@@ -411,33 +415,48 @@ void Player::State_Walking_Top::CheckExit(GameObject* object) {
         player->standing_on = nullptr;
         player->change_state(&player->state_falling_top);
     }
+    else if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Left_Shift) && Dimension::Top == player->dimension.GetDimension())
+    {
+        player->change_state(&player->state_dashing);
+    }
 
 }
-
 
 void Player::State_Dashing::Enter(GameObject* object) {
+
     Player* player = static_cast<Player*>(object);
     player->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Dashing));
-    player->SetVelocity({ dash_velocity, player->GetVelocity().y, player->GetVelocity().z });
+    // player->SetVelocity({ dash_velocity, player->GetVelocity().y, player->GetVelocity().z });
 }
+
 void Player::State_Dashing::Update(GameObject* object, double dt) {
     Player* player = static_cast<Player*>(object);
-    //check time
+    player->dash_timer = 6;
+    player->dash_timer -= dt;
+    if (player->dash_timer > 0) {
+        if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
+            player->SetVelocity({ -dash_velocity * 2, player->GetVelocity().y, player->GetVelocity().z });
+        }
+        else if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
+            player->SetVelocity({ dash_velocity * 2, player->GetVelocity().y, player->GetVelocity().z });
+        }
+        else if (Engine::GetInput().KeyDown(CS230::Input::Keys::W)) {
+            player->SetVelocity({ player->GetVelocity().x, dash_velocity * 2,player->GetVelocity().z });
+        }
+        else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S)) {
+            player->SetVelocity({ player->GetVelocity().x,-dash_velocity * 2 ,player->GetVelocity().z });
+        }
+
+
+
+    }
 }
+
 void Player::State_Dashing::CheckExit(GameObject* object) {
     Player* player = static_cast<Player*>(object);
-    //if(time ended)
-    if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
-        player->change_state(&player->state_walking);
+    if (player->dash_timer >= 0) {
+        player->change_state(&player->state_falling_top);
     }
-    else if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
-        player->change_state(&player->state_walking);
-    }
-    else
-    {
-        player->change_state(&player->state_idle);
-    }
-    
 }
 
 
