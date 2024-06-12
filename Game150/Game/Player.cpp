@@ -671,6 +671,48 @@ void Player::ResolveCollision(GameObject* other_object)
             current_state->CheckExit(this);
             return;
         }
+        /*
+        else 
+        {
+            if (dimension.GetDimension() == Dimension::Side)
+            {
+                if (player_rect.Left() < other_rect.Left()) {
+                    static_cast<Trampoline*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Right()- other_rect.Left()), 0.0, 0.0 });
+                    static_cast<Trampoline*>(other_object)->SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
+                }
+                else {
+                    static_cast<Trampoline*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Left()- other_rect.Right()), 0.0,0.0 });
+                    static_cast<Trampoline*>(other_object)->SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
+                }
+            }
+            else
+            {
+                double left_right = std::min(abs(player_rect.Left() - other_rect.Right()), abs(other_rect.Left() - player_rect.Right()));
+                double top_bottom = std::min(abs(player_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - player_rect.Bottom()));
+                if (left_right < top_bottom)
+                {
+                    if (player_rect.Left() < other_rect.Left()) {
+                        static_cast<Trampoline*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Right()- other_rect.Left()), 0.0, 0.0 });
+                        static_cast<Trampoline*>(other_object)->SetVelocity({ 0, 0, GetVelocity().z });
+                    }
+                    else {
+                        static_cast<Trampoline*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Left()- other_rect.Right()), 0.0, 0.0 });
+                        static_cast<Trampoline*>(other_object)->SetVelocity({ 0, 0, GetVelocity().z });
+                    }
+                }
+                else
+                {
+                    if (player_rect.Top() < other_rect.Top()) {
+                        static_cast<Trampoline*>(other_object)->UpdatePosition(Math::vec3{ 0.0, (player_rect.Top()- other_rect.Bottom()), 0.0 });
+                        static_cast<Trampoline*>(other_object)->SetVelocity({ 0, 0, GetVelocity().z });
+                    }
+                    else {
+                        static_cast<Trampoline*>(other_object)->UpdatePosition(Math::vec3{ 0.0,(player_rect.Bottom()-other_rect.Top()), 0.0 });
+                        static_cast<Trampoline*>(other_object)->SetVelocity({ 0, 0, GetVelocity().z });
+                    }
+                }
+            }
+        }*/
         break;
     }
     }
