@@ -36,7 +36,7 @@ private:
 	//static constexpr double xz_acceleration = 100;
 	static constexpr double max_velocity = 10;
 	static constexpr double jump_velocity =350;
-	static constexpr double dash_velocity = 3000;
+	static constexpr double dash_velocity = 100;
 	static constexpr double cool_time = 1.5;
 	bool jumping = false;
 	bool falling = false;
@@ -44,6 +44,7 @@ private:
 	bool gravi = true;
 	bool key_order[4];
 	double cool_timer;
+    int dash_timer ;
     double floor = 200;
 
 	void move(double dt);
