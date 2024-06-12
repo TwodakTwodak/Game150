@@ -51,17 +51,6 @@ private:
     void update_x_velocity(double dt);
     void update_y_velocity(double dt);
 
-    class State_Jumping : public State {
-    public:
-        virtual void Enter(GameObject* object) override;
-        virtual void Update(GameObject* object, double dt) override;
-        virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "Jumping"; }
-    };
-
-
-    State_Jumping state_jumping;
-
     class State_Idle : public State {
     public:
         virtual void Enter(GameObject* object) override;
@@ -71,6 +60,16 @@ private:
     };
 
     State_Idle state_idle;
+
+    class State_Jumping : public State {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Jumping"; }
+    };
+
+    State_Jumping state_jumping;
 
     class State_Dashing : public State {
     public:
@@ -101,41 +100,53 @@ private:
         std::string GetName() override { return "Running"; }
     };
 
-    State_Walking state_running;
+    State_Walking state_walking;
 
-    class State_Interacting : public State {
+
+
+
+    class State_Idle_Top : public State {
     public:
         virtual void Enter(GameObject* object) override;
         virtual void Update(GameObject* object, double dt) override;
         virtual void CheckExit(GameObject* object) override;
-        std::string GetName() override { return "Interacting"; }
+        std::string GetName() override { return "Idle"; }
     };
 
-    State_Interacting state_interacting;
+    State_Idle_Top state_idle_top;
+    
 
-    /*enum class Animations {
-        Idle,
-        Walking,
-        Jumping,
-        Falling,
-        Dashing,
-        Interacting,
-        TopIdle,
-        TopWalking,
-        TopDashing,
-        TopInteracting
-    };*/
+    
+    class State_Falling_Top : public State {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Falling"; }
+    };
+
+    State_Falling_Top state_falling_top;
+
+
+    class State_Walking_Top : public State {
+    public:
+        virtual void Enter(GameObject* object) override;
+        virtual void Update(GameObject* object, double dt) override;
+        virtual void CheckExit(GameObject* object) override;
+        std::string GetName() override { return "Running"; }
+    };
+
+    State_Walking_Top state_walking_top;
+
     enum class Animations {
         Idle,
         Walking,
         Jumping,
         Falling,
-        Dashing,
         TopIdle,
-        Interacting,
         TopWalking,
         TopFalling,
-        TopDashing,
+        Dashing,
     };
 
     static constexpr double hurt_time = 2.0;

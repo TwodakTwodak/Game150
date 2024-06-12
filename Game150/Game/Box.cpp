@@ -3,6 +3,8 @@
 
 Box::Box(Math::vec3 position) : CS230::GameObject(position) {
     AddGOComponent(new CS230::Sprite("Assets/Box.spt", this));
+    change_state(&side);
+    current_state->Enter(this);
 }
 
 void Box::Update(double dt) {
@@ -123,4 +125,38 @@ bool Box::WallCheck()
 bool Box::CanCollideWith(GameObjectTypes)
 {
     return true;
+}
+
+void Box::Side::Enter(GameObject* object) {
+    Box* box = static_cast<Box*>(object);
+    box->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Side));
+}
+void Box::Side::Update(GameObject* object, double dt) {
+    Box* box = static_cast<Box*>(object);
+    //check time
+}
+void Box::Side::CheckExit(GameObject* object) {
+    Box* box = static_cast<Box*>(object);
+    if (Dimension::Top == box->dimension.GetDimension())
+    {
+        box->change_state(&box->top);
+    }
+
+}
+
+void Box::Top::Enter(GameObject* object) {
+    Box* box = static_cast<Box*>(object);
+    box->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Top));
+}
+void Box::Top::Update(GameObject* object, double dt) {
+    Box* box = static_cast<Box*>(object);
+    //check time
+}
+void Box::Top::CheckExit(GameObject* object) {
+    Box* box = static_cast<Box*>(object);
+    if (Dimension::Side == box->dimension.GetDimension())
+    {
+        box->change_state(&box->side);
+    }
+
 }

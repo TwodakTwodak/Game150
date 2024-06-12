@@ -3,6 +3,8 @@
 Wall::Wall(Math::vec3 position) : CS230::GameObject(position) {
     
     AddGOComponent(new CS230::Sprite("Assets/Wall.spt", this));
+    change_state(&side);
+    current_state->Enter(this);
 }
 
 void Wall::ResolveCollision(GameObject* other_object)
@@ -120,3 +122,36 @@ void Floor::ResolveCollision(GameObject* other_object)
 {
 }
 
+void Wall::Side::Enter(GameObject* object) {
+    Wall* wall = static_cast<Wall*>(object);
+    wall->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Side));
+}
+void Wall::Side::Update(GameObject* object, double dt) {
+    Wall* wall = static_cast<Wall*>(object);
+    //check time
+}
+void Wall::Side::CheckExit(GameObject* object) {
+    Wall* wall = static_cast<Wall*>(object);
+    if (Dimension::Top == wall->dimension.GetDimension())
+    {
+        wall->change_state(&wall->top);
+    }
+
+}
+
+void Wall::Top::Enter(GameObject* object) {
+    Wall* wall = static_cast<Wall*>(object);
+    wall->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Top));
+}
+void Wall::Top::Update(GameObject* object, double dt) {
+    Wall* wall = static_cast<Wall*>(object);
+    //check time
+}
+void Wall::Top::CheckExit(GameObject* object) {
+    Wall* wall = static_cast<Wall*>(object);
+    if (Dimension::Side == wall->dimension.GetDimension())
+    {
+        wall->change_state(&wall->side);
+    }
+
+}

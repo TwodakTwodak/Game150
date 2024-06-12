@@ -15,4 +15,27 @@ public:
 private:
 	CurrentDimension dimension;
 	bool near_wall = false;
+	enum class Animations {
+		Side,
+		Top
+	};
+	class Side : public State {
+	public:
+		virtual void Enter(GameObject* object) override;
+		virtual void Update(GameObject* object, double dt) override;
+		virtual void CheckExit(GameObject* object) override;
+		std::string GetName() override { return "Box Side"; }
+	};
+
+	Side side;
+
+	class Top : public State {
+	public:
+		virtual void Enter(GameObject* object) override;
+		virtual void Update(GameObject* object, double dt) override;
+		virtual void CheckExit(GameObject* object) override;
+		std::string GetName() override { return "Box Top"; }
+	};
+
+	Top top;
 };
