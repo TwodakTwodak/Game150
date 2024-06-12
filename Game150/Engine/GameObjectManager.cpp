@@ -14,6 +14,7 @@ Created:    May 1, 2024
 void CS230::GameObjectManager::Add(GameObject* object)
 {
 	objects.push_back(object);
+	draw_objects.push_back(object);
 }
 void CS230::GameObjectManager::Unload()
 {
@@ -30,12 +31,25 @@ void CS230::GameObjectManager::UpdateAll(double dt)
 	{
 		object->Update(dt);
 	}
+
+	if (dimension.GetDimension() == Dimension::Side) {
+		std::sort(std::begin(draw_objects), std::end(draw_objects),
+			[](auto lhs, auto rhs) {
+				return lhs->GetPosition().y > rhs->GetPosition().y;
+			});
+	}else {
+		std::sort(std::begin(draw_objects), std::end(draw_objects),
+			[](auto lhs, auto rhs) {
+				return lhs->GetPosition().z < rhs->GetPosition().z;
+			});
+	}
+	
 }
 void CS230::GameObjectManager::DrawAll(Math::TransformationMatrix camera_matrix)
 {
-	for (int i = 0; i < objects.size(); i++)
+	for (int i = 0; i < draw_objects.size(); i++)
 	{
-		objects[i]->Draw(camera_matrix);
+		draw_objects[i]->Draw(camera_matrix);
 	}
 }
 

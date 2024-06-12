@@ -29,6 +29,8 @@ namespace CS230 {
         int BoxCollisionTest();
     private:
         std::vector<GameObject*> objects;
-        Dimension dimension;
+        std::vector<GameObject*> draw_objects;
+        CurrentDimension dimension;
+        Dimension previous = Dimension::Side;
     };
 }
