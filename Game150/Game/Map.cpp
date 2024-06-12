@@ -115,10 +115,26 @@ void Map::Load() {
 				{
 					GetGSComponent<CS230::GameObjectManager>()->Add(new Button(GetPosition(load_object_number)));
 				}
-				if (GetType(load_object_number) == "button")//check type
+				if (GetType(load_object_number) == "lever")//check type
 				{
-					GetGSComponent<CS230::GameObjectManager>()->Add(new Button(GetPosition(load_object_number)));
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Lever(GetPosition(load_object_number)));
 				}
+				if (GetType(load_object_number) == "wall")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Wall(GetPosition(load_object_number)));
+				}
+				if (GetType(load_object_number) == "floor")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Floor(GetPosition(load_object_number)));
+				}
+				if (GetType(load_object_number) == "trampoline")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Trampoline(GetPosition(load_object_number)));
+				}
+				//if (GetType(load_object_number) == "portal")//check type
+				//{
+				//	GetGSComponent<CS230::GameObjectManager>()->Add(new Portal1(GetPosition(load_object_number)));
+				//}
 			}
 			load_object_number++;
 		}

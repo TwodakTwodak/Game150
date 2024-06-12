@@ -50,6 +50,7 @@
     <ClCompile Include="Game\Map.cpp" />
     <ClCompile Include="Game\Player.cpp" />
     <ClCompile Include="Game\Portal.cpp" />
+    <ClCompile Include="Game\Room.cpp" />
     <ClCompile Include="Game\Splash.cpp" />
     <ClCompile Include="Game\Lever.cpp" />
     <ClCompile Include="Game\Trampoline.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="Game\Map.h" />
     <ClInclude Include="Game\Player.h" />
     <ClInclude Include="Game\Portal.h" />
+    <ClInclude Include="Game\Room.h" />
     <ClInclude Include="Game\Splash.h" />
     <ClInclude Include="Game\States.h" />
     <ClInclude Include="Game\Lever.h" />
