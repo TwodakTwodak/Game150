@@ -23,6 +23,7 @@ void CS230::GameObjectManager::Unload()
 		delete object;
 	}
 	objects.clear();
+	draw_objects.clear();
 }
 void CS230::GameObjectManager::UpdateAll(double dt)
 {

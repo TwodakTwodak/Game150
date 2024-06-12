@@ -100,7 +100,7 @@ void Map::Load() {
 	/*gameobjectmanager.Add(new Crates({ 200, 400, 400 }));
 	gameobjectmanager.Add(new Crates({ 400, floor, 300 }));
 	gameobjectmanager.Add(new Crates({ 600, 80, 200 }));*/
-	/*
+	
 	if (room_object_memory[room] == 0)
 	{
 		while (GetRoom(load_object_number) <= room && GetRoom(load_object_number) != 0)
@@ -109,8 +109,8 @@ void Map::Load() {
 			{
 				if (GetType(load_object_number) == "box")//check type
 				{
-					gameobjectmanager.Add(new Crates(GetPosition(load_object_number)));
-					gameobjectmanager.box_length.y += 1;
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Box(GetPosition(load_object_number)));
+					//gameobjectmanager.Box.y += 1;
 				}
 			}
 			load_object_number++;
@@ -128,15 +128,15 @@ void Map::Load() {
 			{
 				if (GetType(temp_load_object_number) == "box")//check type
 				{
-					gameobjectmanager.Add(new Crates(GetPosition(temp_load_object_number)));
-					gameobjectmanager.box_length.y += 1;
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Box(GetPosition(load_object_number)));
+					//gameobjectmanager.box_length.y += 1;
 				}
 			}
 			temp_load_object_number++;
 		}
 	}
 
-	gameobjectmanager.box_length.x = 1;
+	/*gameobjectmanager.box_length.x = 1;
 	gameobjectmanager.box_length.y += 1;
 
 	gameobjectmanager.button_length.x = gameobjectmanager.box_length.y;
@@ -145,8 +145,8 @@ void Map::Load() {
 	gameobjectmanager.floor_length.x = gameobjectmanager.button_length.y;
 	gameobjectmanager.floor_length.y += gameobjectmanager.floor_length.x;
 
-	gameobjectmanager.Reorder(gameobjectmanager.main_view);
-	*/
+	gameobjectmanager.Reorder(gameobjectmanager.main_view);*/
+	
 
 	on_exit = false;
 

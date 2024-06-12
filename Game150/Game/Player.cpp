@@ -653,7 +653,7 @@ void Player::ResolveCollision(GameObject* other_object)
             //static_cast<Portal1*>(other_object)->PortalNumber();
             
             Math::vec3 loc = Engine::GetGameStateManager().GetGSComponent<Map>()->GivePortal2()[static_cast<Portal1*>(other_object)->PortalNumber()].GetLocation();
-            SetPosition({ loc.x - player_rect.Size().x*3, loc.y, loc.z });
+            SetPosition({ loc.x -player_rect.Size().x-15, loc.y, loc.z });
             SetVelocity({ 0, 0, 0 });
         }
         //static_cast<Portal*>(other_object)->GoToState();
@@ -667,7 +667,7 @@ void Player::ResolveCollision(GameObject* other_object)
             portal_available = false;
             //static_cast<Portal1*>(other_object)->PortalNumber();
             Math::vec3 loc = Engine::GetGameStateManager().GetGSComponent<Map>()->GivePortal1()[static_cast<Portal2*>(other_object)->PortalNumber()].GetLocation();
-            SetPosition({loc.x - player_rect.Size().x/2, loc.y, loc.z});
+            SetPosition({loc.x + player_rect.Size().x+15, loc.y, loc.z});
             SetVelocity({ 0, 0, 0 });
         }
         //static_cast<Portal*>(other_object)->GoToState();

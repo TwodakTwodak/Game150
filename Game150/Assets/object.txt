@@ -13,7 +13,7 @@ Size 200 200 300
 Number 3
 Room 2
 Type box
-Position 100 200 400
+Position 300 200 400
 Information cant
 Size 200 200 300
 Number 4

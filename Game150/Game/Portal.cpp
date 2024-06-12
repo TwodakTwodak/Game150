@@ -12,7 +12,9 @@ int Portal1::PortalNumber() {
 }
 
 Portal2::Portal2(Math::vec3 position, int portal_num) : CS230::GameObject(position) {
-    AddGOComponent(new CS230::Sprite("Assets/Portal2.spt", this));
+    AddGOComponent(new CS230::Sprite("Assets/Portal.spt", this));
+    change_state(&side);
+    current_state->Enter(this);
 }
 
 int Portal2::PortalNumber() {

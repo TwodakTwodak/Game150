@@ -51,7 +51,7 @@ void CS230::GameObject::Draw(Math::TransformationMatrix camera_matrix) {
 const Math::TransformationMatrix& CS230::GameObject::GetMatrix() {
     if (matrix_outdated)
     {
-        object_matrix = Math::TranslationMatrix(position) * Math::RotationMatrix(rotation);// * Math::ScaleMatrix(scale);
+        object_matrix = Math::TranslationMatrix(position) * Math::RotationMatrix(rotation) * Math::ScaleMatrix(scale);
         matrix_outdated = false;
     }
 
