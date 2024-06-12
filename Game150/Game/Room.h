@@ -4,7 +4,7 @@
 #include "../Engine/Dimension.h"
 class Room : public CS230::GameObject {
 public:
-	Room(Math::vec3 position);
+	Room(Math::vec3 position, int index);
 	GameObjectTypes Type() override { return GameObjectTypes::Floor; }
 	std::string TypeName() override { return "Room"; }
 	//virtual void ResolveCollision(GameObject* other_object) override;

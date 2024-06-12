@@ -72,6 +72,7 @@ private:
     int collsion_num = 0;
     int button_num = 0;
     int portal_num = 0;
+    int room_num = 0;
     
     PortalLocation pl;
     
