@@ -110,7 +110,14 @@ void Map::Load() {
 				if (GetType(load_object_number) == "box")//check type
 				{
 					GetGSComponent<CS230::GameObjectManager>()->Add(new Box(GetPosition(load_object_number)));
-					//gameobjectmanager.Box.y += 1;
+				}
+				if (GetType(load_object_number) == "button")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Button(GetPosition(load_object_number)));
+				}
+				if (GetType(load_object_number) == "button")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Button(GetPosition(load_object_number)));
 				}
 			}
 			load_object_number++;
