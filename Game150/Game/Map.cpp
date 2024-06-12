@@ -47,7 +47,7 @@ void Map::Load() {
 	portal_num = 0;
 	button_num = 0;
 	dimension.SetDimension(Dimension::Side);
-	player_ptr = new Player({ 200, 400, 200 });
+	player_ptr = new Player({ 200, 400, floor +66});
 	AddGSComponent(new CS230::GameObjectManager);
 	GetGSComponent<CS230::GameObjectManager>()->Add(player_ptr);
 
@@ -105,12 +105,12 @@ void Map::Load() {
 	{
 		while (GetRoom(load_object_number) <= room && GetRoom(load_object_number) != 0)
 		{
-			if (GetRoom(load_object_number) == room)//check room
+			if (GetRoom(load_object_number) == room)
 			{
-				if (GetType(load_object_number) == "box")//check type
+				if (GetType(load_object_number) == "box")
 				{
 					GetGSComponent<CS230::GameObjectManager>()->Add(new Box(GetPosition(load_object_number)));
-					//gameobjectmanager.Box.y += 1;
+				
 				}
 			}
 			load_object_number++;
@@ -124,28 +124,19 @@ void Map::Load() {
 
 		while (temp_load_object_number < max_temp)
 		{
-			if (GetRoom(temp_load_object_number) == room)//check room
+			if (GetRoom(temp_load_object_number) == room)
 			{
-				if (GetType(temp_load_object_number) == "box")//check type
+				if (GetType(temp_load_object_number) == "box")
 				{
 					GetGSComponent<CS230::GameObjectManager>()->Add(new Box(GetPosition(load_object_number)));
-					//gameobjectmanager.box_length.y += 1;
+					
 				}
 			}
 			temp_load_object_number++;
 		}
 	}
 
-	/*gameobjectmanager.box_length.x = 1;
-	gameobjectmanager.box_length.y += 1;
 
-	gameobjectmanager.button_length.x = gameobjectmanager.box_length.y;
-	gameobjectmanager.button_length.y += gameobjectmanager.button_length.x;
-
-	gameobjectmanager.floor_length.x = gameobjectmanager.button_length.y;
-	gameobjectmanager.floor_length.y += gameobjectmanager.floor_length.x;
-
-	gameobjectmanager.Reorder(gameobjectmanager.main_view);*/
 	
 
 	on_exit = false;
