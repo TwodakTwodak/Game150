@@ -15,8 +15,10 @@ Created:    May 3, 2024
 #include <cmath>
 #include "Lever.h"
 #include "Trampoline.h"
+#include "Box.h"
 
 bool state = false;
+bool box_wall;
 Player::Player(Math::vec3 start_position) :
     GameObject(start_position)
 {
@@ -26,6 +28,7 @@ Player::Player(Math::vec3 start_position) :
     current_state->Enter(this);
     portal_available = true;
     Engine::GetGameStateManager().GetGSComponent<Map>();
+    box_wall = false;
 }
 
 void Player::Update(double dt) {
@@ -69,7 +72,7 @@ void Player::Update(double dt) {
         SetVelocity({ GetVelocity().x, 0, GetVelocity().z });
     }
     */
-    std::cout << player_rect.point_1.x << " " << player_rect.point_1.y << " "<<player_rect.point_1.z << std::endl;
+    //std::cout << player_rect.point_1.x << " " << player_rect.point_1.y << " "<<player_rect.point_1.z << std::endl;
 }
 
 Math::ivec2 Player::GetSize()
@@ -473,87 +476,142 @@ void Player::ResolveCollision(GameObject* other_object)
                 return;
             }
         }
-        if (dimension.GetDimension() == Dimension::Side)
+        std::cout << box_wall << std::endl;
+        if (!box_wall)
         {
-            if (player_rect.Left() < other_rect.Left()) {
-                UpdatePosition(Math::vec3{ (other_rect.Left() - player_rect.Right()), 0.0, 0.0 });
-                SetVelocity({ 0, 0, GetVelocity().z });
-            }
-            else {
-                UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
-                SetVelocity({ 0, 0, GetVelocity().z });
-            }
-        }
-        else
-        {
-            double left_right = std::min(abs(player_rect.Left() - other_rect.Right()), abs(other_rect.Left() - player_rect.Right()));
-            double top_bottom = std::min(abs(player_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - player_rect.Bottom()));
-            if (left_right < top_bottom)
+            if (dimension.GetDimension() == Dimension::Side)
             {
                 if (player_rect.Left() < other_rect.Left()) {
-                    UpdatePosition(Math::vec3{ (other_rect.Left() - player_rect.Right()), 0.0, 0.0 });
-                    SetVelocity({ 0, 0, GetVelocity().z });
+                    static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Right()-other_rect.Left()), 0.0, 0.0 });
+                    static_cast<Box*>(other_object)->UpdatePosition({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
                 }
                 else {
-                    UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
-                    SetVelocity({ 0, 0, GetVelocity().z });
+                    static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Left()-other_rect.Right()), 0.0, 0.0 });
+                    static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
                 }
             }
             else
             {
-                if (player_rect.Top() < other_rect.Top()) {
-                    UpdatePosition(Math::vec3{ 0.0, (other_rect.Bottom() - player_rect.Top()), 0.0 });
-                    SetVelocity({ 0, 0, GetVelocity().z });
+                double left_right = std::min(abs(player_rect.Left() - other_rect.Right()), abs(other_rect.Left() - player_rect.Right()));
+                double top_bottom = std::min(abs(player_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - player_rect.Bottom()));
+                if (left_right < top_bottom)
+                {
+                    if (player_rect.Left() < other_rect.Left()) {
+                        static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Right()-other_rect.Left()), 0.0, 0.0 });
+                        static_cast<Box*>(other_object)->UpdatePosition({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                    }
+                    else {
+                        static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Left()-other_rect.Right()), 0.0, 0.0 });
+                        static_cast<Box*>(other_object)->UpdatePosition({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                    }
                 }
-                else {
-                    UpdatePosition(Math::vec3{ 0.0,(other_rect.Top() - player_rect.Bottom()), 0.0 });
-                    SetVelocity({ 0, 0, GetVelocity().z });
+                else
+                {
+                    if (player_rect.Top() < other_rect.Top()) {
+                        static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ 0.0, (player_rect.Top() - other_rect.Bottom()), 0.0 });
+                        static_cast<Box*>(other_object)->UpdatePosition({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                    }
+                    else {
+                        static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ 0.0,(player_rect.Bottom() - other_rect.Top()), 0.0 });
+                        static_cast<Box*>(other_object)->UpdatePosition({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                    }
+                    
                 }
             }
         }
+        else
+        {
+            if (dimension.GetDimension() == Dimension::Side)
+            {
+                if (player_rect.Left() < other_rect.Left()) {
+                    UpdatePosition(Math::vec3{ -(player_rect.Right() - other_rect.Left()), 0.0, 0.0 });
+                }
+                else {
+                    UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
+                }
+            }
+            else
+            {
+                double left_right = std::min(abs(player_rect.Left() - other_rect.Right()), abs(other_rect.Left() - player_rect.Right()));
+                double top_bottom = std::min(abs(player_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - player_rect.Bottom()));
+
+                if (left_right < top_bottom)
+                {
+                    if (player_rect.Left() < other_rect.Left()) {
+                        UpdatePosition(Math::vec3{ -(player_rect.Right() - other_rect.Left()), 0.0, 0.0 });
+                    }
+                    else {
+                        UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
+                    }
+                }
+                else
+                {
+                    if (player_rect.Top() > other_rect.Top()) {
+                        UpdatePosition(Math::vec3{ 0.0, (other_rect.Top() - player_rect.Bottom()), 0.0 });
+                    }
+                    else {
+                        UpdatePosition(Math::vec3{ 0.0, -(player_rect.Top() - other_rect.Bottom()), 0.0 });
+                    }
+                }
+            }
+
+            SetVelocity({ 0, 0, GetVelocity().z });
+        }
+        
         
         break;
     }
     case GameObjectTypes::Outskirts:
     {
-        if (dimension.GetDimension() == Dimension::Side)
-        {
-            if (player_rect.Left() < other_rect.Left()) {
-                UpdatePosition(Math::vec3{ (other_rect.Left() - player_rect.Right()), 0.0, 0.0 });
-                SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
-            }
-            else {
-                UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0,0.0 });
-                SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
+        if (current_state == &state_falling || current_state == &state_falling_top) {
+            if (player_rect.High() > other_rect.High()) {
+                //SetPosition({ GetPosition().x, GetPosition().y, other_rect.High() });
+                UpdatePosition({ 0, 0, other_rect.High() - player_rect.High() + player_rect.Size().z });
+                standing_on = other_object;
+                current_state->CheckExit(this);
+                return;
             }
         }
-        else
+        if (!(standing_on == other_object || standing_on == nullptr))
         {
-            double left_right = std::min(abs(player_rect.Left() - other_rect.Right()), abs(other_rect.Left() - player_rect.Right()));
-            double top_bottom = std::min(abs(player_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - player_rect.Bottom()));
-            if (left_right < top_bottom)
+            if (dimension.GetDimension() == Dimension::Side)
             {
                 if (player_rect.Left() < other_rect.Left()) {
-                    UpdatePosition(Math::vec3{ (other_rect.Left() - player_rect.Right()), 0.0, 0.0 });
-                    SetVelocity({ 0, 0, GetVelocity().z });
+                    UpdatePosition(Math::vec3{ -(player_rect.Right() - other_rect.Left()), 0.0, 0.0 });
                 }
                 else {
                     UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
-                    SetVelocity({ 0, 0, GetVelocity().z });
                 }
             }
             else
             {
-                if (player_rect.Top() < other_rect.Top()) {
-                    UpdatePosition(Math::vec3{ 0.0, (other_rect.Bottom() - player_rect.Top()), 0.0 });
-                    SetVelocity({ 0, 0, GetVelocity().z });
+                double left_right = std::min(abs(player_rect.Left() - other_rect.Right()), abs(other_rect.Left() - player_rect.Right()));
+                double top_bottom = std::min(abs(player_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - player_rect.Bottom()));
+
+                if (left_right < top_bottom)
+                {
+                    if (player_rect.Left() < other_rect.Left()) {
+                        UpdatePosition(Math::vec3{ -(player_rect.Right() - other_rect.Left()), 0.0, 0.0 });
+                    }
+                    else {
+                        UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
+                    }
                 }
-                else {
-                    UpdatePosition(Math::vec3{ 0.0,(other_rect.Top() - player_rect.Bottom()), 0.0 });
-                    SetVelocity({ 0, 0, GetVelocity().z });
+                else
+                {
+                    if (player_rect.Top() < other_rect.Top()) {
+                        UpdatePosition(Math::vec3{ 0.0, -(player_rect.Top() - other_rect.Bottom()), 0.0 });
+
+                    }
+                    else {
+                        UpdatePosition(Math::vec3{ 0.0, (other_rect.Top() - player_rect.Bottom()), 0.0 });
+                    }
                 }
             }
+
+            SetVelocity({ 0, 0, GetVelocity().z });
         }
+
         break;
     }
     case GameObjectTypes::Wall:
@@ -567,52 +625,45 @@ void Player::ResolveCollision(GameObject* other_object)
                 return;
             }
         }
-        if (standing_on != nullptr)
+        if (!(standing_on == other_object|| standing_on==nullptr))
         {
-            if (standing_on->Type() != GameObjectTypes::Wall)
+            if (dimension.GetDimension() == Dimension::Side)
             {
-                if (dimension.GetDimension() == Dimension::Side)
+                if (player_rect.Left() < other_rect.Left()) {
+                    UpdatePosition(Math::vec3{ -(player_rect.Right() - other_rect.Left()), 0.0, 0.0 });
+                }
+                else {
+                    UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
+                }
+            }
+            else
+            {
+                double left_right = std::min(abs(player_rect.Left() - other_rect.Right()), abs(other_rect.Left() - player_rect.Right()));
+                double top_bottom = std::min(abs(player_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - player_rect.Bottom()));
+
+                if (left_right < top_bottom)
                 {
                     if (player_rect.Left() < other_rect.Left()) {
-                        UpdatePosition(Math::vec3{ (other_rect.Left() - player_rect.Right()), 0.0, 0.0 });
-                        SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
+                        UpdatePosition(Math::vec3{ -(player_rect.Right() - other_rect.Left()), 0.0, 0.0 });
                     }
                     else {
-                        UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0,0.0 });
-                        SetVelocity({ 0, GetVelocity().y, GetVelocity().z });
+                        UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
                     }
                 }
                 else
                 {
-                    double left_right = std::min(abs(player_rect.Left() - other_rect.Right()), abs(other_rect.Left() - player_rect.Right()));
-                    double top_bottom = std::min(abs(player_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - player_rect.Bottom()));
-                    if (left_right < top_bottom)
-                    {
-                        if (player_rect.Left() < other_rect.Left()) {
-                            UpdatePosition(Math::vec3{ (other_rect.Left() - player_rect.Right()), 0.0, 0.0 });
-                            SetVelocity({ 0, 0, GetVelocity().z });
-                        }
-                        else {
-                            UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
-                            SetVelocity({ 0, 0, GetVelocity().z });
-                        }
+                    if (player_rect.Top() < other_rect.Top()) {
+                        UpdatePosition(Math::vec3{ 0.0, -(player_rect.Top() - other_rect.Bottom()), 0.0 });
+
                     }
-                    else
-                    {
-                        if (player_rect.Top() < other_rect.Top()) {
-                            UpdatePosition(Math::vec3{ 0.0, (other_rect.Bottom() - player_rect.Top()), 0.0 });
-                            SetVelocity({ 0, 0, GetVelocity().z });
-                        }
-                        else {
-                            UpdatePosition(Math::vec3{ 0.0,(other_rect.Top() - player_rect.Bottom()), 0.0 });
-                            SetVelocity({ 0, 0, GetVelocity().z });
-                        }
+                    else {
+                        UpdatePosition(Math::vec3{ 0.0, (other_rect.Top() - player_rect.Bottom()), 0.0 });
                     }
                 }
             }
-            
+
+            SetVelocity({ 0, 0, GetVelocity().z });
         }
-            
         
         break;
     }
@@ -742,3 +793,5 @@ bool Player::StateDelivery()
     }
     return state;
 }
+
+void Player::BoxWallChange(bool change) { box_wall = change; }

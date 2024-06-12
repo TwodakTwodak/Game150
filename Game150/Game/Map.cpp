@@ -55,7 +55,7 @@ void Map::Load() {
 
 	AddGSComponent(new Gravity(Map::gravity));
 
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Box({ 100, 100, floor }));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Box({ 100, 550, 100 }));
 
 	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 700, 550, floor }));
 	
@@ -214,9 +214,9 @@ void Map::Update([[maybe_unused]] double dt) {
 		Unload();
 		Load();
 	}
-	std::cout << switch_num << ", " << switch_pressed << std::endl;
-	std::cout << collsion_num << ", " << button_num << std::endl;
-	std::cout << room << std::endl;
+	//std::cout << switch_num << ", " << switch_pressed << std::endl;
+	//std::cout << collsion_num << ", " << button_num << std::endl;
+	//std::cout << room << std::endl;
 	//fix it with next room's starting position
 	
 }
