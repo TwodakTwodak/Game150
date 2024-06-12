@@ -19,7 +19,7 @@ namespace CS230 {
             N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
             Space, Enter, Left, Up, Right, Down, 
             One, Two, Three, Four, Five, Six, Seven, Eight, Nine, Zero,
-            Escape, Tab, Left_Shift, Count
+            Escape, Tab, Left_Shift, Right_Shift, Count
         };
 
         Input();

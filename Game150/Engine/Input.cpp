@@ -110,6 +110,8 @@ constexpr int cs230_to_rl(CS230::Input::Keys cs230_key) noexcept {
         return KEY_TAB;
     case CS230::Input::Keys::Left_Shift:
         return KEY_LEFT_SHIFT;
+    case CS230::Input::Keys::Right_Shift:
+        return KEY_RIGHT_SHIFT;
     default:
         return -1;
     }
