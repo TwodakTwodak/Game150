@@ -61,7 +61,7 @@ Size 500 10 200
 Number 11
 Room 4
 Type wall
-Position 550 500 0
+Position 550 250 44
 Information cant
 Size 500 10 200
 Number 12

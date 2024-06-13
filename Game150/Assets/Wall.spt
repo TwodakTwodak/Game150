@@ -1,4 +1,7 @@
 Assets/Wall.png
 HotSpot 0 0 0 
-FrameSize 150 800
-CubeCollision 150 0 0 200 90 1400
+FrameSize 192 856
+NumFrames 2
+CubeCollision 78 410 30 114 448 820
+Anim Assets/Side_Wall.anm
+Anim Assets/Top_Wall.anm

@@ -227,7 +227,7 @@ void Map::Load() {
 				}
 				if (GetType(temp_load_object_number) == "float_floor")//check type
 				{
-					GetGSComponent<CS230::GameObjectManager>()->Add(new FlatFloor(GetPosition(load_object_number)));
+					GetGSComponent<CS230::GameObjectManager>()->Add(new FlatFloor(GetPosition(temp_load_object_number)));
 				}
 			}
 			temp_load_object_number++;
