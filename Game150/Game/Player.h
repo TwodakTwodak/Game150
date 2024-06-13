@@ -38,7 +38,7 @@ private:
 	//static constexpr double xz_acceleration = 100;
 	static constexpr double max_velocity = 10;
 	static constexpr double jump_velocity =350;
-	static constexpr double dash_velocity = 100;
+	static constexpr double dash_velocity = 250;
 	static constexpr double cool_time = 1.5;
 	bool jumping = false;
 	bool falling = false;

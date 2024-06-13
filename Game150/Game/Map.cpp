@@ -49,7 +49,7 @@ void Map::Load() {
 	button_num = 0;
 	room_num = 0;
 	dimension.SetDimension(Dimension::Side);
-	player_ptr = new Player({ 200, 400, floor+66 });
+	player_ptr = new Player({ 20, 400, 110 });
 	AddGSComponent(new CS230::GameObjectManager);
 	GetGSComponent<CS230::GameObjectManager>()->Add(player_ptr);
 
@@ -267,7 +267,7 @@ void Map::Update([[maybe_unused]] double dt) {
 	}
 	*/
 	//player_ptr->GetPosition().x > Engine::GetWindow().GetSize().x && 
-	if (room < 5&& Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up)) {
+	if (room < 11&& Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up)) {
 		room++;
 		Unload();
 		Load();

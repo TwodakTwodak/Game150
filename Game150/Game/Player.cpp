@@ -436,10 +436,10 @@ void Player::State_Dashing::Update(GameObject* object, double dt) {
             player->SetVelocity({ dash_velocity * 2, player->GetVelocity().y, player->GetVelocity().z });
         }
         else if (Engine::GetInput().KeyDown(CS230::Input::Keys::W)) {
-            player->SetVelocity({ player->GetVelocity().x, dash_velocity * 2,player->GetVelocity().z });
+            player->SetVelocity({ player->GetVelocity().x, dash_velocity ,player->GetVelocity().z });
         }
         else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S)) {
-            player->SetVelocity({ player->GetVelocity().x,-dash_velocity * 2 ,player->GetVelocity().z });
+            player->SetVelocity({ player->GetVelocity().x,-dash_velocity  ,player->GetVelocity().z });
         }
     }
 }

@@ -1,7 +1,7 @@
 Assets/Box.png
-HotSpot 0 0 0
+HotSpot 96 96 96
 FrameSize 192 192
 NumFrames 2
-CubeCollision 64 64 64 128 128 128
+CubeCollision -32 -32 -32 32 32 32
 Anim Assets/Side_Box.anm
 Anim Assets/Top_Box.anm
