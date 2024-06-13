@@ -23,8 +23,7 @@ int main() {
         Engine& engine = Engine::Instance();
         engine.Start("Shadow Diminesion");
 
-        engine.AddFont("Assets/Font_Simple.png");
-        engine.AddFont("Assets/Font_Outlined.png");
+       ;
 
         Splash splash;
         engine.GetGameStateManager().AddGameState(splash);

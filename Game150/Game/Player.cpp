@@ -151,9 +151,11 @@ void Player::State_Idle::CheckExit(GameObject* object) {
     }
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
         player->change_state(&player->state_walking);
+        player->SetScale({ -1, 1 });
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
         player->change_state(&player->state_walking);
+        player->SetScale({ 1, 1 });
     }
     else if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::W)) {
         player->change_state(&player->state_jumping);
@@ -178,15 +180,19 @@ void Player::State_Idle_Top::CheckExit(GameObject* object) {
     }
     if (Engine::GetInput().KeyDown(CS230::Input::Keys::A)) {
         player->change_state(&player->state_walking_top);
+        player->UpdateRotation(190);
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::D)) {
         player->change_state(&player->state_walking_top);
+        player->UpdateRotation(80);
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::W)) {
         player->change_state(&player->state_walking_top);
+        player->SetScale({ 1, -1 });
     }
     else if (Engine::GetInput().KeyDown(CS230::Input::Keys::S)) {
         player->change_state(&player->state_walking_top);
+        player->SetScale({ 1, 1 });
     }
     else if (Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Left_Shift))
     {
@@ -397,7 +403,12 @@ void Player::State_Walking_Top::Update(GameObject* object, double dt) {
 void Player::State_Walking_Top::CheckExit(GameObject* object) {
     //std::cout << "Check Exit Walking" << std::endl;
     Player* player = static_cast<Player*>(object);
-
+    if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::A)) {
+        player->UpdateRotation(-190);
+    }
+    else if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::D)) {
+        player->UpdateRotation(-80);
+    }
     bool isMovingX = (Engine::GetInput().KeyDown(CS230::Input::Keys::D) && player->GetVelocity().x > 0) ||
         (Engine::GetInput().KeyDown(CS230::Input::Keys::A) && player->GetVelocity().x < 0);
 
@@ -653,7 +664,7 @@ void Player::ResolveCollision(GameObject* other_object)
             //static_cast<Portal1*>(other_object)->PortalNumber();
             
             Math::vec3 loc = Engine::GetGameStateManager().GetGSComponent<Map>()->GivePortal2()[static_cast<Portal1*>(other_object)->PortalNumber()].GetLocation();
-            SetPosition({ loc.x -player_rect.Size().x-15, loc.y, loc.z });
+            SetPosition({ loc.x , loc.y+60, loc.z+66 });
             SetVelocity({ 0, 0, 0 });
         }
         //static_cast<Portal*>(other_object)->GoToState();
@@ -667,7 +678,7 @@ void Player::ResolveCollision(GameObject* other_object)
             portal_available = false;
             //static_cast<Portal1*>(other_object)->PortalNumber();
             Math::vec3 loc = Engine::GetGameStateManager().GetGSComponent<Map>()->GivePortal1()[static_cast<Portal2*>(other_object)->PortalNumber()].GetLocation();
-            SetPosition({loc.x + player_rect.Size().x+15, loc.y, loc.z});
+            SetPosition({loc.x +190, loc.y+60, loc.z+66});
             SetVelocity({ 0, 0, 0 });
         }
         //static_cast<Portal*>(other_object)->GoToState();

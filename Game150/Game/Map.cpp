@@ -49,7 +49,7 @@ void Map::Load() {
 	button_num = 0;
 	room_num = 0;
 	dimension.SetDimension(Dimension::Side);
-	player_ptr = new Player({ 200, 400, 200 });
+	player_ptr = new Player({ 200, 400, floor+66 });
 	AddGSComponent(new CS230::GameObjectManager);
 	GetGSComponent<CS230::GameObjectManager>()->Add(player_ptr);
 
@@ -64,39 +64,39 @@ void Map::Load() {
 
 	AddGSComponent(new Gravity(Map::gravity));
 
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Box({ 100, 100, floor }));
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Box({ 100, 100, floor }));
 
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 700, 550, floor }));
-	
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Outskirts({ 0, -200, 0 }, 1));
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Outskirts({ 0, 900, 0 }, 1));
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Outskirts({ -200, 0, 0 }, 2));
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Outskirts({ 1600, 0, 0 }, 2));
-	
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Floor({ 0, 0, 0 }));
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Wall({ 700, 550, floor }));
+	//
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Outskirts({ 0, -200, 0 }, 1));
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Outskirts({ 0, 900, 0 }, 1));
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Outskirts({ -200, 0, 0 }, 2));
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Outskirts({ 1600, 0, 0 }, 2));
+	//
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Floor({ 0, 0, 0 }));
 
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Button({ 700, 100, 200 }));
-	button_num++;
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Button({ 700, 100, 200 }));
+	//button_num++;
 
-	
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Portal1({ 100, 100, 200 }, portal_num));
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Portal2({ 1400, 100, 200 }, portal_num));
-	
-	pl.SetLocation({ 100, 100, 200 });
-	pl.SetNum(portal_num);
-	portal_location1.push_back(pl);
-	pl.SetLocation({ 1400, 100, 200 });
-	portal_location2.push_back(pl);
-	portal_num++;
-	
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Lever({ 500, 500, 200 }));
-	switch_num++;
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Lever({ 1000, 300, 200 }));
-	switch_num++;
+	//
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Portal1({ 100, 100, 200 }, portal_num));
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Portal2({ 1400, 100, 200 }, portal_num));
+	//
+	//pl.SetLocation({ 100, 100, 200 });
+	//pl.SetNum(portal_num);
+	//portal_location1.push_back(pl);
+	//pl.SetLocation({ 1400, 100, 200 });
+	//portal_location2.push_back(pl);
+	//portal_num++;
+	//
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Lever({ 500, 500, 200 }));
+	//switch_num++;
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Lever({ 1000, 300, 200 }));
+	//switch_num++;
 
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Exit({ 1400, 500, 200 }));
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Exit({ 1400, 500, 200 }));
 
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Trampoline({ 1000, 100, 100 }));
+	//GetGSComponent<CS230::GameObjectManager>()->Add(new Trampoline({ 1000, 100, 100 }));
 	
 	//GetGSComponent<CS230::GameObjectManager>()->Add(new Exit(static_cast<int>(States::MainMenu), Math::icube{ { 1300, 50, 50 }, { 1600, 800, 800 } }));
 	/*gameobjectmanager.Add(new Crates({ 200, 400, 400 }));

@@ -8,7 +8,7 @@ public:
 	GameObjectTypes Type() override { return GameObjectTypes::Floor; }
 	std::string TypeName() override { return "Room"; }
 	//virtual void ResolveCollision(GameObject* other_object) override;
-	bool CanCollideWith(GameObjectTypes);
+	//bool CanCollideWith(GameObjectTypes);
 private:
 	CurrentDimension dimension;
 	enum class Animations {
