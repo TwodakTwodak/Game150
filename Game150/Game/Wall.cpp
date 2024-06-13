@@ -274,7 +274,7 @@ void Wall::ResolveCollision(GameObject* other_object)
 
 FlatFloor::FlatFloor(Math::vec3 position) : CS230::GameObject(position) {
 
-    AddGOComponent(new CS230::Sprite("Assets/Wall.spt", this));
+    AddGOComponent(new CS230::Sprite("Assets/FlatFloor.spt", this));
 }
 
 bool FlatFloor::CanCollideWith(GameObjectTypes)

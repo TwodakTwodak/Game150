@@ -668,6 +668,58 @@ void Player::ResolveCollision(GameObject* other_object)
 
         break;
     }
+    case GameObjectTypes::FlatFloor:
+    {
+        if (current_state == &state_falling || current_state == &state_falling_top) {
+            if (player_rect.High() > other_rect.High()) {
+                //SetPosition({ GetPosition().x, GetPosition().y, other_rect.High() });
+                UpdatePosition({ 0, 0, other_rect.High() - player_rect.High() + player_rect.Size().z });
+                standing_on = other_object;
+                current_state->CheckExit(this);
+                return;
+            }
+        }
+        if (!(standing_on == other_object))// || standing_on == nullptr))
+        {
+            if (dimension.GetDimension() == Dimension::Side)
+            {
+                if (player_rect.Left() < other_rect.Left()) {
+                    UpdatePosition(Math::vec3{ -(player_rect.Right() - other_rect.Left()), 0.0, 0.0 });
+                }
+                else {
+                    UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
+                }
+            }
+            else
+            {
+                double left_right = std::min(abs(player_rect.Left() - other_rect.Right()), abs(other_rect.Left() - player_rect.Right()));
+                double top_bottom = std::min(abs(player_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - player_rect.Bottom()));
+
+                if (left_right < top_bottom)
+                {
+                    if (player_rect.Left() < other_rect.Left()) {
+                        UpdatePosition(Math::vec3{ -(player_rect.Right() - other_rect.Left()), 0.0, 0.0 });
+                    }
+                    else {
+                        UpdatePosition(Math::vec3{ (other_rect.Right() - player_rect.Left()), 0.0, 0.0 });
+                    }
+                }
+                else
+                {
+                    if (player_rect.Top() < other_rect.Top()) {
+                        UpdatePosition(Math::vec3{ 0.0, -(player_rect.Top() - other_rect.Bottom()), 0.0 });
+
+                    }
+                    else {
+                        UpdatePosition(Math::vec3{ 0.0, (other_rect.Top() - player_rect.Bottom()), 0.0 });
+                    }
+                }
+            }
+
+        }
+
+        break;
+    }
     case GameObjectTypes::Button:
     {
         break;

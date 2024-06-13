@@ -73,31 +73,31 @@ Size 200 200 300
 Number 13
 Room 5
 Type float_floor
-Position 100 70 0
+Position 100 450 170
 Information cant
 Size 100 700 200
 Number 14
 Room 5
 Type float_floor
-Position 200 150 150
+Position 200 450 250
 Information cant
 Size 100 700 200
 Number 15
 Room 5
 Type float_floor
-Position 300 210 300
+Position 300 450 300
 Information cant
 Size 100 700 200
 Number 16
 Room 5
 Type float_floor
-Position 400 280 450
+Position 400 450 400
 Information cant
 Size 100 700 200
 Number 17
 Room 5
 Type float_floor
-Position 600 350 250
+Position 600 450 350
 Information cant
 Size 100 300 200
 Number 18
@@ -105,10 +105,10 @@ Room 5
 Type floor
 Position 0 0 0
 Information cant
-Size 200 200 300
+Size 200 450 300
 Number 19
 Room 5
 Type exit
-Position 1000 200 200
+Position 750 450 400
 Information cant
 Size 200 200 300
