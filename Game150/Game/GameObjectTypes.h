@@ -13,5 +13,6 @@ enum class GameObjectTypes {
     Laser,
     Outskirts,
     Trampoline,
-    FlatFloor
+    FlatFloor,
+    TrampolineFloor
 };

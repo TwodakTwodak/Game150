@@ -55,13 +55,13 @@ Size 400 10 200
 Number 10
 Room 4
 Type trampoline
-Position 350 110 100
+Position 550 400 300
 Information cant
 Size 500 10 200
 Number 11
 Room 4
-Type wall
-Position 550 250 44
+Type float_floor
+Position 550 400 250
 Information cant
 Size 500 10 200
 Number 12
@@ -69,23 +69,23 @@ Room 4
 Type floor
 Position 0 0 0
 Information cant
-Size 200 200 300
+Size 200 400 300
 Number 13
-Room 5
+Room 4
 Type float_floor
-Position 100 450 170
+Position 450 400 200
 Information cant
-Size 100 700 200
+Size 100 400 200
 Number 14
-Room 5
+Room 4
 Type float_floor
-Position 200 450 250
+Position 250 400 150
 Information cant
-Size 100 700 200
+Size 100 400 200
 Number 15
 Room 5
 Type float_floor
-Position 300 450 300
+Position 200 450 300
 Information cant
 Size 100 700 200
 Number 16

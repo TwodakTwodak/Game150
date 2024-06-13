@@ -31,6 +31,7 @@ public:
     bool StateDelivery();
     void BoxWallChange(bool change);
     GameObject* StandingOn() { return standing_on; }
+    void SetStandingOn(GameObject* current_state);
 private:
     CurrentDimension dimension;
     Math::TransformationMatrix matrix;

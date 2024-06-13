@@ -34,6 +34,9 @@ private:
 	};
 
 	Top top;
+
+	//image on and off animation will be needed
+	bool collision_on = true;;
 };
 
 class Outskirts : public CS230::GameObject {

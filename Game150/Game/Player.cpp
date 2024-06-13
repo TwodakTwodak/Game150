@@ -479,57 +479,61 @@ void Player::ResolveCollision(GameObject* other_object)
         if (current_state == &state_falling || current_state == &state_falling_top) {
             if (player_rect.High() > other_rect.High()) {
                 standing_on = other_object;
-                SetPosition({ GetPosition().x, GetPosition().y, other_rect.High() });
+                SetPosition({ GetPosition().x, GetPosition().y, other_rect.High() + other_rect.Size().z });
                 current_state->CheckExit(this);
                 return;
             }
         }
-        std::cout << box_wall << std::endl;
         if (!box_wall)
         {
-            if (dimension.GetDimension() == Dimension::Side)
+            if (current_state == &state_falling || current_state == &state_falling_top || standing_on == other_object|| standing_on==nullptr)
             {
-                if (player_rect.Left() < other_rect.Left()) {
-                    static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Right() - other_rect.Left()), 0.0, 0.0 });
-                    static_cast<Box*>(other_object)->UpdatePosition({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
-                }
-                else {
-                    static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Left() - other_rect.Right()), 0.0, 0.0 });
-                    static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
-                }
+                std::cout << "AAAAAAAa" << std::endl;
             }
             else
             {
-                double left_right = std::min(abs(player_rect.Left() - other_rect.Right()), abs(other_rect.Left() - player_rect.Right()));
-                double top_bottom = std::min(abs(player_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - player_rect.Bottom()));
-                if (left_right < top_bottom)
+                if (dimension.GetDimension() == Dimension::Side)
                 {
                     if (player_rect.Left() < other_rect.Left()) {
                         static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Right() - other_rect.Left()), 0.0, 0.0 });
-                        static_cast<Box*>(other_object)->UpdatePosition({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                        static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
                     }
                     else {
                         static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Left() - other_rect.Right()), 0.0, 0.0 });
-                        static_cast<Box*>(other_object)->UpdatePosition({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                        static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
                     }
                 }
                 else
                 {
-                    if (player_rect.Top() < other_rect.Top()) {
-                        static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ 0.0, (player_rect.Top() - other_rect.Bottom()), 0.0 });
-                        static_cast<Box*>(other_object)->UpdatePosition({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                    double left_right = std::min(abs(player_rect.Left() - other_rect.Right()), abs(other_rect.Left() - player_rect.Right()));
+                    double top_bottom = std::min(abs(player_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - player_rect.Bottom()));
+                    if (left_right < top_bottom)
+                    {
+                        if (player_rect.Left() < other_rect.Left()) {
+                            static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Right() - other_rect.Left()), 0.0, 0.0 });
+                            static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                        }
+                        else {
+                            static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (player_rect.Left() - other_rect.Right()), 0.0, 0.0 });
+                            static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                        }
                     }
-                    else {
-                        static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ 0.0,(player_rect.Bottom() - other_rect.Top()), 0.0 });
-                        static_cast<Box*>(other_object)->UpdatePosition({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                    else
+                    {
+                        if (player_rect.Top() < other_rect.Top()) {
+                            static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ 0.0, (player_rect.Top() - other_rect.Bottom()), 0.0 });
+                            static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                        }
+                        else {
+                            static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ 0.0, (player_rect.Bottom() - other_rect.Top()), 0.0 });
+                            static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                        }
                     }
-
                 }
             }
         }
         else
         {
-
             if (dimension.GetDimension() == Dimension::Side)
             {
                 if (player_rect.Left() < other_rect.Left()) {
@@ -564,7 +568,6 @@ void Player::ResolveCollision(GameObject* other_object)
                 }
             }
         }
-
         break;
     }
     case GameObjectTypes::Outskirts:
@@ -682,7 +685,7 @@ void Player::ResolveCollision(GameObject* other_object)
                 return;
             }
         }
-        if (!(standing_on == other_object))// || standing_on == nullptr))
+        if (!(standing_on == other_object|| standing_on == this||standing_on==nullptr))
         {
             if (dimension.GetDimension() == Dimension::Side)
             {
@@ -720,7 +723,6 @@ void Player::ResolveCollision(GameObject* other_object)
             }
 
         }
-
         break;
     }
     case GameObjectTypes::Button:
@@ -844,3 +846,5 @@ bool Player::StateDelivery()
 }
 
 void Player::BoxWallChange(bool change) { box_wall = change; }
+
+void Player::SetStandingOn(GameObject* obj) { standing_on = obj; }

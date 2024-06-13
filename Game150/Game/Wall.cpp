@@ -204,11 +204,10 @@ void Wall::Top::CheckExit(GameObject* object) {
 
 bool Wall::CanCollideWith(GameObjectTypes)
 {
-    return true;
+    return collision_on;
 }
 void Wall::ResolveCollision(GameObject* other_object)
 {
-
     if (other_object->Type() == GameObjectTypes::Player)
     {
         Math::cube wall_rect = GetGOComponent<CS230::CubeCollision>()->WorldBoundary();

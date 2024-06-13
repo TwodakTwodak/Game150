@@ -287,16 +287,6 @@ void Map::Update([[maybe_unused]] double dt) {
 		player_ptr->SetPosition({ (double)Engine::GetWindow().GetSize().x - player_ptr->side_sprite.texture->GetSize().x, player_ptr->GetPosition().y, player_ptr->GetPosition().z });
 	}
 	*/
-	/*
-	if (dimension.GetDimension() == Dimension::Side)
-	{
-		std::cout << "Side" << std::endl;
-	}
-	else
-	{
-		std::cout << "Top" << std::endl;
-	}
-	*/
 
 	if (Engine::GetInput().KeyJustReleased(CS230::Input::Keys::R))
 	{
@@ -311,9 +301,6 @@ void Map::Update([[maybe_unused]] double dt) {
 		Unload();
 		Load();
 	}
-	std::cout << switch_num << ", " << switch_pressed << std::endl;
-	std::cout << collsion_num << ", " << button_num << std::endl;
-	std::cout << room << std::endl;
 	//fix it with next room's starting position
 	UpdateMusicStream(backgroundMusic);
 
