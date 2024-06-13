@@ -28,6 +28,7 @@ Player::Player(Math::vec3 start_position) :
     current_state->Enter(this);
     portal_available = true;
     Engine::GetGameStateManager().GetGSComponent<Map>();
+    box_wall = false;
 }
 
 void Player::Update(double dt) {
@@ -525,6 +526,7 @@ void Player::ResolveCollision(GameObject* other_object)
         }
         else
         {
+
             if (dimension.GetDimension() == Dimension::Side)
             {
                 if (player_rect.Left() < other_rect.Left()) {
@@ -558,10 +560,7 @@ void Player::ResolveCollision(GameObject* other_object)
                     }
                 }
             }
-
-            SetVelocity({ 0, 0, GetVelocity().z });
         }
-
 
         break;
     }
@@ -576,7 +575,7 @@ void Player::ResolveCollision(GameObject* other_object)
                 return;
             }
         }
-        if (!(standing_on == other_object || standing_on == nullptr))
+        if (!(standing_on == other_object))// || standing_on == nullptr))
         {
             if (dimension.GetDimension() == Dimension::Side)
             {
@@ -613,7 +612,6 @@ void Player::ResolveCollision(GameObject* other_object)
                 }
             }
 
-            SetVelocity({ 0, 0, GetVelocity().z });
         }
 
         break;
@@ -629,7 +627,7 @@ void Player::ResolveCollision(GameObject* other_object)
                 return;
             }
         }
-        if (!(standing_on == other_object || standing_on == nullptr))
+        if (!(standing_on == other_object))// || standing_on == nullptr))
         {
             if (dimension.GetDimension() == Dimension::Side)
             {
@@ -666,7 +664,6 @@ void Player::ResolveCollision(GameObject* other_object)
                 }
             }
 
-            SetVelocity({ 0, 0, GetVelocity().z });
         }
 
         break;
