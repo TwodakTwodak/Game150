@@ -127,12 +127,45 @@ void Outskirts::ResolveCollision(GameObject* other_object)
 
 
 Floor::Floor(Math::vec3 position) : CS230::GameObject(position) {
-
-    AddGOComponent(new CS230::Sprite("Assets/outskirts3.spt", this));
+    AddGOComponent(new CS230::Sprite("Assets/Floor.spt", this));
+    change_state(&side);
+    current_state->Enter(this);
 }
 
 void Floor::ResolveCollision(GameObject* other_object)
 {
+}
+
+void Floor::Side::Enter(GameObject* object) {
+    Floor* floor = static_cast<Floor*>(object);
+    floor->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Side));
+}
+void Floor::Side::Update(GameObject* object, double dt) {
+    Floor* floor = static_cast<Floor*>(object);
+    //check time
+}
+void Floor::Side::CheckExit(GameObject* object) {
+    Floor* floor = static_cast<Floor*>(object);
+    if (Dimension::Top == floor->dimension.GetDimension())
+    {
+        floor->change_state(&floor->top);
+    }
+}
+
+void Floor::Top::Enter(GameObject* object) {
+    Floor* floor = static_cast<Floor*>(object);
+    floor->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Top));
+}
+void Floor::Top::Update(GameObject* object, double dt) {
+    Floor* floor = static_cast<Floor*>(object);
+    //check time
+}
+void Floor::Top::CheckExit(GameObject* object) {
+    Floor* floor = static_cast<Floor*>(object);
+    if (Dimension::Side == floor->dimension.GetDimension())
+    {
+        floor->change_state(&floor->side);
+    }
 }
 
 void Wall::Side::Enter(GameObject* object) {
@@ -274,7 +307,41 @@ void Wall::ResolveCollision(GameObject* other_object)
 
 FlatFloor::FlatFloor(Math::vec3 position) : CS230::GameObject(position) {
 
-    AddGOComponent(new CS230::Sprite("Assets/FlatFloor.spt", this));
+    AddGOComponent(new CS230::Sprite("Assets/Horizon_Platform.spt", this));
+    change_state(&side);
+    current_state->Enter(this);
+}
+
+void FlatFloor::Side::Enter(GameObject* object) {
+    FlatFloor* flatfloor = static_cast<FlatFloor*>(object);
+    flatfloor->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Side));
+}
+void FlatFloor::Side::Update(GameObject* object, double dt) {
+    FlatFloor* flatfloor = static_cast<FlatFloor*>(object);
+    //check time
+}
+void FlatFloor::Side::CheckExit(GameObject* object) {
+    FlatFloor* flatfloor = static_cast<FlatFloor*>(object);
+    if (Dimension::Top == flatfloor->dimension.GetDimension())
+    {
+        flatfloor->change_state(&flatfloor->top);
+    }
+}
+
+void FlatFloor::Top::Enter(GameObject* object) {
+    FlatFloor* flatfloor = static_cast<FlatFloor*>(object);
+    flatfloor->GetGOComponent<CS230::Sprite>()->PlayAnimation(static_cast<int>(Animations::Top));
+}
+void FlatFloor::Top::Update(GameObject* object, double dt) {
+    FlatFloor* flatfloor = static_cast<FlatFloor*>(object);
+    //check time
+}
+void FlatFloor::Top::CheckExit(GameObject* object) {
+    FlatFloor* flatfloor = static_cast<FlatFloor*>(object);
+    if (Dimension::Side == flatfloor->dimension.GetDimension())
+    {
+        flatfloor->change_state(&flatfloor->side);
+    }
 }
 
 bool FlatFloor::CanCollideWith(GameObjectTypes)

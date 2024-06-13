@@ -54,7 +54,31 @@ public:
 	virtual void ResolveCollision(GameObject* other_object) override;
 private:
 	CurrentDimension dimension;
+	enum class Animations {
+		Side,
+		Top
+	};
+	class Side : public State {
+	public:
+		virtual void Enter(GameObject* object) override;
+		virtual void Update(GameObject* object, double dt) override;
+		virtual void CheckExit(GameObject* object) override;
+		std::string GetName() override { return "Floor Side"; }
+	};
+
+	Side side;
+
+	class Top : public State {
+	public:
+		virtual void Enter(GameObject* object) override;
+		virtual void Update(GameObject* object, double dt) override;
+		virtual void CheckExit(GameObject* object) override;
+		std::string GetName() override { return "Floor Top"; }
+	};
+
+	Top top;
 };
+
 class FlatFloor : public CS230::GameObject {
 public:
 	FlatFloor(Math::vec3 position);
@@ -64,4 +88,27 @@ public:
 	bool CanCollideWith(GameObjectTypes);
 private:
 	CurrentDimension dimension;
+	enum class Animations {
+		Side,
+		Top
+	};
+	class Side : public State {
+	public:
+		virtual void Enter(GameObject* object) override;
+		virtual void Update(GameObject* object, double dt) override;
+		virtual void CheckExit(GameObject* object) override;
+		std::string GetName() override { return "FlatFloor Side"; }
+	};
+
+	Side side;
+
+	class Top : public State {
+	public:
+		virtual void Enter(GameObject* object) override;
+		virtual void Update(GameObject* object, double dt) override;
+		virtual void CheckExit(GameObject* object) override;
+		std::string GetName() override { return "FlatFloor Top"; }
+	};
+
+	Top top;
 };
