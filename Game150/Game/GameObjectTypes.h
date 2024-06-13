@@ -12,5 +12,6 @@ enum class GameObjectTypes {
     Exit,
     Laser,
     Outskirts,
-    Trampoline
+    Trampoline,
+    FlatFloor
 };

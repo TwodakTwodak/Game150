@@ -158,6 +158,10 @@ void Map::Load() {
 					room_num++;
 					GetGSComponent<CS230::GameObjectManager>()->Add(new Room(GetPosition(load_object_number), room_num));
 				}
+				if (GetType(load_object_number) == "float_floor")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new FlatFloor(GetPosition(load_object_number)));
+				}
 			}
 			load_object_number++;
 		}
@@ -220,6 +224,10 @@ void Map::Load() {
 				{
 					room_num++;
 					GetGSComponent<CS230::GameObjectManager>()->Add(new Room(GetPosition(temp_load_object_number), room_num));
+				}
+				if (GetType(temp_load_object_number) == "float_floor")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new FlatFloor(GetPosition(load_object_number)));
 				}
 			}
 			temp_load_object_number++;

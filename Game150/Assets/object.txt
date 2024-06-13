@@ -54,8 +54,14 @@ Information cant
 Size 400 10 200
 Number 10
 Room 4
-Type wall_floor2
-Position 150 1 0
+Type trampoline
+Position 350 110 100
+Information cant
+Size 500 10 200
+Number 11
+Room 4
+Type wall
+Position 550 500 0
 Information cant
 Size 500 10 200
 Number 12
@@ -98,5 +104,11 @@ Number 18
 Room 5
 Type floor
 Position 0 0 0
+Information cant
+Size 200 200 300
+Number 19
+Room 5
+Type exit
+Position 1000 200 200
 Information cant
 Size 200 200 300

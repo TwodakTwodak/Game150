@@ -272,3 +272,110 @@ void Wall::ResolveCollision(GameObject* other_object)
     }
 }
 
+FlatFloor::FlatFloor(Math::vec3 position) : CS230::GameObject(position) {
+
+    AddGOComponent(new CS230::Sprite("Assets/Wall.spt", this));
+}
+
+bool FlatFloor::CanCollideWith(GameObjectTypes)
+{
+    return true;
+}
+void FlatFloor::ResolveCollision(GameObject* other_object)
+{
+
+    if (other_object->Type() == GameObjectTypes::Player)
+    {
+        Math::cube wall_rect = GetGOComponent<CS230::CubeCollision>()->WorldBoundary();
+        Math::cube other_rect = other_object->GetGOComponent<CS230::CubeCollision>()->WorldBoundary();
+        if (!(static_cast<Player*>(other_object)->StandingOn() == this || static_cast<Player*>(other_object)->StandingOn() == nullptr))
+        {
+            if (dimension.GetDimension() == Dimension::Side)
+            {
+                if (wall_rect.Left() > other_rect.Left()) {
+
+                    static_cast<Player*>(other_object)->UpdatePosition(Math::vec3{ (wall_rect.Left() - other_rect.Right()), 0.0, 0.0 });
+                    static_cast<Player*>(other_object)->SetVelocity({ 0, 0, static_cast<Player*>(other_object)->GetVelocity().z });
+                }
+                else {
+                    static_cast<Player*>(other_object)->UpdatePosition(Math::vec3{ (wall_rect.Right() - other_rect.Left()), 0.0, 0.0 });
+                    static_cast<Player*>(other_object)->SetVelocity({ 0, 0, static_cast<Player*>(other_object)->GetVelocity().z });
+                }
+            }
+            else
+            {
+                double left_right = std::min(abs(wall_rect.Left() - other_rect.Right()), abs(other_rect.Left() - wall_rect.Right()));
+                double top_bottom = std::min(abs(wall_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - wall_rect.Bottom()));
+                if (left_right < top_bottom)
+                {
+                    if (wall_rect.Left() > other_rect.Left()) {
+                        static_cast<Player*>(other_object)->UpdatePosition(Math::vec3{ (wall_rect.Left() - other_rect.Right()), 0.0, 0.0 });
+                        static_cast<Player*>(other_object)->SetVelocity({ 0, 0, static_cast<Player*>(other_object)->GetVelocity().z });
+
+                    }
+                    else {
+                        static_cast<Player*>(other_object)->UpdatePosition(Math::vec3{ (wall_rect.Right() - other_rect.Left()), 0.0, 0.0 });
+                        static_cast<Player*>(other_object)->SetVelocity({ 0, 0, static_cast<Player*>(other_object)->GetVelocity().z });
+                    }
+                }
+                else
+                {
+                    if (wall_rect.Top() > other_rect.Top()) {
+
+                        static_cast<Player*>(other_object)->UpdatePosition(Math::vec3{ 0.0,(wall_rect.Bottom() - other_rect.Top()), 0.0 });
+                        static_cast<Player*>(other_object)->SetVelocity({ 0, 0, static_cast<Player*>(other_object)->GetVelocity().z });
+                    }
+                    else {
+                        static_cast<Player*>(other_object)->UpdatePosition(Math::vec3{ 0.0, (wall_rect.Top() - other_rect.Bottom()), 0.0 });
+                        static_cast<Player*>(other_object)->SetVelocity({ 0, 0, static_cast<Player*>(other_object)->GetVelocity().z });
+                    }
+                }
+            }
+        }
+
+    }
+    if (other_object->Type() == GameObjectTypes::Box)
+    {
+        Math::cube wall_rect = GetGOComponent<CS230::CubeCollision>()->WorldBoundary();
+        Math::cube other_rect = other_object->GetGOComponent<CS230::CubeCollision>()->WorldBoundary();
+
+        if (dimension.GetDimension() == Dimension::Side)
+        {
+            if (wall_rect.Left() < other_rect.Left()) {
+                static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (other_rect.Left() - wall_rect.Right()), 0.0, 0.0 });
+                static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+            }
+            else {
+                static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (other_rect.Right() - wall_rect.Left()), 0.0, 0.0 });
+                static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+            }
+        }
+        else
+        {
+            double left_right = std::min(abs(wall_rect.Left() - other_rect.Right()), abs(other_rect.Left() - wall_rect.Right()));
+            double top_bottom = std::min(abs(wall_rect.Top() - other_rect.Bottom()), abs(other_rect.Top() - wall_rect.Bottom()));
+            if (left_right < top_bottom)
+            {
+                if (wall_rect.Left() < other_rect.Left()) {
+                    static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (other_rect.Left() - wall_rect.Right()), 0.0, 0.0 });
+                    static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                }
+                else {
+                    static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ (other_rect.Right() - wall_rect.Left()), 0.0, 0.0 });
+                    static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                }
+            }
+            else
+            {
+                if (wall_rect.Top() < other_rect.Top()) {
+                    static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ 0.0, (other_rect.Bottom() - wall_rect.Top()), 0.0 });
+                    static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                }
+                else {
+                    static_cast<Box*>(other_object)->UpdatePosition(Math::vec3{ 0.0,(other_rect.Top() - wall_rect.Bottom()), 0.0 });
+                    static_cast<Box*>(other_object)->SetVelocity({ 0, 0, static_cast<Box*>(other_object)->GetVelocity().z });
+                }
+            }
+        }
+    }
+}

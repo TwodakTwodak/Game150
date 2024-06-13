@@ -55,3 +55,13 @@ public:
 private:
 	CurrentDimension dimension;
 };
+class FlatFloor : public CS230::GameObject {
+public:
+	FlatFloor(Math::vec3 position);
+	GameObjectTypes Type() override { return GameObjectTypes::FlatFloor; }
+	std::string TypeName() override { return "FlatFloor"; }
+	virtual void ResolveCollision(GameObject* other_object) override;
+	bool CanCollideWith(GameObjectTypes);
+private:
+	CurrentDimension dimension;
+};
