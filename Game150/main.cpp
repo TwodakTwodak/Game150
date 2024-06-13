@@ -23,8 +23,6 @@ int main() {
         Engine& engine = Engine::Instance();
         engine.Start("Shadow Diminesion");
 
-       ;
-
         Splash splash;
         engine.GetGameStateManager().AddGameState(splash);
         Logo logo;

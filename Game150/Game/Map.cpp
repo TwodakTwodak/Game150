@@ -225,18 +225,10 @@ void Map::Load() {
 			temp_load_object_number++;
 		}
 	}
-
-	/*gameobjectmanager.box_length.x = 1;
-	gameobjectmanager.box_length.y += 1;
-
-	gameobjectmanager.button_length.x = gameobjectmanager.box_length.y;
-	gameobjectmanager.button_length.y += gameobjectmanager.button_length.x;
-
-	gameobjectmanager.floor_length.x = gameobjectmanager.button_length.y;
-	gameobjectmanager.floor_length.y += gameobjectmanager.floor_length.x;
-
-	gameobjectmanager.Reorder(gameobjectmanager.main_view);*/
-	
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Outskirts({ 0, -200, 0 }, 1));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Outskirts({ 0, 900, 0 }, 1));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Outskirts({ -200, 0, 0 }, 2));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Outskirts({ 1600, 0, 0 }, 2));
 
 	on_exit = false;
 

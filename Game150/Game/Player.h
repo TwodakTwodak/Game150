@@ -29,6 +29,8 @@ public:
     virtual void ResolveCollision(GameObject* other_object) override;
     //void Draw(Math::TransformationMatrix camera_matrix) override;
     bool StateDelivery();
+    void BoxWallChange(bool change);
+    GameObject* StandingOn() { return standing_on; }
 private:
     CurrentDimension dimension;
     Math::TransformationMatrix matrix;

@@ -70,7 +70,7 @@ void Engine::Update() {
 
 bool Engine::HasGameEnded()
 {
-    if (gamestatemanager.HasGameEnded() == true || IsKeyPressed(KEY_THREE)) return true;
+    if (gamestatemanager.HasGameEnded() == true || window.IsClosed()) return true;
 }
 
 void Engine::AddFont(const std::filesystem::path& file_name)
