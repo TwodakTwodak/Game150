@@ -521,6 +521,7 @@ void Player::ResolveCollision(GameObject* other_object)
         }
         else
         {
+
             if (dimension.GetDimension() == Dimension::Side)
             {
                 if (player_rect.Left() < other_rect.Left()) {
@@ -773,13 +774,6 @@ void Player::ResolveCollision(GameObject* other_object)
         portal_available = true;
     }
 }
-/*
-void Player::Draw(Math::TransformationMatrix camera_matrix) {
-
-    //GetGOComponent<CS230::Sprite>()->Draw(camera_matrix * GetMatrix());
-    //GetGOComponent<CS230::Sprite>()->Draw(camera_matrix * matrix.ChangeDimension(GetMatrix(), dimension.GetDimension()));
-    //sprite->Draw(camera_matrix * matrix.ChangeDimension(GetMatrix(), dimension.GetDimension()));
-}*/
 
 bool Player::StateDelivery()
 {

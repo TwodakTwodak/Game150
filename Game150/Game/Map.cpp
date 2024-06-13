@@ -66,7 +66,7 @@ void Map::Load() {
 	
 	GetGSComponent<CS230::GameObjectManager>()->Add(new Floor({ 0, 0, 0 }));
 
-	GetGSComponent<CS230::GameObjectManager>()->Add(new Button({ 700, 100, 200 }));
+	GetGSComponent<CS230::GameObjectManager>()->Add(new Button({ 700, 100, 100 }));
 	button_num++;
 
 	
