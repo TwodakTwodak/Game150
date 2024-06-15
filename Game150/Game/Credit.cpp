@@ -8,13 +8,14 @@ Credit::Credit() : backgroundMusic{}
     if (currentState == States::Credit) {
         InitAudioDevice();
     }
+    goup = 0;
 }
 
 void Credit::Load()
 {
     backgroundMusic = LoadMusicStream("Assets/B.mp3");
     PlayMusicStream(backgroundMusic);
-    goup = 0;
+
     textures.push_back(Engine::GetTextureManager().Load("Assets/EndingCredit/Slide1.png"));
     textures.push_back(Engine::GetTextureManager().Load("Assets/EndingCredit/Slide2.png"));
     textures.push_back(Engine::GetTextureManager().Load("Assets/EndingCredit/Slide3.png"));
@@ -27,6 +28,7 @@ void Credit::Unload()
     UnloadMusicStream(backgroundMusic);
 
     textures.clear();
+    goup = 0;
 }
 
 void Credit::Update(double dt)
@@ -42,6 +44,7 @@ void Credit::Update(double dt)
         Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
     }
     UpdateMusicStream(backgroundMusic);
+   
 }
 
 void Credit::Draw()
@@ -50,4 +53,5 @@ void Credit::Draw()
     for (int i = 0; i < textures.size(); ++i) {
         textures[i]->Draw(Math::TranslationMatrix(Math::vec2{ 160, 90 - 900 * i + goup }));
     }
+  
 }

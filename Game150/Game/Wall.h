@@ -36,6 +36,73 @@ private:
 	Top top;
 };
 
+class Wall_long : public CS230::GameObject {
+public:
+	Wall_long(Math::vec3 position);
+	GameObjectTypes Type() override { return GameObjectTypes::Wall_long; }
+	std::string TypeName() override { return "Wall_long"; }
+	virtual void ResolveCollision(GameObject* other_object) override;
+	bool CanCollideWith(GameObjectTypes);
+private:
+	CurrentDimension dimension;
+	enum class Animations {
+		Side,
+		Top
+	};
+	class Side : public State {
+	public:
+		virtual void Enter(GameObject* object) override;
+		virtual void Update(GameObject* object, double dt) override;
+		virtual void CheckExit(GameObject* object) override;
+		std::string GetName() override { return "Wall-long-Side"; }
+	};
+
+	Side side;
+
+	class Top : public State {
+	public:
+		virtual void Enter(GameObject* object) override;
+		virtual void Update(GameObject* object, double dt) override;
+		virtual void CheckExit(GameObject* object) override;
+		std::string GetName() override { return "Wall-long-Top"; }
+	};
+
+	Top top;
+};
+
+class Wall_long_horizon : public CS230::GameObject {
+public:
+	Wall_long_horizon(Math::vec3 position);
+	GameObjectTypes Type() override { return GameObjectTypes::Wall_long_horizon; }
+	std::string TypeName() override { return "Wall-long-horizon"; }
+	virtual void ResolveCollision(GameObject* other_object) override;
+	bool CanCollideWith(GameObjectTypes);
+private:
+	CurrentDimension dimension;
+	enum class Animations {
+		Side,
+		Top
+	};
+	class Side : public State {
+	public:
+		virtual void Enter(GameObject* object) override;
+		virtual void Update(GameObject* object, double dt) override;
+		virtual void CheckExit(GameObject* object) override;
+		std::string GetName() override { return "Wall-long-horizo-Side"; }
+	};
+
+	Side side;
+
+	class Top : public State {
+	public:
+		virtual void Enter(GameObject* object) override;
+		virtual void Update(GameObject* object, double dt) override;
+		virtual void CheckExit(GameObject* object) override;
+		std::string GetName() override { return "Wall-long-horizo-Top"; }
+	};
+
+	Top top;
+};
 class Outskirts : public CS230::GameObject {
 public:
 	Outskirts(Math::vec3 position, int size);

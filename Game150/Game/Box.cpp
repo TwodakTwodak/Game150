@@ -1,11 +1,15 @@
 #include "Box.h"
+#include "Map.h"
 #include "../Engine/Collision.h"
 #include "Player.h"
+#include "Portal.h"
 
 Box::Box(Math::vec3 position) : CS230::GameObject(position) {
     AddGOComponent(new CS230::Sprite("Assets/Box.spt", this));
     change_state(&side);
+    portal_available = true;
     current_state->Enter(this);
+    
 }
 
 void Box::Update(double dt) {
@@ -101,6 +105,33 @@ void Box::ResolveCollision(GameObject* other_object)
                 }
             }
         }
+    }
+    else if (other_object->Type() == GameObjectTypes::Portal1) {
+        is_portal_available = false;
+        if (portal_available) {
+            portal_available = false;
+            Math::vec3 loc = Engine::GetGameStateManager().GetGSComponent<Map>()->GivePortal2()[static_cast<Portal1*>(other_object)->PortalNumber()].GetLocation();
+            SetPosition({ loc.x , loc.y + 60, loc.z + 66 });
+            SetVelocity({ 0, 0, 0 });
+            Engine::GetLogger().LogEvent("Box teleported to: " + std::to_string(loc.x) + ", " + std::to_string(loc.y) + ", " + std::to_string(loc.z));  // 디버깅용 출력
+        }
+        std::cout << static_cast<Portal1*>(other_object)->PortalNumber() << std::endl;
+    }
+    else if (other_object->Type() == GameObjectTypes::Portal2) {
+        is_portal_available = false;
+        Engine::GetLogger().LogEvent("Collision with Portal2 detected."); // 디버깅용 출력
+        if (portal_available) {
+            Engine::GetLogger().LogEvent("Portal is available."); // 디버깅용 출력
+            portal_available = false;
+            int portalNumber = static_cast<Portal2*>(other_object)->PortalNumber();
+            Engine::GetLogger().LogEvent("Portal2 number: " + std::to_string(portalNumber)); // 디버깅용 출력
+            Math::vec3 loc = Engine::GetGameStateManager().GetGSComponent<Map>()->GivePortal1()[portalNumber].GetLocation();
+            Engine::GetLogger().LogEvent("Portal1 location: " + std::to_string(loc.x) + ", " + std::to_string(loc.y) + ", " + std::to_string(loc.z)); // 디버깅용 출력
+            SetPosition({ loc.x + 190, loc.y + 60, loc.z + 66 });
+            SetVelocity({ 0, 0, 0 });
+            Engine::GetLogger().LogEvent("Box teleported to: " + std::to_string(loc.x) + ", " + std::to_string(loc.y) + ", " + std::to_string(loc.z)); // 디버깅용 출력
+        }
+        std::cout << static_cast<Portal2*>(other_object)->PortalNumber() << std::endl;
     }
 
 }

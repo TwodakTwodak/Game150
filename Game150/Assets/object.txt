@@ -313,22 +313,61 @@ Size 400 700 200
 Number 53
 Room 8
 Type portal2
-Position 800 700 30
+Position 1300 700 30
 Information cant
 Size 400 10 200
 Number 54
 Room 8
-Type portal1
-Position 900 700 30
-Information cant
-Size 400 700 200
-Number 55
-Room 8
-Type portal2
-Position 1400 100 30
+Type wall_long
+Position 750 0 0
 Information cant
 Size 400 10 200
-
-
-
+Number 55
+Room 8
+Type exit
+Position 1490 300 30
+Information cant
+Size 200 200 300
+Number 56
+Room 9
+Type floor 
+Position 0 0 0
+Information cant
+Size 200 450 300
+Number 57
+Room 9
+Type wall-long-horizon
+Position 0 -400 0
+Information cant
+Size 400 10 200
+Number 58
+Room 9
+Type exit
+Position 1490 300 30
+Information cant
+Size 200 200 300
+Number 59
+Room 9
+Type portal1
+Position 100 100 30
+Information cant
+Size 400 700 200
+Number 60
+Room 9
+Type portal2
+Position 1300 700 30
+Information cant
+Size 400 10 200
+Number 61
+Room 9
+Type button
+Position 900 50 50
+Information move
+Size 100 0 100
+Number 62
+Room 9
+Type box
+Position 300 700 80
+Information cant
+Size 200 200 300
 

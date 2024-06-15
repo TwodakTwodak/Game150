@@ -38,4 +38,6 @@ private:
 	};
 
 	Top top;
+	bool portal_available;
+	bool is_portal_available;
 };

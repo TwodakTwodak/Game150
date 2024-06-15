@@ -1,0 +1,7 @@
+Assets/Wall_long.png
+HotSpot 0 0 0 
+FrameSize 200 900
+NumFrames 2
+CubeCollision 40 0 0 140 900 900
+Anim Assets/Side_Wall_long.anm
+Anim Assets/Top_Wall_long.anm

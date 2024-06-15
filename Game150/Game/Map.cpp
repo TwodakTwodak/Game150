@@ -26,6 +26,8 @@ Upadted:    March 14, 2024
 #include "Room.h"
 #include "raylib.h" 
 
+
+
 std::vector<PortalLocation> portal_location1;
 std::vector<PortalLocation> portal_location2;
 int switch_pressed = 0;
@@ -126,6 +128,14 @@ void Map::Load() {
 				{
 					GetGSComponent<CS230::GameObjectManager>()->Add(new Wall(GetPosition(load_object_number)));
 				}
+				if (GetType(load_object_number) == "wall_long")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Wall_long(GetPosition(load_object_number)));
+				}
+				if (GetType(load_object_number) == "wall-long-horizon")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Wall_long_horizon(GetPosition(load_object_number)));
+				}
 				if (GetType(load_object_number) == "floor")//check type
 				{
 					GetGSComponent<CS230::GameObjectManager>()->Add(new Floor(GetPosition(load_object_number)));
@@ -193,6 +203,14 @@ void Map::Load() {
 				if (GetType(temp_load_object_number) == "wall")//check type
 				{
 					GetGSComponent<CS230::GameObjectManager>()->Add(new Wall(GetPosition(temp_load_object_number)));
+				}
+				if (GetType(temp_load_object_number) == "wall_long")//check type
+				{
+				 	GetGSComponent<CS230::GameObjectManager>()->Add(new Wall_long(GetPosition(temp_load_object_number)));
+				}
+				if (GetType(temp_load_object_number) == "wall-long-horizon")//check type
+				{
+					GetGSComponent<CS230::GameObjectManager>()->Add(new Wall_long_horizon(GetPosition(temp_load_object_number)));
 				}
 				if (GetType(temp_load_object_number) == "floor")//check type
 				{
@@ -267,7 +285,7 @@ void Map::Update([[maybe_unused]] double dt) {
 	}
 	*/
 	//player_ptr->GetPosition().x > Engine::GetWindow().GetSize().x && 
-	if (room < 11&& Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up)) {
+	if (room < 10&& Engine::GetInput().KeyJustPressed(CS230::Input::Keys::Up)) {
 		room++;
 		Unload();
 		Load();
@@ -278,6 +296,13 @@ void Map::Update([[maybe_unused]] double dt) {
 		Unload();
 		Load();
 		//player_ptr->SetPosition({ (double)Engine::GetWindow().GetSize().x - player_ptr->side_sprite.texture->GetSize().x, player_ptr->GetPosition().y, player_ptr->GetPosition().z });
+	}
+	else if (room == 10)
+	{
+		room = 1;
+		Engine::GetGameStateManager().SetNextGameState(static_cast<int>(States::MainMenu));
+		
+		
 	}
 	/*
 	else if (player_ptr->GetPosition().x < 0 && room <= 1) {

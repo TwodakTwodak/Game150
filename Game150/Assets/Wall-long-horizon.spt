@@ -1,0 +1,7 @@
+Assets/Wall-long-horizon.png
+HotSpot 0 -450 0 
+FrameSize 1600 900
+NumFrames 2
+CubeCollision 0 850 1 1600 950 900
+Anim Assets/Side_Wall-long-horizon.anm
+Anim Assets/Top_Wall-long-horizon.anm
