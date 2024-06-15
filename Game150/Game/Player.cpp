@@ -484,7 +484,6 @@ void Player::ResolveCollision(GameObject* other_object)
                 return;
             }
         }
-        std::cout << box_wall << std::endl;
         if (!box_wall)
         {
             if (dimension.GetDimension() == Dimension::Side)
@@ -745,6 +744,7 @@ void Player::ResolveCollision(GameObject* other_object)
             SetVelocity({ 0, 0, 0 });
         }
         //static_cast<Portal*>(other_object)->GoToState();
+        std::cout << static_cast<Portal1*>(other_object)->PortalNumber() << std::endl;
         break;
     }
     case GameObjectTypes::Portal2:
@@ -759,6 +759,7 @@ void Player::ResolveCollision(GameObject* other_object)
             SetVelocity({ 0, 0, 0 });
         }
         //static_cast<Portal*>(other_object)->GoToState();
+        std::cout << static_cast<Portal2*>(other_object)->PortalNumber() << std::endl;
         break;
     }
     case GameObjectTypes::Lever:

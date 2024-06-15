@@ -1,20 +1,22 @@
 #include "Portal.h"
 #include "..\Engine\ComponentManager.h"
 #include "..\Engine\Collision.h"
-Portal1::Portal1(Math::vec3 position, int portal_num) : CS230::GameObject(position){
+Portal1::Portal1(Math::vec3 position, int p_n) : CS230::GameObject(position){
     AddGOComponent(new CS230::Sprite("Assets/Portal1.spt", this));
     change_state(&side);
     current_state->Enter(this);
+    portal_num = p_n;
 }
 
 int Portal1::PortalNumber() {
     return portal_num;
 }
 
-Portal2::Portal2(Math::vec3 position, int portal_num) : CS230::GameObject(position) {
+Portal2::Portal2(Math::vec3 position, int p_n) : CS230::GameObject(position) {
     AddGOComponent(new CS230::Sprite("Assets/Portal.spt", this));
     change_state(&side);
     current_state->Enter(this);
+    portal_num = p_n;
 }
 
 int Portal2::PortalNumber() {

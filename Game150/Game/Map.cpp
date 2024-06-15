@@ -45,7 +45,6 @@ void Map::Load() {
 	on_exit = false;
 	room_moving_available = true;
 	switch_num = 0;
-	portal_num = 0;
 	button_num = 0;
 	room_num = 0;
 	dimension.SetDimension(Dimension::Side);
@@ -152,6 +151,7 @@ void Map::Load() {
 					pl.SetLocation(GetPosition(load_object_number));
 					portal_location2.push_back(pl);
 					++portal_num;
+					//std::cout << portal_num << std::endl;
 				}				
 				if (GetType(load_object_number) == "room")//check type
 				{
@@ -209,8 +209,8 @@ void Map::Load() {
 				if (GetType(temp_load_object_number) == "portal1")//check type
 				{
 					GetGSComponent<CS230::GameObjectManager>()->Add(new Portal1(GetPosition(temp_load_object_number), portal_num));
-					pl.SetLocation(GetPosition(temp_load_object_number));
 					pl.SetNum(portal_num);
+					pl.SetLocation(GetPosition(temp_load_object_number));
 					portal_location1.push_back(pl);
 				}
 				if (GetType(temp_load_object_number) == "portal2")//check type
@@ -311,9 +311,6 @@ void Map::Update([[maybe_unused]] double dt) {
 		Unload();
 		Load();
 	}
-	std::cout << switch_num << ", " << switch_pressed << std::endl;
-	std::cout << collsion_num << ", " << button_num << std::endl;
-	std::cout << room << std::endl;
 	//fix it with next room's starting position
 	UpdateMusicStream(backgroundMusic);
 
