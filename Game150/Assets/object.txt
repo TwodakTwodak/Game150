@@ -1,370 +1,424 @@
 Number 1
 Room 1
-Type floor
+Type room
 Position 0 0 0
 Information cant
 Size 200 200 300
 Number 2
 Room 1
+Type floor
+Position 0 0 0
+Information cant
+Size 200 200 300
+Number 3
+Room 1
 Type wall
 Position 500 -30 44
 Information cant
 Size 500 10 200
-Number 3
+Number 4
 Room 1
 Type exit
 Position 1490 300 30
 Information cant
 Size 200 200 300
-Number 4
+Number 5
 Room 2
 Type floor
 Position 0 0 0
 Information cant
 Size 200 200 300
-Number 5
+Number 6
+Room 2
+Type room
+Position 0 0 0
+Information cant
+Size 200 200 300
+Number 7
 Room 2
 Type exit
 Position 1370 300 310
 Information cant
 Size 200 200 300
-Number 6
+Number 8
 Room 2
 Type float_floor
 Position 300 300 50
 Information cant
 Size 100 700 200
-Number 7
+Number 9
 Room 2
 Type float_floor
 Position 550 300 125
 Information cant
 Size 100 700 200
-Number 8
+Number 10
 Room 2
 Type float_floor
 Position 800 300 200
 Information cant
 Size 100 700 200
-Number 9
+Number 11
 Room 2
 Type float_floor
 Position 1300 300 200
 Information cant
 Size 100 700 200
-Number 10
+Number 12
+Room 3
+Type room
+Position 0 0 0
+Information cant
+Size 200 200 300
+Number 13
 Room 3
 Type floor
 Position 0 0 0
 Information cant
 Size 200 450 300
-Number 11
+Number 14
 Room 3
 Type float_floor
 Position 200 300 50
 Information cant
 Size 100 700 200
-Number 12
+Number 15
 Room 3
 Type float_floor
 Position 500 300 125
 Information cant
 Size 100 700 200
-Number 13
+Number 16
 Room 3
 Type float_floor
 Position 900 300 125
 Information cant
 Size 100 700 200
-Number 14
+Number 17
 Room 3
 Type float_floor
 Position 1300 300 125
 Information cant
 Size 100 700 200
-Number 15
+Number 18
 Room 3
 Type float_floor
 Position 1300 600 125
 Information cant
 Size 100 700 200
-Number 16
+Number 19
 Room 3
 Type float_floor
 Position 1000 600 195
 Information cant
 Size 100 700 200
-Number 17
+Number 20
 Room 3
 Type float_floor
 Position 700 600 270
 Information cant
 Size 100 700 200
-Number 18
+Number 21
 Room 3
 Type float_floor
 Position 400 600 345
 Information cant
 Size 100 700 200
-Number 19
+Number 22
 Room 3
 Type float_floor
 Position 100 600 345
 Information cant
 Size 100 700 200
-Number 20
+Number 23
 Room 3
 Type float_floor
 Position 100 300 345
 Information cant
 Size 100 700 200
-Number 21
+Number 24
 Room 3
 Type float_floor
 Position 100 0 345
 Information cant
 Size 100 700 200
-Number 22
+Number 25
 Room 3
 Type float_floor
 Position 400 0 420
 Information cant
 Size 100 700 200
-Number 23
+Number 26
 Room 3
 Type float_floor
 Position 800 0 420
 Information cant
 Size 100 700 200
-Number 24
+Number 27
 Room 3
 Type float_floor
 Position 1100 0 495
 Information cant
 Size 100 700 200
-Number 25
+Number 28
 Room 3
 Type float_floor
 Position 1400 0 495
 Information cant
 Size 100 700 200
-Number 26
+Number 29
 Room 3
 Type exit
 Position 1470 0 605
 Information cant
 Size 200 200 300
-Number 27
-Room 4
-Type floor
-Position 0 0 0
-Information cant
-Size 200 450 300
-Number 28
-Room 4
-Type button
-Position 900 50 50
-Information move
-Size 100 0 100
-Number 29
-Room 4
-Type box
-Position 300 700 80
-Information cant
-Size 200 200 300
 Number 30
 Room 4
-Type exit
-Position 1490 300 30
+Type room
+Position 0 0 0
 Information cant
 Size 200 200 300
 Number 31
-Room 5
+Room 4
 Type floor
 Position 0 0 0
 Information cant
 Size 200 450 300
 Number 32
+Room 4
+Type button
+Position 900 50 50
+Information move
+Size 100 0 100
+Number 33
+Room 4
+Type box
+Position 300 700 80
+Information cant
+Size 200 200 300
+Number 34
+Room 4
+Type exit
+Position 1490 300 30
+Information cant
+Size 200 200 300
+Number 35
+Room 5
+Type room
+Position 0 0 0
+Information cant
+Size 200 200 300
+Number 36
+Room 5
+Type floor
+Position 0 0 0
+Information cant
+Size 200 450 300
+Number 37
 Room 5
 Type lever
 Position 400 200 80
 Information cant
 Size 200 200 300
-Number 33 
+Number 38
 Room 5
 Type exit 
 Position 1490 300 30
 Information cant
 Size 200 200 300
-Number 34
+Number 39
+Room 6
+Type room
+Position 0 0 0
+Information cant
+Size 200 200 300
+Number 40
 Room 6
 Type floor 
 Position 0 0 0
 Information cant
 Size 200 450 300
-Number 35
+Number 41
 Room 6
 Type trampoline
 Position 100 400 80
 Information cant
 Size 400 700 200
-Number 36
+Number 42
 Room 6
 Type float_floor
 Position 200 300 200
 Information cant
 Size 100 700 200
-Number 37
+Number 43
 Room 6
 Type float_floor
 Position 600 300 200
 Information cant
 Size 100 700 200
-Number 38
+Number 44
 Room 6
 Type float_floor
 Position 1000 300 200
 Information cant
 Size 100 700 200
-Number 39
+Number 45
 Room 6
 Type float_floor
 Position 1400 300 200
 Information cant
 Size 100 700 200
-Number 40
+Number 46
 Room 6
 Type exit
 Position 1470 300 310
 Information cant
 Size 200 200 300
-Number 41
+Number 47
+Room 7
+Type room
+Position 0 0 0
+Information cant
+Size 200 200 300
+Number 48
 Room 7
 Type floor 
 Position 0 0 0
 Information cant
 Size 200 450 300
-Number 42
+Number 49
 Room 7
 Type trampoline
 Position 100 700 80
 Information cant
 Size 400 700 200
-Number 43
+Number 50
 Room 7
 Type float_floor
 Position 200 600 200
 Information cant
 Size 100 700 200
-Number 44
+Number 51
 Room 7
 Type float_floor
 Position 600 600 200
 Information cant
 Size 100 700 200
-Number 45
+Number 52
 Room 7
 Type float_floor
 Position 600 300 200
 Information cant
 Size 100 700 200
-Number 46
+Number 53
 Room 7
 Type float_floor
 Position 1000 300 200
 Information cant
 Size 100 700 200
-Number 47
+Number 54
 Room 7
 Type float_floor
 Position 1000 0 200
 Information cant
 Size 100 700 200
-Number 48
+Number 55
 Room 7
 Type float_floor
 Position 1400 0 200
 Information cant
 Size 100 700 200
-Number 49
+Number 56
 Room 7
 Type lever
 Position 1500 100 370
 Information cant
 Size 200 200 300
-Number 50
+Number 57
 Room 7
 Type exit
 Position 1470 700 30
 Information cant
 Size 200 200 300
-Number 51
+Number 58
+Room 8
+Type room
+Position 0 0 0
+Information cant
+Size 200 200 300
+Number 59
 Room 8
 Type floor 
 Position 0 0 0
 Information cant
 Size 200 450 300
-Number 52
+Number 60
 Room 8
 Type portal1
 Position 100 100 30
 Information cant
 Size 400 700 200
-Number 53
+Number 61
 Room 8
 Type portal2
 Position 1300 700 30
 Information cant
 Size 400 10 200
-Number 54
+Number 62
 Room 8
 Type wall_long
 Position 750 0 0
 Information cant
 Size 400 10 200
-Number 55
+Number 63
 Room 8
 Type exit
 Position 1490 300 30
 Information cant
 Size 200 200 300
-Number 56
+Number 64
+Room 9
+Type room
+Position 0 0 0
+Information cant
+Size 200 200 300
+Number 65
 Room 9
 Type floor 
 Position 0 0 0
 Information cant
 Size 200 450 300
-Number 57
+Number 66
 Room 9
 Type wall-long-horizon
 Position 0 -400 0
 Information cant
 Size 400 10 200
-Number 58
+Number 67
 Room 9
 Type exit
 Position 1490 300 30
 Information cant
 Size 200 200 300
-Number 59
+Number 68
 Room 9
 Type portal1
 Position 100 100 30
 Information cant
 Size 400 700 200
-Number 60
+Number 69
 Room 9
 Type portal2
 Position 1300 700 30
 Information cant
 Size 400 10 200
-Number 61
+Number 70
 Room 9
 Type button
 Position 900 50 50
 Information move
 Size 100 0 100
-Number 62
+Number 71
 Room 9
 Type box
 Position 300 700 80
